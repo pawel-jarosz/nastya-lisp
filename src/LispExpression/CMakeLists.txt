@@ -1,6 +1,7 @@
 set(LISP_EXPRESSION_LIBRARY_SRC
         Interface/IObject.hpp
         Interface/IObjectStorage.hpp
+        Interface/IObjectFactory.hpp
         TypeSystem/ObjectType.hpp
         TypeSystem/GenericObject.hpp
         TypeSystem/ListObject.hpp
@@ -13,6 +14,8 @@ set(LISP_EXPRESSION_LIBRARY_SRC
         ObjectStorage.cpp
         ObjectFactory.hpp
         ObjectFactory.cpp
+        ObjectFactoryBuilder.hpp
+        ObjectFactoryBuilder.cpp
 )
 
 add_library(LispExpression SHARED ${LISP_EXPRESSION_LIBRARY_SRC})
@@ -22,6 +25,7 @@ target_link_libraries(LispExpression Parser)
 add_executable(LispExpressionTest TypeSystem/TypeSystemImplTest.cpp
         ObjectStorageTest.cpp
         ObjectFactoryTest.cpp
+        ObjectFactoryBuilderTest.cpp
 )
 
 find_package(GTest REQUIRED)

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Lisp/TypeSystem/ObjectType.hpp"
+#include "LispExpression/TypeSystem/ObjectType.hpp"
 
 namespace nastya::lisp {
 class IObject {

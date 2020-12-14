@@ -14,4 +14,9 @@ enum ObjectType {
     List
 };
 
+enum class NumberType {
+    Floating,
+    Integer
+};
+
 }

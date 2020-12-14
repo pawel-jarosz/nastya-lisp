@@ -16,7 +16,9 @@ add_library(LispExpression SHARED ${LISP_EXPRESSION_LIBRARY_SRC})
 set_target_properties(LispExpression PROPERTIES LINKER_LANGUAGE CXX)
 target_link_libraries(LispExpression Parser)
 
-add_executable(LispExpressionTest TypeSystem/TypeSystemImplTest.cpp)
+add_executable(LispExpressionTest TypeSystem/TypeSystemImplTest.cpp
+        ObjectStorageTest.cpp
+)
 
 find_package(GTest REQUIRED)
 target_link_libraries(LispExpressionTest GTest::GTest GTest::Main LispExpression)

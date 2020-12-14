@@ -1,5 +1,6 @@
 set(LISP_EXPRESSION_LIBRARY_SRC
         Interface/IObject.hpp
+        Interface/IObjectStorage.hpp
         TypeSystem/ObjectType.hpp
         TypeSystem/GenericObject.hpp
         TypeSystem/BooleanObject.hpp
@@ -7,6 +8,8 @@ set(LISP_EXPRESSION_LIBRARY_SRC
         TypeSystem/NumberObject.hpp
         TypeSystem/StringObject.hpp
         TypeSystem/TypeSystemImpl.cpp
+        ObjectStorage.hpp
+        ObjectStorage.cpp
 )
 
 add_library(LispExpression SHARED ${LISP_EXPRESSION_LIBRARY_SRC})

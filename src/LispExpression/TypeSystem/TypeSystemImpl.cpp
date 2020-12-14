@@ -1,5 +1,5 @@
 #include <utility>
-
+#include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/TypeSystem/BooleanObject.hpp"
 #include "LispExpression/TypeSystem/LabelObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
@@ -155,6 +155,25 @@ NumberType NumberObject::getNumberType() const
 IObject* NumberObject::clone() const
 {
     return new NumberObject(*this);
+}
+
+ListObject::ListObject(std::vector<ObjectStorage> content)
+: GenericObject(ObjectType::List), m_content{std::move(content)}
+{
+}
+
+ListObject::ListObject() : GenericObject(ObjectType::List)
+{
+}
+
+const std::vector<ObjectStorage>& ListObject::getContent() const
+{
+    return m_content;
+}
+
+IObject* ListObject::clone() const
+{
+    return new ListObject(getContent());
 }
 
 }  // namespace nastya::lisp::typesystem

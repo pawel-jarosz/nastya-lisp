@@ -3,6 +3,7 @@ set(LISP_EXPRESSION_LIBRARY_SRC
         Interface/IObjectStorage.hpp
         TypeSystem/ObjectType.hpp
         TypeSystem/GenericObject.hpp
+        TypeSystem/ListObject.hpp
         TypeSystem/BooleanObject.hpp
         TypeSystem/LabelObject.hpp
         TypeSystem/NumberObject.hpp

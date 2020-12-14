@@ -3,6 +3,7 @@
 
 #include <gtest/gtest.h>
 
+#include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/TypeSystem/BooleanObject.hpp"
 #include "LispExpression/TypeSystem/LabelObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
@@ -76,6 +77,10 @@ TEST(TypeObjectTest, testNumberObject)
         EXPECT_EQ(floating_object.getType(), cloned->getType());
         EXPECT_EQ(floating_object.getFloating(), cloned->getFloating());
     }
+}
+
+TEST(TypeObjectTest, testList) {
+    // TODO: Add test
 }
 
 }  // namespace nastya::lisp::typesystem

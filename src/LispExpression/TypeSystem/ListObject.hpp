@@ -21,7 +21,8 @@ public:
     ListObject& operator=(const ListObject&) = default;
     ListObject& operator=(ListObject&&) = default;
     const std::vector<ObjectStorage>& getContent() const;
-    IObject* clone() const;
+    IObject* clone() const override;
+    std::string toString() const override;
 private:
     std::vector<ObjectStorage> m_content;
 };

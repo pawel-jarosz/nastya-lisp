@@ -11,6 +11,8 @@ set(LISP_EXPRESSION_LIBRARY_SRC
         TypeSystem/NumberObject.hpp
         TypeSystem/StringObject.hpp
         TypeSystem/TypeSystemImpl.cpp
+        Testing/ListBuilder.hpp
+        Testing/ListBuilder.cpp
         LispExpressionBuilder.hpp
         LispExpressionBuilder.cpp
         ObjectStorage.hpp

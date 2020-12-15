@@ -7,10 +7,12 @@
 #include "LispExpression/Interface/IObjectStorage.hpp"
 
 #include <memory>
+#include <ostream>
 
 namespace nastya::lisp {
 
-class ObjectStorage : public IObjectStorage {
+class ObjectStorage : public IObjectStorage
+{
 public:
     ObjectStorage() = default;
     explicit ObjectStorage(std::unique_ptr<IObject> object);
@@ -22,6 +24,7 @@ public:
 
     ObjectType getType() const override;
     IObject& getRawObject() const override;
+    std::string toString() const;
 private:
     std::unique_ptr<IObject> m_object;
 };

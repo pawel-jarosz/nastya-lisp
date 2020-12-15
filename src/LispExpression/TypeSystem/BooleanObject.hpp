@@ -12,6 +12,7 @@ public:
     BooleanObject(bool value);
     bool getValue() const;
     IObject* clone() const override;
+    std::string toString() const override;
 private:
     bool m_value;
 };

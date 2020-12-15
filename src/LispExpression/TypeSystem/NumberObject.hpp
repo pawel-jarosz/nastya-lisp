@@ -23,6 +23,7 @@ public:
     int getInteger() const;
     float getFloating() const;
     IObject* clone() const override;
+    std::string toString() const override;
 private:
     union {
         float m_float_value;

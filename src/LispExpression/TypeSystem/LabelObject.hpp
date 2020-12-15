@@ -13,7 +13,9 @@ class LabelObject : public GenericObject {
 public:
     LabelObject(std::string value);
     std::string getValue() const;
-    IObject* clone() const;
+    IObject* clone() const override;
+    std::string toString() const override;
+
 private:
     std::string m_value;
 };

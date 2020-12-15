@@ -1,11 +1,29 @@
-#include <utility>
 #include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/TypeSystem/BooleanObject.hpp"
 #include "LispExpression/TypeSystem/LabelObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/StringObject.hpp"
 
+#include <type_traits>
+#include <utility>
+#include <sstream>
+
 namespace nastya::lisp::typesystem {
+
+template<typename T>
+std::string toString(const T& value) {
+    std::stringstream ss;
+    ss << value;
+    return ss.str();
+}
+
+template<>
+std::string toString(const bool& value) {
+    if (value) {
+        return "#true";
+    }
+    else return "#false";
+}
 
 GenericObject::GenericObject(ObjectType type) : m_type{type}
 {
@@ -31,6 +49,10 @@ IObject* BooleanObject::clone() const
     return new BooleanObject(*this);
 }
 
+std::string BooleanObject::toString() const {
+    return nastya::lisp::typesystem::toString(m_value);
+}
+
 LabelObject::LabelObject(std::string value)
 : GenericObject(ObjectType::Label), m_value(std::move(value))
 {
@@ -46,6 +68,11 @@ IObject* LabelObject::clone() const
     return new LabelObject(*this);
 }
 
+std::string LabelObject::toString() const {
+    return nastya::lisp::typesystem::toString(m_value);
+}
+
+
 StringObject::StringObject(std::string value)
 : GenericObject(ObjectType::String), m_value(std::move(value))
 {
@@ -60,6 +87,13 @@ IObject* StringObject::clone() const
 {
     return new StringObject(*this);
 }
+
+std::string StringObject::toString() const {
+    std::stringstream ss;
+    ss << "\"" << nastya::lisp::typesystem::toString(m_value) << "\"";
+    return ss.str();
+}
+
 
 NumberObject::NumberObject() : NumberObject(0)
 {
@@ -157,6 +191,13 @@ IObject* NumberObject::clone() const
     return new NumberObject(*this);
 }
 
+std::string NumberObject::toString() const {
+    if (m_type == NumberType::Integer) {
+        return nastya::lisp::typesystem::toString(m_int_value);
+    }
+    return nastya::lisp::typesystem::toString(m_float_value);
+}
+
 ListObject::ListObject(std::vector<ObjectStorage> content)
 : GenericObject(ObjectType::List), m_content{std::move(content)}
 {
@@ -174,6 +215,19 @@ const std::vector<ObjectStorage>& ListObject::getContent() const
 IObject* ListObject::clone() const
 {
     return new ListObject(getContent());
+}
+
+std::string ListObject::toString() const {
+    std::stringstream ss;
+    if (m_content.size() == 0) {
+        return "()";
+    }
+    ss << "(" << m_content[0].getRawObject().toString();
+    for (int i = 1; i < m_content.size(); i++) {
+        ss << " " << m_content[i].toString();
+    }
+    ss << ")";
+    return ss.str();
 }
 
 }  // namespace nastya::lisp::typesystem

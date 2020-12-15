@@ -44,4 +44,8 @@ IObject& ObjectStorage::getRawObject() const
     return *m_object;
 }
 
+std::string ObjectStorage::toString() const {
+    return m_object->toString();
+}
+
 }  // namespace nastya::lisp

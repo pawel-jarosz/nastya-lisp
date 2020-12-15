@@ -12,7 +12,7 @@ namespace nastya::lisp {
 
 class ObjectStorage : public IObjectStorage {
 public:
-    ObjectStorage();
+    ObjectStorage() = default;
     explicit ObjectStorage(std::unique_ptr<IObject> object);
     ObjectStorage(const ObjectStorage& rhs);
     ObjectStorage(ObjectStorage&& rhs);

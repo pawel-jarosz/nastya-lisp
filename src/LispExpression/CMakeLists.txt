@@ -2,6 +2,7 @@ set(LISP_EXPRESSION_LIBRARY_SRC
         Interface/IObject.hpp
         Interface/IObjectStorage.hpp
         Interface/IObjectFactory.hpp
+        Interface/IExpressionBuilder.hpp
         TypeSystem/ObjectType.hpp
         TypeSystem/GenericObject.hpp
         TypeSystem/ListObject.hpp
@@ -10,6 +11,8 @@ set(LISP_EXPRESSION_LIBRARY_SRC
         TypeSystem/NumberObject.hpp
         TypeSystem/StringObject.hpp
         TypeSystem/TypeSystemImpl.cpp
+        LispExpressionBuilder.hpp
+        LispExpressionBuilder.cpp
         ObjectStorage.hpp
         ObjectStorage.cpp
         ObjectFactory.hpp

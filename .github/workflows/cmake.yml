@@ -14,14 +14,7 @@ jobs:
         run: sudo apt install googletest; cd /usr/src/googletest; sudo cmake .; sudo make -j4; sudo make install
 
   build:
-    # The CMake configure and build commands are platform agnostic and should work equally
-    # well on Windows or Mac.  You can convert this to a matrix build if you need
-    # cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-latest
-
     steps:
-    - uses: jobs/setup
     - uses: actions/checkout@v2
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory

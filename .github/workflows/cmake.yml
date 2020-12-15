@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Download cmake
+    - name: Download GTest
       run: sudo apt install googletest
     - name: Build GTest
       run: cd /usr/src/googletest; sudo cmake .; sudo make -j4

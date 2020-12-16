@@ -11,6 +11,7 @@
 
 namespace nastya::lisp::testing {
 
+// TODO: Add boolean
 class ListBuilder {
 public:
     ListBuilder() = default;

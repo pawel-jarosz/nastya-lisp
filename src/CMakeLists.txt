@@ -9,4 +9,5 @@ enable_testing()
 
 add_subdirectory(Parser)
 add_subdirectory(LispExpression)
+add_subdirectory(Modules)
 add_subdirectory(Tests)

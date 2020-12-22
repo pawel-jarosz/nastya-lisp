@@ -15,7 +15,8 @@ class IModule {
 public:
     virtual std::string getModuleName() const = 0;
     virtual std::vector<std::string> getFunctionsList() const = 0;
-    virtual bool hasFunction(const std::string& function) const = 0;
+    virtual bool isFunctionAvailable(const std::string& function) const = 0;
+    virtual runtime::IEvaluator& getFunction(const std::string& function_name) const = 0;
 };
 
 }

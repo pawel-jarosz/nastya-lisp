@@ -4,14 +4,14 @@
 
 #pragma once
 
-#include "Modules/AbstractModule.hpp"
+#include "Modules/Module.hpp"
 #include "Runtime/Interface/IEvaluator.hpp"
 
 #include <map>
 
 namespace nastya::builtins::lists {
 
-class ListsModule : public modules::AbstractModule {
+class ListsModule : public modules::Module {
 public:
     ListsModule& getInstance();
     ListsModule& registerEvaluator(runtime::IEvaluator& evaluator);

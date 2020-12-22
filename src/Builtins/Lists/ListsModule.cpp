@@ -7,7 +7,7 @@
 
 namespace nastya::builtins::lists {
 
-ListsModule::ListsModule() : AbstractModule("Lists") {}
+ListsModule::ListsModule() : Module("Lists") {}
 
 ListsModule& ListsModule::registerEvaluator(runtime::IEvaluator& evaluator) {
     m_methods[evaluator.getName()] = evaluator;

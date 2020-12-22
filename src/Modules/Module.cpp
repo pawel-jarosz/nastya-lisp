@@ -38,12 +38,12 @@ runtime::IEvaluator& Module::getFunction(const std::string& function_name) const
     throw;
 }
 
-void Module::registerFunction(runtime::IEvaluator& evaluator) {
+Module& Module::registerFunction(runtime::IEvaluator& evaluator) {
     auto [it, return_value] = m_functions.try_emplace(evaluator.getName(), evaluator);
     if (not return_value) {
-        std::cout << "Invalid registration" << std::endl;
     }
     // verify if it was successfully emplaced;
+    return *this;
 }
 
 }

@@ -13,8 +13,7 @@ namespace nastya::builtins::lists {
 
 class ListsModule : public modules::Module {
 public:
-    ListsModule& getInstance();
-    ListsModule& registerEvaluator(runtime::IEvaluator& evaluator);
+    static modules::IModule& getInstance();
 private:
     ListsModule();
     std::map<std::string, runtime::IEvaluator&> m_methods;

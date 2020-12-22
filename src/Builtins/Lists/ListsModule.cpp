@@ -7,28 +7,26 @@
 
 namespace nastya::builtins::lists {
 
-ListsModule::ListsModule() : Module("Lists") {}
-
-ListsModule& ListsModule::registerEvaluator(runtime::IEvaluator& evaluator) {
-    m_methods[evaluator.getName()] = evaluator;
+void initializeModule(ListsModule& module) {
+    static HeadEvaluator head;
+    static TailEvaluator tail;
+    module
+        .registerFunction(head)
+        .registerFunction(tail);
 }
 
-ListsModule& ListsModule::getInstance() {
+
+ListsModule::ListsModule() : Module("Lists") {}
+
+modules::IModule& ListsModule::getInstance() {
     static bool initialized = false;
     static ListsModule module;
     if (not initialized) {
-        initializeModule(*this);
+        initializeModule(module);
         initialized = true;
     }
     return module;
 }
 
-void initializeModule(ListsModule& module) {
-    static HeadEvaluator head;
-    static TailEvaluator tail;
-    module
-    .registerEvaluator(head)
-    .registerEvaluator(tail);
-}
 
 }

@@ -18,4 +18,9 @@ struct TailEvaluator : public runtime::IEvaluator {
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
 };
 
+struct QuoteEvaluator : public runtime::IEvaluator {
+    std::string getName() const override { return "Quote"; }
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+};
+
 }

@@ -10,9 +10,11 @@ namespace nastya::builtins::lists {
 void initializeModule(ListsModule& module) {
     static HeadEvaluator head;
     static TailEvaluator tail;
+    static QuoteEvaluator quote;
     module
         .registerFunction(head)
-        .registerFunction(tail);
+        .registerFunction(tail)
+        .registerFunction(quote);
 }
 
 

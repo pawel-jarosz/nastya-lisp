@@ -28,4 +28,7 @@ lisp::ObjectStorage TailEvaluator::evaluate(runtime::IMemory&, const lisp::Objec
     throw;
 }
 
+    lisp::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory &memory, const lisp::ObjectStorage& object) const {
+        return lisp::ObjectStorage(object);
+    }
 }

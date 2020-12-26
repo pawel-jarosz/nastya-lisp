@@ -20,8 +20,11 @@ std::vector<std::string> ModuleRegistry::getAvailableModules() const {
 }
 
 bool ModuleRegistry::isAvailableFunction(const std::string& function) {
-    
     return false;
 }
+
+    runtime::IEvaluator &ModuleRegistry::getFunction(std::string string) const {
+        return m_modules.at("Lists").getFunction(string);
+    }
 
 }

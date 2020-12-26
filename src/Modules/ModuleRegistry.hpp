@@ -16,7 +16,7 @@ public:
     ModuleRegistry& registerModule(const IModule& module);
     std::vector<std::string> getAvailableModules() const;
     bool isAvailableFunction(const std::string& function);
-    runtime::IEvaluator& getFunction() const;
+    runtime::IEvaluator& getFunction(std::string string) const;
 private:
     std::map<std::string, const IModule&> m_modules;
 };

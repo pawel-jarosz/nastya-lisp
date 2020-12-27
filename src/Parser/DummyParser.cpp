@@ -6,6 +6,8 @@
 #include <regex>
 #include <sstream>
 
+#include <Parser/ParserException.hpp>
+
 #include "Parser/DummyParser.hpp"
 
 namespace nastya::parser {
@@ -20,7 +22,7 @@ size_t analyse_quotation(const std::string& text, size_t next_pos)
     }
     if (next_pos < text.size() and not isblank(text[next_pos]))
     {
-        throw std::logic_error("Invalid syntax");
+        BUT_THROW(ParserException, "Invalid syntax - quotation is not closed before the end");
     }
     while (next_pos < text.size() and isblank(text[next_pos]))
     {
@@ -81,6 +83,12 @@ Token value_to_token(const std::string& value)
     if (std::regex_match(value, m, float_number_regex))
     {
         return Token{TokenType::Floating, std::stof(value)};
+    }
+    std::regex label_regex("(#)?[a-z][a-z0-9_]*");
+    if (not std::regex_match(value, m, label_regex)) {
+        std::stringstream ss;
+        ss << "Value " << value << "is not valid label!";
+        BUT_THROW(ParserException, ss.str());
     }
     return Token{TokenType::Label, value};
 }

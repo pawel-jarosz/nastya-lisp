@@ -5,6 +5,7 @@
 
 #include "LispExpression/ObjectStorage.hpp"
 #include "LispExpression/TypeSystem/StringObject.hpp"
+#include "LispExpression/ObjectStorageException.hpp"
 
 namespace nastya::lisp {
 
@@ -19,6 +20,13 @@ TEST(ObjectStorageTest, testStorage)
     EXPECT_EQ(dynamic_cast<typesystem::StringObject&>(storage.getRawObject())
                   .getValue(),
               test_case);
+}
+
+TEST(ObjectStorageTest, testNotinitializedStorage) {
+    ObjectStorage storage;
+    EXPECT_THROW(storage.getRawObject(), ObjectStorageException);
+    EXPECT_THROW(storage.getType(), ObjectStorageException);
+    EXPECT_THROW(storage.toString(), ObjectStorageException);
 }
 
 }  // namespace nastya::lisp

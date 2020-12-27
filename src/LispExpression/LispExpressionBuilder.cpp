@@ -12,6 +12,7 @@
 #include "LispExpression/Interface/IObjectFactory.hpp"
 #include "LispExpression/LispExpressionBuilder.hpp"
 #include "LispExpression/TypeSystem/ListObject.hpp"
+#include "LispExpression/LispExpressionException.hpp"
 
 namespace nastya::lisp {
 
@@ -66,13 +67,15 @@ void LispExpressionBuilder::LispExpressionBuilderImpl::openList()
 
 void LispExpressionBuilder::LispExpressionBuilderImpl::closeList()
 {
-    // TODO: rainy day scenario
+    if (m_stack.empty()) {
+        BUT_THROW(LispExpressionException, "Stack is empty");
+    }
     std::unique_ptr<IObject> top_object(
         new typesystem::ListObject(m_stack.top())
     );
     m_stack.pop();
     ObjectStorage temp(std::move(top_object));
-    if (m_stack.size() > 0)
+    if (not m_stack.empty())
     {
         m_stack.top().emplace_back(std::move(temp));
     }
@@ -86,7 +89,7 @@ void LispExpressionBuilder::LispExpressionBuilderImpl::addGenericObject(
 {
     std::unique_ptr<IObject> temp(m_factory.create(t));
     ObjectStorage object(std::move(temp));
-    if (m_stack.size() > 0) {
+    if (not m_stack.empty()) {
         m_stack.top().emplace_back(std::move(object));
     }
     else {

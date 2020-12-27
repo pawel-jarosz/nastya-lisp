@@ -3,6 +3,7 @@
 //
 
 #include "LispExpression/ObjectStorage.hpp"
+#include "LispExpression/ObjectStorageException.hpp"
 
 namespace nastya::lisp {
 
@@ -35,16 +36,24 @@ ObjectStorage& ObjectStorage::operator=(ObjectStorage&& rhs)
 
 ObjectType ObjectStorage::getType() const
 {
-    // TODO: Throw if not initialized
+    if (not m_object) {
+        BUT_THROW(ObjectStorageException, "Object is not initialized");
+    }
     return m_object->getType();
 }
 
 IObject& ObjectStorage::getRawObject() const
 {
+    if (not m_object) {
+        BUT_THROW(ObjectStorageException, "Object is not initialized");
+    }
     return *m_object;
 }
 
 std::string ObjectStorage::toString() const {
+    if (not m_object) {
+        BUT_THROW(ObjectStorageException, "Object is not initialized");
+    }
     return m_object->toString();
 }
 

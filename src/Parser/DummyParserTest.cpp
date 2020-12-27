@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 
+#include "ParserException.hpp"
 #include "DummyParser.hpp"
 
 using namespace nastya::parser;
@@ -102,14 +103,18 @@ TEST(DummyParserTest, testFloating)
     std::vector test_cases = {FloatingTestCase{"123.456", 123.456},
                               FloatingTestCase{"-123.456", -123.456},
                               FloatingTestCase{"123.456e10", 123.456e10},
-                              FloatingTestCase{"123.456e-2", 123.456e-2}};
+                              FloatingTestCase{"123.456e-2", 123.456e-2},
+                              FloatingTestCase{"123.456f", 123.456},
+                              FloatingTestCase{"123.456d", 123.456}};
 
     for (const auto& test_case : test_cases)
     {
         DummyParser parser(test_case.first);
         EXPECT_EQ(parser.getToken(), create_floating_token(test_case.second));
     }
-    // TODO: verify negative cases
+    FloatingTestCase invalid_test{"123.456u", 123.456};
+    DummyParser parser(invalid_test.first);
+    EXPECT_THROW(parser.getToken(), ParserException);
 }
 
 TEST(DummyParserTest, testBoolean)

@@ -161,4 +161,23 @@ TEST_F(LispExpressionBuilderTest, testExpressionWithComplexList) {
     EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
 }
 
+TEST_F(LispExpressionBuilderTest, testQuotedExpression) {
+    {
+        parser::DummyParser parser("'(1 2 3)");
+        lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+        EXPECT_EQ("(Quote (1 2 3))", expression_builder.build().toString());
+    }
+    {
+        parser::DummyParser parser("(Tail '(1 2 3))");
+        lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+        EXPECT_EQ("(Tail (Quote (1 2 3)))", expression_builder.build().toString());
+    }
+}
+
+TEST_F(LispExpressionBuilderTest, testComplexQuotedExpression) {
+    parser::DummyParser parser("(Tail '((1 2 (3)) (4 5 6)))");
+    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    EXPECT_EQ("(Tail (Quote ((1 2 (3)) (4 5 6))))", expression_builder.build().toString());
+}
+
 }

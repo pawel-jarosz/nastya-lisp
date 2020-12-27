@@ -27,9 +27,11 @@ private:
     void openList();
     void closeList();
     void addGenericObject(const parser::Token& t);
-
+    void enableQuotation();
+    void disableQuotation();
     IObjectFactory& m_factory;
     std::stack<std::vector<ObjectStorage>> m_stack;
+    std::stack<size_t> m_quotation_stack;
     ObjectStorage m_result;
 };
 
@@ -48,7 +50,11 @@ void LispExpressionBuilder::LispExpressionBuilderImpl::addToken(
             openList();
             break;
         case parser::TokenType::S_expr_end:
+            disableQuotation();
             closeList();
+            break;
+        case parser::TokenType::Quote:
+            enableQuotation();
             break;
         default:
             addGenericObject(t);
@@ -58,6 +64,23 @@ void LispExpressionBuilder::LispExpressionBuilderImpl::addToken(
 ObjectStorage LispExpressionBuilder::LispExpressionBuilderImpl::build()
 {
     return m_result;
+}
+
+void LispExpressionBuilder::LispExpressionBuilderImpl::enableQuotation() {
+    parser::Token label_token {parser::TokenType::Label, std::string("Quote")};
+    openList();
+    addGenericObject(label_token);
+    m_quotation_stack.push(m_stack.size());
+}
+
+void LispExpressionBuilder::LispExpressionBuilderImpl::disableQuotation() {
+    if (m_quotation_stack.empty()) {
+        return;
+    }
+    if (m_stack.size() != m_quotation_stack.top() + 1) {
+        return;
+    }
+    closeList();
 }
 
 void LispExpressionBuilder::LispExpressionBuilderImpl::openList()

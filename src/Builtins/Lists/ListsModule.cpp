@@ -18,7 +18,7 @@ void initializeModule(ListsModule& module) {
 }
 
 
-ListsModule::ListsModule() : Module("Lists") {}
+ListsModule::ListsModule() : Module("Lang.Lists") {}
 
 modules::IModule& ListsModule::getInstance() {
     static bool initialized = false;

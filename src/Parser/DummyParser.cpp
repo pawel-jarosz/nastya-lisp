@@ -7,7 +7,6 @@
 #include <sstream>
 
 #include <Parser/ParserException.hpp>
-
 #include "Parser/DummyParser.hpp"
 
 namespace nastya::parser {
@@ -84,7 +83,7 @@ Token value_to_token(const std::string& value)
     {
         return Token{TokenType::Floating, std::stof(value)};
     }
-    std::regex label_regex("(#)?[a-z][a-z0-9_]*");
+    std::regex label_regex("(#)?[A-Za-z][A-Za-z0-9_]*");
     if (not std::regex_match(value, m, label_regex)) {
         std::stringstream ss;
         ss << "Value " << value << "is not valid label!";

@@ -3,6 +3,7 @@
 //
 
 #include "Modules/ModuleRegistry.hpp"
+#include "Modules/ModuleException.hpp"
 
 namespace nastya::modules {
 
@@ -23,8 +24,13 @@ bool ModuleRegistry::isAvailableFunction(const std::string& function) {
     return false;
 }
 
-    runtime::IEvaluator &ModuleRegistry::getFunction(std::string string) const {
-        return m_modules.at("Lists").getFunction(string);
+runtime::IEvaluator& ModuleRegistry::getFunction(std::string function_name) const {
+    for (auto [module_name, module]: m_modules) {
+        if (module.isFunctionAvailable(function_name)) {
+            return module.getFunction(function_name);
+        }
     }
+    BUT_THROW(ModuleException, "Function not found");
+}
 
 }

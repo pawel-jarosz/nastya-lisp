@@ -4,8 +4,6 @@
 
 #include "ListsEvaluators.hpp"
 
-#include <iostream>
-
 #include "LispExpression/TypeSystem/ListObject.hpp"
 
 namespace nastya::builtins::lists {
@@ -32,8 +30,8 @@ lisp::ObjectStorage TailEvaluator::evaluate(runtime::IMemory&, const lisp::Objec
     throw;
 }
 
-    lisp::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory &memory, const lisp::ObjectStorage& object) const {
-        auto arguments_list = dynamic_cast<lisp::typesystem::ListObject&>(object.getRawObject());
-        return lisp::ObjectStorage(arguments_list.getContent()[0]);
-    }
+lisp::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory &memory, const lisp::ObjectStorage& object) const {
+    auto arguments_list = dynamic_cast<lisp::typesystem::ListObject&>(object.getRawObject());
+    return lisp::ObjectStorage(arguments_list.getContent()[0]);
+}
 }

@@ -7,7 +7,6 @@
 #include <LispExpression/ObjectStorageException.hpp>
 
 #include "ConsoleManager.hpp"
-#include "CLI/Module/ConsoleModuleBuilder.hpp"
 
 namespace nastya::cli {
 

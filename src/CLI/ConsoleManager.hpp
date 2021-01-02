@@ -10,6 +10,7 @@
 #include "LispExpression/Interface/IExpressionBuilder.hpp"
 
 namespace nastya::cli {
+
 class ConsoleManager : public interface::IConsoleManager {
 public:
     ConsoleManager(nastya::vm::Machine& machine,

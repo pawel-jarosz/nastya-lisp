@@ -25,7 +25,6 @@ void ConsoleManager::splashScreen() {
 
 int ConsoleManager::run() {
     std::stringstream ss;
-    bool end_of_input = false;
     do {
         std::cout << "? | ";
         std::string line;

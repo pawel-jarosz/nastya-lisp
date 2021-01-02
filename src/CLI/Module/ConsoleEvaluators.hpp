@@ -12,7 +12,7 @@ namespace nastya::cli::module {
 class ShutdownEvaluator : public runtime::IEvaluator {
 public:
     ShutdownEvaluator(interface::IConsoleManager& console);
-    std::string getName() const  override { return "ExitConsole"; }
+    std::string getName() const  override { return "Exit-Console"; }
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
 private:
     interface::IConsoleManager& m_console;

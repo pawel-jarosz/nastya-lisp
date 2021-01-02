@@ -6,7 +6,7 @@
 
 #include "ConsoleModuleBuilder.hpp"
 
-namespace nastya:;cli::module {
+namespace nastya::cli::module {
 
 class ConsoleModuleBuilderCreator {
 public:

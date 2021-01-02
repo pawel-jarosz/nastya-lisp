@@ -1,3 +1,4 @@
 #!/usr/bin/sh
-
-find .. -name "*.hpp" -o -name "*.cpp" -exec clang-format -i {} \;
+pushd ..
+find . -name "*.hpp" -o -name "*.cpp" -exec clang-format -i {} \;
+popd

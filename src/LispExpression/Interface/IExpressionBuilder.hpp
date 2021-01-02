@@ -15,5 +15,6 @@ class IExpressionBuilder {
 public:
     virtual ~IExpressionBuilder() = default;
     virtual ObjectStorage build() = 0;
+    virtual void reset() = 0;
 };
 }

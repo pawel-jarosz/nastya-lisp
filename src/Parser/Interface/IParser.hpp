@@ -13,6 +13,7 @@ namespace nastya::parser {
         IParser() = default;
         virtual Token getToken() = 0;
         virtual bool isEmpty() = 0;
+        virtual void reset(std::string code) = 0;
     };
 
 }

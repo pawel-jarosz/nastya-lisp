@@ -163,5 +163,10 @@ bool DummyParser::isEmpty()
     }
     return (m_pos == m_text.size());
 }
+void DummyParser::reset(std::string code)
+{
+    m_text = std::move(code);
+    m_pos = 0;
+}
 
 }  // namespace nastya::parser

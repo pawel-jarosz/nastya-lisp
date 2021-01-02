@@ -141,5 +141,9 @@ ObjectStorage LispExpressionBuilder::build()
     }
     return m_impl->build();
 }
+void LispExpressionBuilder::reset()
+{
+    m_impl.reset(new LispExpressionBuilder::LispExpressionBuilderImpl(m_object_factory));
+}
 
 }  // namespace nastya::lisp

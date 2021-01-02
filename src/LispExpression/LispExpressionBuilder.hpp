@@ -18,6 +18,7 @@ public:
     explicit LispExpressionBuilder(parser::IParser& parser, IObjectFactory& object_factory);
     ~LispExpressionBuilder() override;
     ObjectStorage build() override;
+    void reset() override;
 private:
     class LispExpressionBuilderImpl;
     parser::IParser& m_parser;

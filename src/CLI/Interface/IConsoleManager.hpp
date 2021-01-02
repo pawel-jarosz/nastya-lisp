@@ -8,7 +8,7 @@ namespace nastya::cli::interface {
 
 class IConsoleManager {
 public:
-    ~IConsoleManager();
+    virtual ~IConsoleManager() = default;
     virtual int run() = 0;
     virtual void shutdown() = 0;
 };

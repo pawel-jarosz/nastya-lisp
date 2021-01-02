@@ -8,7 +8,7 @@
 
 namespace nastya::cli::module {
 
-ShutdownEvaluator::ShutdownEvaluator(nastya::cli::interface::IConsoleManager& console)
+ShutdownEvaluator::ShutdownEvaluator(interface::IConsoleManager& console)
 : m_console{console}
 {
 }

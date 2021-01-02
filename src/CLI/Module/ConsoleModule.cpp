@@ -7,7 +7,7 @@
 
 namespace nastya::cli::module {
 
-void initializeModule(ConsoleModule& module, IConsoleManager& console) {
+void initializeModule(ConsoleModule& module, interface::IConsoleManager& console) {
     static ShutdownEvaluator shutdown(console);
     module.registerFunction(shutdown);
 }

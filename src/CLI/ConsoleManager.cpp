@@ -31,18 +31,22 @@ int ConsoleManager::run() {
         std::string line;
         getline(std::cin, line);
         ss << line << " ";
-        std::cout << "Line: " << ss.str() << std::endl;
         m_parser.reset(ss.str());
         m_expr_builder.reset();
         try {
             auto expression = m_expr_builder.build();
             auto result = m_machine.run(expression);
-            std::cout << result.toString() << std::endl;
-            std::stringstream empty_stream;
-            ss.swap(empty_stream);
+            if (not m_shutdown) {
+                std::cout << result.toString() << std::endl;
+                std::stringstream empty_stream;
+                ss.swap(empty_stream);
+            }
         }
         catch (nastya::lisp::ObjectStorageException& e) {
             continue;
+        }
+        catch (std::runtime_error& error) {
+
         }
     }
     while (not m_shutdown);

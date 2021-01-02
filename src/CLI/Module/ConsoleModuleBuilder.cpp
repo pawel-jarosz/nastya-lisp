@@ -2,7 +2,7 @@
 // Created by caedus on 02.01.2021.
 //
 
-#include "Builtins/BuiltinsModuleBuilder.hpp"
+#include "ConsoleModuleBuilder.hpp"
 
 #include "ConsoleModule.hpp"
 

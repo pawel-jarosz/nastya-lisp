@@ -8,19 +8,31 @@
 
 namespace nastya::builtins::lists {
 
-struct HeadEvaluator : public runtime::IEvaluator {
-    std::string getName() const  override { return "Head"; }
+struct HeadEvaluator : public runtime::IEvaluator
+{
+    std::string getName() const override
+    {
+        return "Head";
+    }
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
 };
 
-struct TailEvaluator : public runtime::IEvaluator {
-    std::string getName() const override { return "Tail"; }
+struct TailEvaluator : public runtime::IEvaluator
+{
+    std::string getName() const override
+    {
+        return "Tail";
+    }
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
 };
 
-struct QuoteEvaluator : public runtime::IEvaluator {
-    std::string getName() const override { return "Quote"; }
+struct QuoteEvaluator : public runtime::IEvaluator
+{
+    std::string getName() const override
+    {
+        return "Quote";
+    }
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
 };
 
-}
+}  // namespace nastya::builtins::lists

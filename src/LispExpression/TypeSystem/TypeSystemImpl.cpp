@@ -1,28 +1,32 @@
-#include "LispExpression/TypeSystem/ListObject.hpp"
+#include <sstream>
+#include <type_traits>
+#include <utility>
+
 #include "LispExpression/TypeSystem/BooleanObject.hpp"
 #include "LispExpression/TypeSystem/LabelObject.hpp"
+#include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/StringObject.hpp"
 
-#include <type_traits>
-#include <utility>
-#include <sstream>
-
 namespace nastya::lisp::typesystem {
 
-template<typename T>
-std::string toString(const T& value) {
+template <typename T>
+std::string toString(const T& value)
+{
     std::stringstream ss;
     ss << value;
     return ss.str();
 }
 
-template<>
-std::string toString(const bool& value) {
-    if (value) {
+template <>
+std::string toString(const bool& value)
+{
+    if (value)
+    {
         return "#true";
     }
-    else return "#false";
+    else
+        return "#false";
 }
 
 GenericObject::GenericObject(ObjectType type) : m_type{type}
@@ -34,8 +38,7 @@ ObjectType GenericObject::getType() const
     return m_type;
 }
 
-BooleanObject::BooleanObject(bool value)
-: GenericObject(ObjectType::Boolean), m_value{value}
+BooleanObject::BooleanObject(bool value) : GenericObject(ObjectType::Boolean), m_value{value}
 {
 }
 
@@ -49,12 +52,12 @@ IObject* BooleanObject::clone() const
     return new BooleanObject(*this);
 }
 
-std::string BooleanObject::toString() const {
+std::string BooleanObject::toString() const
+{
     return nastya::lisp::typesystem::toString(m_value);
 }
 
-LabelObject::LabelObject(std::string value)
-: GenericObject(ObjectType::Label), m_value(std::move(value))
+LabelObject::LabelObject(std::string value) : GenericObject(ObjectType::Label), m_value(std::move(value))
 {
 }
 
@@ -68,13 +71,12 @@ IObject* LabelObject::clone() const
     return new LabelObject(*this);
 }
 
-std::string LabelObject::toString() const {
+std::string LabelObject::toString() const
+{
     return nastya::lisp::typesystem::toString(m_value);
 }
 
-
-StringObject::StringObject(std::string value)
-: GenericObject(ObjectType::String), m_value(std::move(value))
+StringObject::StringObject(std::string value) : GenericObject(ObjectType::String), m_value(std::move(value))
 {
 }
 
@@ -88,33 +90,28 @@ IObject* StringObject::clone() const
     return new StringObject(*this);
 }
 
-std::string StringObject::toString() const {
+std::string StringObject::toString() const
+{
     std::stringstream ss;
     ss << "\"" << nastya::lisp::typesystem::toString(m_value) << "\"";
     return ss.str();
 }
-
 
 NumberObject::NumberObject() : NumberObject(0)
 {
 }
 
 NumberObject::NumberObject(int value)
-: GenericObject(ObjectType::Number)
-, m_int_value(value)
-, m_type{NumberType::Integer}
+: GenericObject(ObjectType::Number), m_int_value(value), m_type{NumberType::Integer}
 {
 }
 
 NumberObject::NumberObject(float value)
-: GenericObject(ObjectType::Number)
-, m_float_value(value)
-, m_type{NumberType::Floating}
+: GenericObject(ObjectType::Number), m_float_value(value), m_type{NumberType::Floating}
 {
 }
 
-NumberObject::NumberObject(const NumberObject& rhs)
-: GenericObject(ObjectType::Number), m_type{NumberType::Integer}
+NumberObject::NumberObject(const NumberObject& rhs) : GenericObject(ObjectType::Number), m_type{NumberType::Integer}
 {
     m_type = rhs.m_type;
     if (m_type == NumberType::Integer)
@@ -127,8 +124,7 @@ NumberObject::NumberObject(const NumberObject& rhs)
     }
 }
 
-NumberObject::NumberObject(NumberObject&& rhs)
-: GenericObject(ObjectType::Number), m_type{NumberType::Integer}
+NumberObject::NumberObject(NumberObject&& rhs) : GenericObject(ObjectType::Number), m_type{NumberType::Integer}
 {
     m_type = rhs.m_type;
     if (m_type == NumberType::Integer)
@@ -191,8 +187,10 @@ IObject* NumberObject::clone() const
     return new NumberObject(*this);
 }
 
-std::string NumberObject::toString() const {
-    if (m_type == NumberType::Integer) {
+std::string NumberObject::toString() const
+{
+    if (m_type == NumberType::Integer)
+    {
         return nastya::lisp::typesystem::toString(m_int_value);
     }
     return nastya::lisp::typesystem::toString(m_float_value);
@@ -217,13 +215,16 @@ IObject* ListObject::clone() const
     return new ListObject(getContent());
 }
 
-std::string ListObject::toString() const {
+std::string ListObject::toString() const
+{
     std::stringstream ss;
-    if (m_content.size() == 0) {
+    if (m_content.size() == 0)
+    {
         return "()";
     }
     ss << "(" << m_content[0].getRawObject().toString();
-    for (int i = 1; i < m_content.size(); i++) {
+    for (int i = 1; i < m_content.size(); i++)
+    {
         ss << " " << m_content[i].toString();
     }
     ss << ")";

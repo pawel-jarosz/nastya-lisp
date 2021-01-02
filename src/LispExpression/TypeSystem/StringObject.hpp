@@ -4,18 +4,20 @@
 
 #pragma once
 
-#include "LispExpression/TypeSystem/GenericObject.hpp"
-
 #include <string>
 
+#include "LispExpression/TypeSystem/GenericObject.hpp"
+
 namespace nastya::lisp::typesystem {
-class StringObject : public GenericObject {
+class StringObject : public GenericObject
+{
 public:
     StringObject(std::string value);
     std::string getValue() const;
     IObject* clone() const override;
     std::string toString() const override;
+
 private:
     std::string m_value;
 };
-}
+}  // namespace nastya::lisp::typesystem

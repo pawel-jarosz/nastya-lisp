@@ -2,8 +2,6 @@
 // Created by caedus on 15.12.2020.
 //
 
-#include "LispExpression/LispExpressionBuilder.hpp"
-
 #include <functional>
 #include <map>
 #include <stack>
@@ -11,8 +9,8 @@
 
 #include "LispExpression/Interface/IObjectFactory.hpp"
 #include "LispExpression/LispExpressionBuilder.hpp"
-#include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/LispExpressionException.hpp"
+#include "LispExpression/TypeSystem/ListObject.hpp"
 
 namespace nastya::lisp {
 
@@ -35,14 +33,12 @@ private:
     ObjectStorage m_result;
 };
 
-LispExpressionBuilder::LispExpressionBuilderImpl::LispExpressionBuilderImpl(
-    IObjectFactory& object_factory)
-    : m_factory{object_factory}
+LispExpressionBuilder::LispExpressionBuilderImpl::LispExpressionBuilderImpl(IObjectFactory& object_factory)
+: m_factory{object_factory}
 {
 }
 
-void LispExpressionBuilder::LispExpressionBuilderImpl::addToken(
-    const parser::Token& t)
+void LispExpressionBuilder::LispExpressionBuilderImpl::addToken(const parser::Token& t)
 {
     switch (t.type)
     {
@@ -66,18 +62,22 @@ ObjectStorage LispExpressionBuilder::LispExpressionBuilderImpl::build()
     return m_result;
 }
 
-void LispExpressionBuilder::LispExpressionBuilderImpl::enableQuotation() {
-    parser::Token label_token {parser::TokenType::Label, std::string("Quote")};
+void LispExpressionBuilder::LispExpressionBuilderImpl::enableQuotation()
+{
+    parser::Token label_token{parser::TokenType::Label, std::string("Quote")};
     openList();
     addGenericObject(label_token);
     m_quotation_stack.push(m_stack.size());
 }
 
-void LispExpressionBuilder::LispExpressionBuilderImpl::disableQuotation() {
-    if (m_quotation_stack.empty()) {
+void LispExpressionBuilder::LispExpressionBuilderImpl::disableQuotation()
+{
+    if (m_quotation_stack.empty())
+    {
         return;
     }
-    if (m_stack.size() != m_quotation_stack.top() + 1) {
+    if (m_stack.size() != m_quotation_stack.top() + 1)
+    {
         return;
     }
     closeList();
@@ -90,41 +90,41 @@ void LispExpressionBuilder::LispExpressionBuilderImpl::openList()
 
 void LispExpressionBuilder::LispExpressionBuilderImpl::closeList()
 {
-    if (m_stack.empty()) {
+    if (m_stack.empty())
+    {
         BUT_THROW(LispExpressionException, "Stack is empty");
     }
-    std::unique_ptr<IObject> top_object(
-        new typesystem::ListObject(m_stack.top())
-    );
+    std::unique_ptr<IObject> top_object(new typesystem::ListObject(m_stack.top()));
     m_stack.pop();
     ObjectStorage temp(std::move(top_object));
     if (not m_stack.empty())
     {
         m_stack.top().emplace_back(std::move(temp));
     }
-    else {
+    else
+    {
         m_result = temp;
     }
 }
 
-void LispExpressionBuilder::LispExpressionBuilderImpl::addGenericObject(
-    const parser::Token& t)
+void LispExpressionBuilder::LispExpressionBuilderImpl::addGenericObject(const parser::Token& t)
 {
     std::unique_ptr<IObject> temp(m_factory.create(t));
     ObjectStorage object(std::move(temp));
-    if (not m_stack.empty()) {
+    if (not m_stack.empty())
+    {
         m_stack.top().emplace_back(std::move(object));
     }
-    else {
+    else
+    {
         m_result = object;
     }
 }
 
-LispExpressionBuilder::LispExpressionBuilder(parser::IParser& parser,
-                                             IObjectFactory& object_factory)
-    : m_parser{parser}
-    , m_object_factory{object_factory}
-    , m_impl(new LispExpressionBuilder::LispExpressionBuilderImpl(object_factory))
+LispExpressionBuilder::LispExpressionBuilder(parser::IParser& parser, IObjectFactory& object_factory)
+: m_parser{parser}
+, m_object_factory{object_factory}
+, m_impl(new LispExpressionBuilder::LispExpressionBuilderImpl(object_factory))
 {
 }
 

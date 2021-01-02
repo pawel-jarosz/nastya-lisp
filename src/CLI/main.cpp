@@ -2,25 +2,26 @@
 // Created by caedus on 31.12.2020.
 //
 
-#include "Parser/DummyParser.hpp"
-#include "LispExpression/ObjectFactoryBuilder.hpp"
-#include "LispExpression/ObjectFactory.hpp"
-#include "VirtualMachine/Machine.hpp"
-#include "Modules/ModuleRegistry.hpp"
 #include "Builtins/BuiltinsModuleBuilder.hpp"
-#include "LispExpression/LispExpressionBuilder.hpp"
-#include "Module/ConsoleModuleBuilder.hpp"
-
 #include "ConsoleManager.hpp"
+#include "LispExpression/LispExpressionBuilder.hpp"
+#include "LispExpression/ObjectFactory.hpp"
+#include "LispExpression/ObjectFactoryBuilder.hpp"
+#include "Module/ConsoleModuleBuilder.hpp"
+#include "Modules/ModuleRegistry.hpp"
+#include "Parser/DummyParser.hpp"
+#include "VirtualMachine/Machine.hpp"
 
-void initModules(nastya::lisp::ObjectFactory& object_factory, nastya::modules::ModuleRegistry& module_registry) {
+void initModules(nastya::lisp::ObjectFactory& object_factory, nastya::modules::ModuleRegistry& module_registry)
+{
     nastya::lisp::ObjectFactoryBuilder object_factory_builder(object_factory);
     object_factory_builder.build();
     nastya::builtins::BuiltinsModuleBuilder builtins_builder(module_registry);
     builtins_builder.build();
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     nastya::lisp::ObjectFactory object_factory;
     nastya::modules::ModuleRegistry module_registry;
     initModules(object_factory, module_registry);

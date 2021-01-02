@@ -2,13 +2,14 @@
 // Created by caedus on 21.12.2020.
 //
 
+#include "LispExpression/TypeSystem/ListObject.hpp"
 #include "ListsEvaluators.hpp"
 
-#include "LispExpression/TypeSystem/ListObject.hpp"
-
 namespace nastya::builtins::lists {
-lisp::ObjectStorage HeadEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const {
-    if (object.getType() == lisp::ObjectType::List) {
+lisp::ObjectStorage HeadEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
+{
+    if (object.getType() == lisp::ObjectType::List)
+    {
         // TODO: Error handling
         const auto& arguments_list = dynamic_cast<lisp::typesystem::ListObject&>(object.getRawObject());
         const auto first_argument = arguments_list.getContent()[0];
@@ -18,8 +19,10 @@ lisp::ObjectStorage HeadEvaluator::evaluate(runtime::IMemory&, const lisp::Objec
     throw;
 }
 
-lisp::ObjectStorage TailEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const {
-    if (object.getType() == lisp::ObjectType::List) {
+lisp::ObjectStorage TailEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
+{
+    if (object.getType() == lisp::ObjectType::List)
+    {
         // TODO: Error handling
         const auto& arguments_list = dynamic_cast<lisp::typesystem::ListObject&>(object.getRawObject());
         const auto first_argument = arguments_list.getContent()[0];
@@ -30,8 +33,9 @@ lisp::ObjectStorage TailEvaluator::evaluate(runtime::IMemory&, const lisp::Objec
     throw;
 }
 
-lisp::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory &memory, const lisp::ObjectStorage& object) const {
+lisp::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
+{
     auto arguments_list = dynamic_cast<lisp::typesystem::ListObject&>(object.getRawObject());
     return lisp::ObjectStorage(arguments_list.getContent()[0]);
 }
-}
+}  // namespace nastya::builtins::lists

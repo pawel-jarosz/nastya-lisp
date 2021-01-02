@@ -8,12 +8,14 @@
 
 namespace nastya::builtins {
 
-class BuiltinsModuleBuilder {
+class BuiltinsModuleBuilder
+{
 public:
     BuiltinsModuleBuilder(modules::ModuleRegistry& registry);
     void build() const;
+
 private:
     modules::ModuleRegistry& m_registry;
 };
 
-}
+}  // namespace nastya::builtins

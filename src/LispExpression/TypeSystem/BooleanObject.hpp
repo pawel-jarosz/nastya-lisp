@@ -7,13 +7,15 @@
 #include "LispExpression/TypeSystem/GenericObject.hpp"
 
 namespace nastya::lisp::typesystem {
-class BooleanObject : public GenericObject {
+class BooleanObject : public GenericObject
+{
 public:
     BooleanObject(bool value);
     bool getValue() const;
     IObject* clone() const override;
     std::string toString() const override;
+
 private:
     bool m_value;
 };
-}
+}  // namespace nastya::lisp::typesystem

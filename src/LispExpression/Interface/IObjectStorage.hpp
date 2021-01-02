@@ -8,10 +8,11 @@
 
 namespace nastya::lisp {
 
-class IObjectStorage {
+class IObjectStorage
+{
 public:
     virtual ~IObjectStorage() = default;
     virtual IObject& getRawObject() const = 0;
     virtual ObjectType getType() const = 0;
 };
-}
+}  // namespace nastya::lisp

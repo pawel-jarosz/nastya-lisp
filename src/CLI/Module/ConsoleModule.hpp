@@ -2,11 +2,11 @@
 // Created by caedus on 02.01.2021.
 //
 
+#include <map>
+
+#include "CLI/Interface/IConsoleManager.hpp"
 #include "Modules/Module.hpp"
 #include "Runtime/Interface/IEvaluator.hpp"
-#include "CLI/Interface/IConsoleManager.hpp"
-
-#include <map>
 
 namespace nastya::cli::module {
 
@@ -20,4 +20,4 @@ private:
     std::map<std::string, runtime::IEvaluator&> m_methods;
 };
 
-}
+}  // namespace nastya::cli::module

@@ -4,15 +4,16 @@
 
 #pragma once
 
-#include "LispExpression/TypeSystem/GenericObject.hpp"
-#include "LispExpression/ObjectStorage.hpp"
-
 #include <vector>
+
+#include "LispExpression/ObjectStorage.hpp"
+#include "LispExpression/TypeSystem/GenericObject.hpp"
 
 // TODO: Implement after ObjectStorage
 
 namespace nastya::lisp::typesystem {
-class ListObject : public GenericObject {
+class ListObject : public GenericObject
+{
 public:
     ListObject();
     explicit ListObject(std::vector<ObjectStorage> content);
@@ -23,7 +24,8 @@ public:
     const std::vector<ObjectStorage>& getContent() const;
     IObject* clone() const override;
     std::string toString() const override;
+
 private:
     std::vector<ObjectStorage> m_content;
 };
-}
+}  // namespace nastya::lisp::typesystem

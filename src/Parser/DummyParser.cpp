@@ -7,6 +7,7 @@
 #include <sstream>
 
 #include <Parser/ParserException.hpp>
+
 #include "Parser/DummyParser.hpp"
 
 namespace nastya::parser {
@@ -56,8 +57,7 @@ std::pair<Token, size_t> read_string(const std::string& text, size_t start_pos)
         else if (is_quotation)
         {
             const auto next_pos = analyse_quotation(text, start_pos + 1);
-            return std::make_pair(Token{TokenType::String, {stream.str()}},
-                                  next_pos);
+            return std::make_pair(Token{TokenType::String, {stream.str()}}, next_pos);
         }
         stream << text[start_pos];
         ++start_pos;
@@ -84,7 +84,8 @@ Token value_to_token(const std::string& value)
         return Token{TokenType::Floating, std::stof(value)};
     }
     std::regex label_regex("[A-Za-z][A-Za-z0-9_-]*[A_Za-z0-9_]?");
-    if (not std::regex_match(value, m, label_regex)) {
+    if (not std::regex_match(value, m, label_regex))
+    {
         std::stringstream ss;
         ss << "Value " << value << "is not valid label!";
         BUT_THROW(ParserException, ss.str());
@@ -97,8 +98,7 @@ Token value_to_token(const std::string& value)
 std::pair<Token, size_t> read_value(const std::string& text, size_t start_pos)
 {
     std::stringstream ss;
-    while (start_pos < text.size() and not isblank(text[start_pos])
-           and text[start_pos] != ')')
+    while (start_pos < text.size() and not isblank(text[start_pos]) and text[start_pos] != ')')
     {
         ss << text[start_pos++];
     }
@@ -107,8 +107,7 @@ std::pair<Token, size_t> read_value(const std::string& text, size_t start_pos)
 
 // <0> - parsed string
 // <1> - position of next token
-std::optional<std::pair<Token, size_t>>
-parse(const std::string& text, size_t pos)
+std::optional<std::pair<Token, size_t>> parse(const std::string& text, size_t pos)
 {
     if (text[pos] == '\"')
     {

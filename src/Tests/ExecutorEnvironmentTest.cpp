@@ -3,15 +3,17 @@
 //
 
 #include <gtest/gtest.h>
-#include "Parser/DummyParser.hpp"
-#include "LispExpression/LispExpressionBuilder.hpp"
-#include "LispExpression/ObjectFactoryBuilder.hpp"
-#include "LispExpression/ObjectFactory.hpp"
-#include "VirtualMachine/Machine.hpp"
-#include "Modules/ModuleRegistry.hpp"
-#include "Builtins/BuiltinsModuleBuilder.hpp"
 
-TEST(VMTest, testHeadList) {
+#include "Builtins/BuiltinsModuleBuilder.hpp"
+#include "LispExpression/LispExpressionBuilder.hpp"
+#include "LispExpression/ObjectFactory.hpp"
+#include "LispExpression/ObjectFactoryBuilder.hpp"
+#include "Modules/ModuleRegistry.hpp"
+#include "Parser/DummyParser.hpp"
+#include "VirtualMachine/Machine.hpp"
+
+TEST(VMTest, testHeadList)
+{
     const std::string test_instruction = "(Head (Quote (2 3 4)))";
     nastya::parser::DummyParser parser(test_instruction);
     nastya::lisp::ObjectFactory object_factory;

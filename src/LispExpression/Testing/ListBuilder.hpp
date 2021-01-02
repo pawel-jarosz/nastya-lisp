@@ -4,15 +4,16 @@
 
 #pragma once
 
-#include <LispExpression/ObjectStorage.hpp>
-
-#include <vector>
 #include <memory>
+#include <vector>
+
+#include <LispExpression/ObjectStorage.hpp>
 
 namespace nastya::lisp::testing {
 
 // TODO: Add boolean
-class ListBuilder {
+class ListBuilder
+{
 public:
     ListBuilder() = default;
     explicit ListBuilder(ListBuilder* parent);
@@ -24,10 +25,11 @@ public:
     ListBuilder& addLabel(const std::string& value);
     ListBuilder& closeList();
     ObjectStorage build();
+
 private:
     ListBuilder* m_parent;
     std::unique_ptr<ListBuilder> m_child;
     std::vector<ObjectStorage> m_objects;
 };
 
-}
+}  // namespace nastya::lisp::testing

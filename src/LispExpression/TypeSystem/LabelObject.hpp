@@ -4,12 +4,13 @@
 
 #pragma once
 
-#include "LispExpression/TypeSystem/GenericObject.hpp"
-
 #include <string>
 
+#include "LispExpression/TypeSystem/GenericObject.hpp"
+
 namespace nastya::lisp::typesystem {
-class LabelObject : public GenericObject {
+class LabelObject : public GenericObject
+{
 public:
     LabelObject(std::string value);
     std::string getValue() const;
@@ -19,5 +20,4 @@ public:
 private:
     std::string m_value;
 };
-}
-
+}  // namespace nastya::lisp::typesystem

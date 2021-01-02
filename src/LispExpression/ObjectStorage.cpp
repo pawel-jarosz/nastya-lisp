@@ -7,18 +7,15 @@
 
 namespace nastya::lisp {
 
-ObjectStorage::ObjectStorage(std::unique_ptr<IObject> object)
-: m_object{std::move(object)}
+ObjectStorage::ObjectStorage(std::unique_ptr<IObject> object) : m_object{std::move(object)}
 {
 }
 
-ObjectStorage::ObjectStorage(const ObjectStorage& rhs)
-: m_object(rhs.getRawObject().clone())
+ObjectStorage::ObjectStorage(const ObjectStorage& rhs) : m_object(rhs.getRawObject().clone())
 {
 }
 
-ObjectStorage::ObjectStorage(ObjectStorage&& rhs)
-: m_object{std::move(rhs.m_object)}
+ObjectStorage::ObjectStorage(ObjectStorage&& rhs) : m_object{std::move(rhs.m_object)}
 {
 }
 
@@ -36,7 +33,8 @@ ObjectStorage& ObjectStorage::operator=(ObjectStorage&& rhs)
 
 ObjectType ObjectStorage::getType() const
 {
-    if (not m_object) {
+    if (not m_object)
+    {
         BUT_THROW(ObjectStorageException, "Object is not initialized");
     }
     return m_object->getType();
@@ -44,14 +42,17 @@ ObjectType ObjectStorage::getType() const
 
 IObject& ObjectStorage::getRawObject() const
 {
-    if (not m_object) {
+    if (not m_object)
+    {
         BUT_THROW(ObjectStorageException, "Object is not initialized");
     }
     return *m_object;
 }
 
-std::string ObjectStorage::toString() const {
-    if (not m_object) {
+std::string ObjectStorage::toString() const
+{
+    if (not m_object)
+    {
         BUT_THROW(ObjectStorageException, "Object is not initialized");
     }
     return m_object->toString();

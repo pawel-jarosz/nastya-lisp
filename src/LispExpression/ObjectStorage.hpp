@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "LispExpression/Interface/IObjectStorage.hpp"
-
 #include <memory>
 #include <ostream>
+
+#include "LispExpression/Interface/IObjectStorage.hpp"
 
 namespace nastya::lisp {
 
@@ -25,7 +25,8 @@ public:
     ObjectType getType() const override;
     IObject& getRawObject() const override;
     std::string toString() const;
+
 private:
     std::unique_ptr<IObject> m_object;
 };
-}
+}  // namespace nastya::lisp

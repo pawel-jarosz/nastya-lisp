@@ -2,16 +2,17 @@
 // Created by caedus on 21.12.2020.
 //
 
-#include "Modules/Testing/ModuleMock.hpp"
-#include "Modules/ModuleRegistry.hpp"
-
 #include <gtest/gtest.h>
+
+#include "Modules/ModuleRegistry.hpp"
+#include "Modules/Testing/ModuleMock.hpp"
 
 namespace nastya::modules::testing {
 
 using namespace ::testing;
 
-TEST(ModuleRegistryTest, testRegister) {
+TEST(ModuleRegistryTest, testRegister)
+{
     ModuleMock module, module2;
     const std::string module_name1 = "MockModule";
     const std::string module_name2 = "MockModule2";
@@ -28,4 +29,4 @@ TEST(ModuleRegistryTest, testRegister) {
 
 // TODO: Add testcase with two modules with the same name and finding function in multiple modules
 
-}
+}  // namespace nastya::modules::testing

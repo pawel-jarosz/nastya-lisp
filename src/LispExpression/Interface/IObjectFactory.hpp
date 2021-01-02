@@ -4,19 +4,20 @@
 
 #pragma once
 
+#include <functional>
+
 #include "LispExpression/Interface/IObject.hpp"
 #include "Parser/Types/Token.hpp"
-
-#include <functional>
 
 namespace nastya::lisp {
 
 using FactoryMethod = std::function<IObject*(const parser::Token& t)>;
 
-class IObjectFactory {
+class IObjectFactory
+{
 public:
     virtual ~IObjectFactory() = default;
     virtual IObject* create(const parser::Token& t) const = 0;
     virtual void registerToken(const parser::TokenType type, FactoryMethod factory) = 0;
 };
-}
+}  // namespace nastya::lisp

@@ -24,8 +24,7 @@ TEST_F(ObjectFactoryBuilderTest, testCreateBoolean)
     parser::Token t{parser::TokenType::Boolean, false};
     std::unique_ptr<IObject> object{factory.create(t)};
     EXPECT_EQ(object->getType(), ObjectType::Boolean);
-    auto boolean_object =
-        dynamic_cast<typesystem::BooleanObject*>(object.get());
+    auto boolean_object = dynamic_cast<typesystem::BooleanObject*>(object.get());
     EXPECT_EQ(boolean_object->getValue(), (std::get<bool>(t.value)));
 }
 

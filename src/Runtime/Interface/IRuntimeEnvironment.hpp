@@ -8,8 +8,9 @@
 
 namespace nastya::runtime {
 
-class IRuntimeEnvironment {
+class IRuntimeEnvironment
+{
 public:
     virtual lisp::ObjectStorage run(const lisp::ObjectStorage& run) = 0;
 };
-}
+}  // namespace nastya::runtime

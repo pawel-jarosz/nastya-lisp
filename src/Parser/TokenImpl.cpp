@@ -6,8 +6,7 @@ namespace {
 
 struct TokenPrinter
 {
-    explicit TokenPrinter(const Token& token, std::ostream& out)
-    : m_token{token}, m_out{out}
+    explicit TokenPrinter(const Token& token, std::ostream& out) : m_token{token}, m_out{out}
     {
     }
 
@@ -41,16 +40,15 @@ bool TokenPrinter::is_printable()
 
 std::ostream& operator<<(std::ostream& out, const TokenType& type)
 {
-    static std::map<TokenType, std::string> converter{
-        {TokenType::Boolean, "Boolean"},
-        {TokenType::Integer, "Integer"},
-        {TokenType::Floating, "Floating"},
-        {TokenType::String, "String"},
-        {TokenType::Label, "Label"},
-        {TokenType::S_expr_begin, "S_expr_begin"},
-        {TokenType::S_expr_end, "S_expr_end"},
-        {TokenType::Quote, "Quote"},
-        {TokenType::Eof, "Eof"}};
+    static std::map<TokenType, std::string> converter{{TokenType::Boolean, "Boolean"},
+                                                      {TokenType::Integer, "Integer"},
+                                                      {TokenType::Floating, "Floating"},
+                                                      {TokenType::String, "String"},
+                                                      {TokenType::Label, "Label"},
+                                                      {TokenType::S_expr_begin, "S_expr_begin"},
+                                                      {TokenType::S_expr_end, "S_expr_end"},
+                                                      {TokenType::Quote, "Quote"},
+                                                      {TokenType::Eof, "Eof"}};
     out << converter[type];
     return out;
 }

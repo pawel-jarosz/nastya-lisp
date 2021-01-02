@@ -6,7 +6,8 @@
 
 namespace nastya::lisp {
 
-enum ObjectType {
+enum ObjectType
+{
     Boolean,
     Number,
     String,
@@ -14,9 +15,10 @@ enum ObjectType {
     List
 };
 
-enum class NumberType {
+enum class NumberType
+{
     Floating,
     Integer
 };
 
-}
+}  // namespace nastya::lisp

@@ -5,8 +5,9 @@
 
 namespace nastya::runtime {
 
-class IMemory {
+class IMemory
+{
 public:
 };
 
-}
+}  // namespace nastya::runtime

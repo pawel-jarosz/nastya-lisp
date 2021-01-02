@@ -4,17 +4,18 @@
 
 #pragma once
 
+#include <memory>
+
 #include "LispExpression/Interface/IObject.hpp"
 #include "LispExpression/ObjectStorage.hpp"
 
-#include <memory>
-
 namespace nastya::lisp {
 
-class IExpressionBuilder {
+class IExpressionBuilder
+{
 public:
     virtual ~IExpressionBuilder() = default;
     virtual ObjectStorage build() = 0;
     virtual void reset() = 0;
 };
-}
+}  // namespace nastya::lisp

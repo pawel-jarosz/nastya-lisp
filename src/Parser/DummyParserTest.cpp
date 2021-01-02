@@ -4,8 +4,8 @@
 
 #include <gtest/gtest.h>
 
-#include "ParserException.hpp"
 #include "DummyParser.hpp"
+#include "ParserException.hpp"
 
 using namespace nastya::parser;
 
@@ -151,8 +151,7 @@ TEST(DummyParserTest, testString)
         // TODO: fix escaped double quote
         // StringTestCase{"\"test case has \\\" character inside\"",
         //               "test case has \\\" character inside"},
-        StringTestCase{"\"string has blank characters inside \n\t\"",
-                       "string has blank characters inside \n\t"}};
+        StringTestCase{"\"string has blank characters inside \n\t\"", "string has blank characters inside \n\t"}};
     for (const auto& test_case : test_cases)
     {
         DummyParser parser(test_case.first);
@@ -165,9 +164,7 @@ TEST(DummyParserTest, testEmptyExpressions)
 {
     std::vector test_cases = {"()", "( )", "  (  )  "};
 
-    std::vector expected_tokens = {Token{TokenType::S_expr_begin},
-                                   Token{TokenType::S_expr_end},
-                                   Token{TokenType::Eof}};
+    std::vector expected_tokens = {Token{TokenType::S_expr_begin}, Token{TokenType::S_expr_end}, Token{TokenType::Eof}};
     for (auto test_case : test_cases)
     {
         DummyParser parser(test_case);
@@ -180,8 +177,7 @@ TEST(DummyParserTest, testEmptyExpressions)
 
 TEST(DummyParserTest, testComplexExpression)
 {
-    DummyParser parser(
-        "(check_if (define lambda name) #true \"expected_string\")");
+    DummyParser parser("(check_if (define lambda name) #true \"expected_string\")");
     std::vector expected_tokens = {Token{TokenType::S_expr_begin},
                                    create_label_token("check_if"),
                                    Token{TokenType::S_expr_begin},

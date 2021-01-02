@@ -4,14 +4,15 @@
 
 #pragma once
 
-#include "Runtime/Interface/IEvaluator.hpp"
-
-#include <vector>
 #include <string>
+#include <vector>
+
+#include "Runtime/Interface/IEvaluator.hpp"
 
 namespace nastya::modules {
 
-class IModule {
+class IModule
+{
 public:
     virtual std::string getModuleName() const = 0;
     virtual std::vector<std::string> getFunctionsList() const = 0;
@@ -19,4 +20,4 @@ public:
     virtual runtime::IEvaluator& getFunction(const std::string& function_name) const = 0;
 };
 
-}
+}  // namespace nastya::modules

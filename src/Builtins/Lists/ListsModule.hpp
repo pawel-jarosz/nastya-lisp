@@ -4,19 +4,21 @@
 
 #pragma once
 
+#include <map>
+
 #include "Modules/Module.hpp"
 #include "Runtime/Interface/IEvaluator.hpp"
 
-#include <map>
-
 namespace nastya::builtins::lists {
 
-class ListsModule : public modules::Module {
+class ListsModule : public modules::Module
+{
 public:
     static modules::IModule& getInstance();
+
 private:
     ListsModule();
     std::map<std::string, runtime::IEvaluator&> m_methods;
 };
 
-}
+}  // namespace nastya::builtins::lists

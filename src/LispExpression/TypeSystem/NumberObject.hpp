@@ -8,7 +8,8 @@
 
 namespace nastya::lisp::typesystem {
 
-class NumberObject : public GenericObject {
+class NumberObject : public GenericObject
+{
 public:
     NumberObject();
     explicit NumberObject(int value);
@@ -24,11 +25,13 @@ public:
     float getFloating() const;
     IObject* clone() const override;
     std::string toString() const override;
+
 private:
-    union {
+    union
+    {
         float m_float_value;
         int m_int_value;
     };
     NumberType m_type;
 };
-}
+}  // namespace nastya::lisp::typesystem

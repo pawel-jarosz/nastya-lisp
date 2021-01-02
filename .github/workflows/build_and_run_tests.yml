@@ -13,9 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Nlohmann JSON
-      run: sudo apt install nlohmann-json3-dev
+      run: sudo apt install -y nlohmann-json3-dev
     - name: Install boost
-      run: sudo apt install libboost-all-dev
+      run: sudo apt install -y libboost-all-dev
     - name: Download GTest
       run: sudo apt install googletest
     - name: Build GTest

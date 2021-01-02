@@ -25,10 +25,17 @@ void ConsoleManager::splashScreen() {
 
 int ConsoleManager::run() {
     std::stringstream ss;
+    bool multiline = false;
     do {
-        std::cout << "? | ";
+        if (not multiline) {
+            std::cout << "? | ";
+        }
         std::string line;
         getline(std::cin, line);
+
+        if (line == "") {
+            continue;
+        }
         ss << line << " ";
         m_parser.reset(ss.str());
         m_expr_builder.reset();
@@ -36,12 +43,14 @@ int ConsoleManager::run() {
             auto expression = m_expr_builder.build();
             auto result = m_machine.run(expression);
             if (not m_shutdown) {
-                std::cout << result.toString() << std::endl;
+                std::cout << "  | " << result.toString() << std::endl;
                 std::stringstream empty_stream;
                 ss.swap(empty_stream);
             }
+            multiline = false;
         }
         catch (nastya::lisp::ObjectStorageException& e) {
+            multiline = true;
             continue;
         }
         catch (std::runtime_error& error) {

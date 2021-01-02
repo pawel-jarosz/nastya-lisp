@@ -26,6 +26,7 @@ class ParserMock : public parser::IParser
 public:
     MOCK_METHOD(parser::Token, getToken, ());
     MOCK_METHOD(bool, isEmpty, ());
+    MOCK_METHOD(void, reset, (std::string));
 };
 
 struct LispExpressionBuilderTest : ::testing::Test

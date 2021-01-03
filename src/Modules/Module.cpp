@@ -2,9 +2,8 @@
 // Created by caedus on 20.12.2020.
 //
 
-#include <iostream>
-
 #include "Modules/Module.hpp"
+#include "Modules/ModuleException.hpp"
 
 namespace nastya::modules {
 
@@ -35,13 +34,11 @@ std::vector<std::string> Module::getFunctionsList() const
 
 runtime::IEvaluator& Module::getFunction(const std::string& function_name) const
 {
-    // TODO: check if is not available
     if (isFunctionAvailable(function_name))
     {
         return m_functions.at(function_name);
     }
-    // add throwing exception
-    throw;
+    BUT_THROW(ModuleException, "Function is not available in module");
 }
 
 Module& Module::registerFunction(runtime::IEvaluator& evaluator)
@@ -49,8 +46,8 @@ Module& Module::registerFunction(runtime::IEvaluator& evaluator)
     auto [it, return_value] = m_functions.try_emplace(evaluator.getName(), evaluator);
     if (not return_value)
     {
+        BUT_THROW(ModuleException, "Function cannot be registered");
     }
-    // verify if it was successfully emplaced;
     return *this;
 }
 

@@ -23,8 +23,15 @@ std::vector<std::string> ModuleRegistry::getAvailableModules() const
     return modules;
 }
 
-bool ModuleRegistry::isAvailableFunction(const std::string& function)
+bool ModuleRegistry::isAvailableFunction(const std::string& function_name)
 {
+    for (auto [module_name, module] : m_modules)
+    {
+        if (module.isFunctionAvailable(function_name))
+        {
+            return true;
+        }
+    }
     return false;
 }
 

@@ -5,5 +5,18 @@ set(CMAKE_CXX_STANDARD 17)
 
 include(modules/FindBut.cmake)
 
+if (NOT DEFINED ENABLED_CODE_COVERAGE)
+    set(ENABLED_CODE_COVERAGE 0)
+endif()
+
+if (${ENABLED_CODE_COVERAGE})
+    include(modules/CodeCoverage.cmake)
+    append_coverage_compiler_flags()
+    setup_target_for_coverage_gcovr_html(
+            NAME ctest_coverage                    # New target name
+            EXECUTABLE ctest -j ${PROCESSOR_COUNT} # Executable in PROJECT_BINARY_DIR
+    )
+endif()
+
 enable_testing()
 add_subdirectory(src)

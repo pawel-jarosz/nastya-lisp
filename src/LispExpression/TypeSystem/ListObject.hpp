@@ -21,6 +21,8 @@ public:
     ListObject(ListObject&&) = default;
     ListObject& operator=(const ListObject&) = default;
     ListObject& operator=(ListObject&&) = default;
+    bool isEmpty() const { return m_content.empty(); }
+    size_t getSize() const { return m_content.size(); }
     const std::vector<ObjectStorage>& getContent() const;
     IObject* clone() const override;
     std::string toString() const override;

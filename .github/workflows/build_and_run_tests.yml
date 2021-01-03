@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: GCC version
+      run: gcc --version
     - name: Install Nlohmann JSON
       run: sudo apt install -y nlohmann-json-dev
     - name: Install boost
@@ -63,6 +65,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Clang
         run: sudo apt install clang
+      - name: CLANG version
+        run: clang --version
       - name: Install Nlohmann JSON
         run: sudo apt install -y nlohmann-json-dev
       - name: Install boost

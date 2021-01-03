@@ -1,5 +1,8 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
+find_package(GTest REQUIRED CONFIG)
+set(TESTING_FRAMEWORK GTest::gtest GTest::gmock GTest::gtest_main)
+
 add_subdirectory(Parser)
 add_subdirectory(LispExpression)
 add_subdirectory(Modules)

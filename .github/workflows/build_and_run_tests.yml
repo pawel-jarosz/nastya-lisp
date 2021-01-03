@@ -12,12 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install Nlohmann JSON
+      run: sudo apt install -y nlohmann-json-dev
+    - name: Install boost
+      run: sudo apt install -y libboost-all-dev
     - name: Download GTest
-      run: sudo apt install googletest
+      run: cd /usr/src/; sudo git clone https://github.com/google/googletest.git
     - name: Build GTest
       run: cd /usr/src/googletest; sudo cmake .; sudo make -j4
     - name: Install GTest
       run: cd /usr/src/googletest; sudo make install
+    - name: Download But library
+      run: cd /usr/src/; sudo git clone https://github.com/el-bart/but.git
+    - name: Build But library
+      run: cd /usr/src/but/build/; sudo cmake .. -DBUT_ENABLE_PIC=1; sudo make
+    - name: Install But library
+      run: cd /usr/src/but/build; sudo make install
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
       # We'll use this as our working directory for all subsequent commands
@@ -31,7 +41,7 @@ jobs:
       # Note the current convention is to use the -S and -B options here to specify source 
       # and build directories, but this is only available with CMake 3.13 and higher.  
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      run: cmake $GITHUB_WORKSPACE/src -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      run: export CXX=g++-10; cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
@@ -51,12 +61,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install Clang
+        run: sudo apt install clang-10
+      - name: Install Nlohmann JSON
+        run: sudo apt install -y nlohmann-json-dev
+      - name: Install boost
+        run: sudo apt install -y libboost-all-dev
       - name: Download GTest
-        run: sudo apt install googletest
+        run: cd /usr/src/; sudo git clone https://github.com/google/googletest.git
       - name: Build GTest
         run: cd /usr/src/googletest; sudo cmake .; sudo make -j4
       - name: Install GTest
         run: cd /usr/src/googletest; sudo make install
+      - name: Download But library
+        run: cd /usr/src/; sudo git clone https://github.com/el-bart/but.git
+      - name: Build But library
+        run: cd /usr/src/but/build/; sudo cmake .. -DBUT_ENABLE_PIC=1; sudo make
+      - name: Install But library
+        run: cd /usr/src/but/build; sudo make install
       - name: Create Build Environment
         # Some projects don't allow in-source building, so create a separate build directory
         # We'll use this as our working directory for all subsequent commands
@@ -70,7 +92,7 @@ jobs:
         # Note the current convention is to use the -S and -B options here to specify source
         # and build directories, but this is only available with CMake 3.13 and higher.
         # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-        run: cmake $GITHUB_WORKSPACE/src -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+        run: export CXX=clang++; cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
       - name: Build
         working-directory: ${{runner.workspace}}/build

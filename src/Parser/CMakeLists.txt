@@ -11,7 +11,6 @@ target_include_directories(Parser PRIVATE ${BUT_INCLUDE_DIRS})
 target_link_libraries(Parser PRIVATE ${BUT_LIBRARIES})
 
 add_executable(ParserTest DummyParserTest.cpp)
-find_package(GTest REQUIRED)
-target_link_libraries(ParserTest GTest::GTest GTest::Main Parser)
+target_link_libraries(ParserTest ${TESTING_FRAMEWORK} Parser)
 
 add_test(NAME ParserLibraryTest COMMAND ParserTest)

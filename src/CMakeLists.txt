@@ -6,7 +6,7 @@ endif(NOT DEFINED CI_BUILD)
 
 if (${CI_BUILD})
     message(STATUS "CI Build enabled")
-    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -fPIC)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
     find_package(GTest REQUIRED)
     include_directories(/usr/local/include/)
     set(TESTING_FRAMEWORK ${GTEST_LIBRARIES} /usr/local/lib/libgmock.a /usr/local/libgmock_main.a)

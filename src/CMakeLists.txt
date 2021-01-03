@@ -1,19 +1,7 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-if(NOT DEFINED CI_BUILD)
-    set(CI_BUILD false)
-endif(NOT DEFINED CI_BUILD)
-
-if (${CI_BUILD})
-    message(STATUS "CI Build enabled")
-    find_package(GTest REQUIRED)
-    include_directories(/usr/local/include/)
-    set(TESTING_FRAMEWORK ${GTEST_LIBRARIES} /usr/local/lib/libgmock.a /usr/local/lib/libgmock_main.a pthread)
-else()
-    message(STATUS "Regular build")
-    find_package(GTest REQUIRED CONFIG)
-    set(TESTING_FRAMEWORK GTest::gtest GTest::gmock GTest::gtest_main)
-endif()
+find_package(GTest REQUIRED CONFIG)
+set(TESTING_FRAMEWORK GTest::gtest GTest::gmock GTest::gtest_main)
 
 add_subdirectory(Parser)
 add_subdirectory(LispExpression)

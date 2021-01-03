@@ -17,7 +17,7 @@ jobs:
     - name: Install boost
       run: sudo apt install -y libboost-all-dev
     - name: Download GTest
-      run: sudo apt install googletest
+      run: cd /usr/src/; sudo git clone https://github.com/google/googletest.git
     - name: Build GTest
       run: cd /usr/src/googletest; sudo cmake .; sudo make -j4
     - name: Install GTest
@@ -68,7 +68,7 @@ jobs:
       - name: Install boost
         run: sudo apt install -y libboost-all-dev
       - name: Download GTest
-        run: sudo apt install googletest
+        run: cd /usr/src/; sudo git clone https://github.com/google/googletest.git
       - name: Build GTest
         run: cd /usr/src/googletest; sudo cmake .; sudo make -j4
       - name: Install GTest

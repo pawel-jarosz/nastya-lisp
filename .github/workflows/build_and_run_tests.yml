@@ -25,7 +25,7 @@ jobs:
     - name: Download But library
       run: cd /usr/src/; sudo git clone https://github.com/el-bart/but.git
     - name: Build But library
-      run: cd /usr/src/but/build/; sudo cmake ..; sudo make
+      run: cd /usr/src/but/build/; sudo cmake .. -DCMAKE_POSITION_INDEPENDENT_CODE=1; sudo make
     - name: Install But library
       run: cd /usr/src/but/build; sudo make install
     - name: Create Build Environment

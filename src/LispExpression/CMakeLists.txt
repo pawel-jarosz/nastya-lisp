@@ -34,7 +34,6 @@ add_executable(LispExpressionTest TypeSystem/TypeSystemImplTest.cpp
         ObjectFactoryBuilderTest.cpp
 )
 
-find_package(GTest REQUIRED)
-target_link_libraries(LispExpressionTest GTest::GTest GTest::Main LispExpression)
+target_link_libraries(LispExpressionTest ${TESTING_FRAMEWORK} LispExpression)
 
 add_test(NAME LispExpressionLibraryTest COMMAND LispExpressionTest)

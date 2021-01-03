@@ -3,11 +3,10 @@
 //
 
 #include <algorithm>
-#include <iostream>
 
 #include "LispExpression/TypeSystem/LabelObject.hpp"
 #include "LispExpression/TypeSystem/ListObject.hpp"
-#include "VirtualMachine//Machine.hpp"
+#include "VirtualMachine/Machine.hpp"
 
 namespace nastya::vm {
 

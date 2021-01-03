@@ -32,6 +32,7 @@ bool ModuleRegistry::isAvailableFunction(const std::string& function_name)
             return true;
         }
     }
+    return false;
 }
 
 runtime::IEvaluator& ModuleRegistry::getFunction(std::string function_name) const

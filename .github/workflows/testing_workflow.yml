@@ -1,9 +1,9 @@
-name: Build and run tests
+name: Testing workflow changes
 
 on:
   push:
     branches:
-      - devel
+      - ci-test
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)

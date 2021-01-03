@@ -37,7 +37,6 @@ Software was tested on the following environments:
 |------|------------------|-----------|------|
 | Private machine   | Manjaro 20.2 Nibia | Intel i5-5200U | gcc-10.2.0, clang-11.0.0|
 | Github CI | ubuntu:latest | ? | gcc-10, clang-10 |
-|
 
 ## Building process
 

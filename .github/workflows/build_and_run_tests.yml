@@ -62,7 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install Clang
-        run: suto apt install clang
+        run: sudo apt install clang
       - name: Install Nlohmann JSON
         run: sudo apt install -y nlohmann-json-dev
       - name: Install boost

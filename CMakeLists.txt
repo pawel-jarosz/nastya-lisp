@@ -9,6 +9,10 @@ if (NOT DEFINED ENABLED_CODE_COVERAGE)
     set(ENABLED_CODE_COVERAGE 0)
 endif()
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 if (${ENABLED_CODE_COVERAGE})
     include(modules/CodeCoverage.cmake)
     append_coverage_compiler_flags()

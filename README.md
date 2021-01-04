@@ -17,7 +17,9 @@ It is an implementation of simple Lisp-like language written in C++17 written fo
 
 **Why Nastya Lisp**
 
-I didn't have an idea for the language name but during implementing typesystem I've heard nice, women voice from YouTube movie that calls *Privet eto Nastya!*.
+I didn't have an idea for the language name but during implementing typesystem I was listening YouTube and in one
+moment I had heard nice, woman voice telling: "Privet, eto Nastya!" (which means in Russian "Hello, it's Nastya!").
+I thought that it could sound well as a language name :).
 
 ## Content
 
@@ -35,7 +37,7 @@ Software was tested on the following environments:
 
 | Name | Operating System | CPU |  Compilers |
 |------|------------------|-----------|------|
-| Private machine   | Manjaro 20.2 Nibia | Intel i5-5200U | gcc-10.2.0, clang-11.0.0|
+| Private machine   | Manjaro 20.2 Nibia | Intel i5-5200U | gcc-10, clang-11|
 | Github CI | ubuntu:latest | ? | gcc-10, clang-10 |
 
 ## Building process

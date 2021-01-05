@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 
 #include "Modules/Module.hpp"
+#include "Modules/ModuleException.hpp"
 
 namespace nastya::modules {
 using namespace ::testing;
@@ -53,8 +54,10 @@ TEST_F(ModuleTest, testModuleName)
 
 TEST_F(ModuleTest, testFunctionRegistration)
 {
+    EXPECT_FALSE(testing_module.isFunctionAvailable("Head"));
     testing_module.registerFunction(evaluator1);
     EXPECT_TRUE(testing_module.isFunctionAvailable("Head"));
+    EXPECT_THROW(testing_module.registerFunction(evaluator1), ModuleException);
 }
 
 TEST_F(ModuleTest, testFunctionList)
@@ -67,6 +70,7 @@ TEST_F(ModuleTest, testFunctionList)
     EXPECT_EQ(list.size(), 2);
     EXPECT_EQ(list[0], std::string("Head"));
     EXPECT_EQ(list[1], std::string("Tail"));
+    EXPECT_THROW(testing_module.getFunction("dummy"), ModuleException);
 }
 
 TEST_F(ModuleTest, testFunctionCall)

@@ -6,8 +6,28 @@
 
 #include "Modules/ModuleRegistry.hpp"
 #include "Modules/Testing/ModuleMock.hpp"
+#include "Modules/ModuleException.hpp"
+#include "Modules/Module.hpp"
+#include "Runtime/Interface/IEvaluator.hpp"
 
 namespace nastya::modules::testing {
+
+class DummyModule : public Module {
+public:
+    DummyModule() : Module("DummyModule") {
+
+    }
+};
+
+struct IdEvaluator : nastya::runtime::IEvaluator {
+    std::string getName() const override {
+        return "Id";
+    }
+
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& arguments) const override {
+        return arguments;
+    }
+};
 
 using namespace ::testing;
 
@@ -20,6 +40,7 @@ TEST(ModuleRegistryTest, testRegister)
     EXPECT_CALL(module2, getModuleName).WillRepeatedly(Return(module_name2));
     ModuleRegistry registry;
     registry.registerModule(module);
+    EXPECT_THROW(registry.registerModule(module), ModuleException);
     registry.registerModule(module2);
     auto list = registry.getAvailableModules();
     EXPECT_EQ(list.size(), 2);
@@ -27,6 +48,14 @@ TEST(ModuleRegistryTest, testRegister)
     EXPECT_EQ(list[1], module_name2);
 }
 
-// TODO: Add testcase with two modules with the same name and finding function in multiple modules
+TEST(ModuleRegistryTest, testFindingFunctions) {
+    DummyModule module;
+    IdEvaluator evaluator;
+    module.registerFunction(evaluator);
+    ModuleRegistry registry;
+    EXPECT_THROW(registry.getFunction("DummyFUnction"), ModuleException);
+    registry.registerModule(module);
+    EXPECT_NO_THROW(registry.getFunction("Id"));
+}
 
 }  // namespace nastya::modules::testing

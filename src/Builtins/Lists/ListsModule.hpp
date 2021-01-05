@@ -18,7 +18,6 @@ public:
 
 private:
     ListsModule();
-    std::map<std::string, runtime::IEvaluator&> m_methods;
 };
 
 }  // namespace nastya::builtins::lists

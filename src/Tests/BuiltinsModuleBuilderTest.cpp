@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-#include "BuiltinsModuleBuilder.hpp"
+#include "Builtins/BuiltinsModuleBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
 
 namespace nastya::builtins {

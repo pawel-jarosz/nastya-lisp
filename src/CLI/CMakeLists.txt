@@ -1,5 +1,4 @@
 set(CLI_SOURCE
-        main.cpp
         ConsoleManager.hpp
         ConsoleManager.cpp
         Interface/IConsoleManager.hpp
@@ -10,5 +9,7 @@ set(CLI_SOURCE
         Module/ConsoleModuleBuilder.hpp
         Module/ConsoleModuleBuilder.cpp
 )
-add_executable(nastya-cli ${CLI_SOURCE})
-target_link_libraries(nastya-cli Builtins Modules LispExpression Parser VM)
+
+add_library(Cli ${CLI_SOURCE})
+add_executable(nastya-cli main.cpp)
+target_link_libraries(nastya-cli Cli Builtins Modules LispExpression Parser VM)

@@ -1,6 +1,7 @@
 set(VM_LIBRARY_SRC
         Machine.hpp
-        Machine.cpp)
+        Machine.cpp
+        MachineRuntimeException.hpp)
 
 add_library(VM SHARED ${VM_LIBRARY_SRC})
 set_target_properties(VM PROPERTIES LINKER_LANGUAGE CXX)

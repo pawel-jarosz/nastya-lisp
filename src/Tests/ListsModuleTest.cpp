@@ -2,18 +2,17 @@
 // Created by caedus on 03.01.2021.
 //
 
+#include <iostream>
+
 #include <gtest/gtest.h>
 
 #include "Builtins/BuiltinsException.hpp"
-#include "Modules/ModuleException.hpp"
-#include "ListsEvaluators.hpp"
-#include "ListsModule.hpp"
-#include "LispExpression/TypeSystem/NumberObject.hpp"
+#include "Builtins/Lists/ListsEvaluators.hpp"
+#include "Builtins/Lists/ListsModule.hpp"
 #include "LispExpression/Testing/ListBuilder.hpp"
-
+#include "LispExpression/TypeSystem/NumberObject.hpp"
+#include "Modules/ModuleException.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
-
-#include <iostream>
 
 namespace nastya::builtins::lists {
 

@@ -6,19 +6,18 @@
 
 #include <map>
 
-#include "Modules/Interface/IModule.hpp"
+#include "Modules/Interface/IModuleRegistry.hpp"
 
 namespace nastya::modules {
 
-class ModuleRegistry
+class ModuleRegistry : public IModuleRegistry
 {
 public:
     ModuleRegistry() = default;
     ModuleRegistry& registerModule(const IModule& module);
-    std::vector<std::string> getAvailableModules() const;
-    bool isAvailableFunction(const std::string& function);
-    runtime::IEvaluator& getFunction(std::string string) const;
-
+    std::vector<std::string> getAvailableModules() const override;
+    bool isAvailableFunction(const std::string& function) override;
+    runtime::IEvaluator& getFunction(std::string string) const override;
 private:
     std::map<std::string, const IModule&> m_modules;
 };

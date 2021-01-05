@@ -4,8 +4,8 @@
 
 #include <gtest/gtest.h>
 
-#include "DummyParser.hpp"
-#include "ParserException.hpp"
+#include "Parser/DummyParser.hpp"
+#include "Parser/ParserException.hpp"
 
 using namespace nastya::parser;
 

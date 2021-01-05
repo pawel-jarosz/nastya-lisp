@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Modules/ModuleRegistry.hpp"
+#include "Modules/Interface/IModuleRegistry.hpp"
 #include "Runtime/Interface/IMemory.hpp"
 #include "Runtime/Interface/IRuntimeEnvironment.hpp"
 
@@ -15,11 +15,10 @@ class Machine
 , public runtime::IRuntimeEnvironment
 {
 public:
-    Machine(const modules::ModuleRegistry& m_modules);
+    Machine(const modules::IModuleRegistry& m_modules);
     lisp::ObjectStorage run(const lisp::ObjectStorage& list) override;
-
 private:
-    const modules::ModuleRegistry& m_modules;
+    const modules::IModuleRegistry& m_modules;
 };
 
 }  // namespace nastya::vm

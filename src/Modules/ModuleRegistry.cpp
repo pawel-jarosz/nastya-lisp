@@ -4,12 +4,16 @@
 
 #include "Modules/ModuleException.hpp"
 #include "Modules/ModuleRegistry.hpp"
+#include "ModuleException.hpp"
 
 namespace nastya::modules {
 
 ModuleRegistry& ModuleRegistry::registerModule(const IModule& module)
 {
-    m_modules.try_emplace(module.getModuleName(), module);
+    auto result = m_modules.try_emplace(module.getModuleName(), module);
+    if (not result.second) {
+        BUT_THROW(ModuleException, "Cannot register module!");
+    }
     return *this;
 }
 

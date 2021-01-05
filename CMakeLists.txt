@@ -19,6 +19,7 @@ if (${ENABLED_CODE_COVERAGE})
     setup_target_for_coverage_gcovr_html(
             NAME ctest_coverage                    # New target name
             EXECUTABLE ctest -j ${PROCESSOR_COUNT} # Executable in PROJECT_BINARY_DIR
+            EXCLUDE src/Tests src/LispExpression/Testing src/Modules/Testing
     )
 endif()
 

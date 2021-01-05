@@ -20,6 +20,7 @@ if (${ENABLED_CODE_COVERAGE})
             NAME ctest_coverage                    # New target name
             EXECUTABLE ctest -j ${PROCESSOR_COUNT} # Executable in PROJECT_BINARY_DIR
             EXCLUDE src/Tests src/LispExpression/Testing src/Modules/Testing
+                    src/CLI/main.cpp
     )
 endif()
 

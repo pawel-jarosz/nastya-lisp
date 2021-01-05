@@ -1,5 +1,6 @@
 set(MODULES_LIBRARY_SRC
         Interface/IModule.hpp
+        Interface/IModuleRegistry.hpp
         Module.hpp
         Module.cpp
         ModuleRegistry.hpp

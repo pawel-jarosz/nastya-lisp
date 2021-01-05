@@ -78,7 +78,6 @@ TEST(AbstractMachineTest, testWhenFunctionThrowsException) {
     EXPECT_CALL(module_registry, getFunction(_)).WillOnce(ReturnRef(evaluator));
     Machine machine(module_registry);
     EXPECT_THROW(machine.run(argument), MachineRuntimeException);
-
 }
 
 }

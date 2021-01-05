@@ -21,3 +21,7 @@ add_test(NAME LispExpressionLibraryTest COMMAND LispExpressionTest)
 add_executable(ParserTest DummyParserTest.cpp)
 target_link_libraries(ParserTest ${TESTING_FRAMEWORK} Parser)
 add_test(NAME ParserLibraryTest COMMAND ParserTest)
+
+add_executable(AbstractMachineTest AbstractMachineTest.cpp)
+target_link_libraries(AbstractMachineTest ${TESTING_FRAMEWORK} VM)
+add_test(NAME AbstractMachineLibraryTest COMMAND AbstractMachineTest)

@@ -25,3 +25,7 @@ add_test(NAME ParserLibraryTest COMMAND ParserTest)
 add_executable(AbstractMachineTest AbstractMachineTest.cpp)
 target_link_libraries(AbstractMachineTest ${TESTING_FRAMEWORK} VM)
 add_test(NAME AbstractMachineLibraryTest COMMAND AbstractMachineTest)
+
+add_executable(CliTest ConsoleModuleTest.cpp)
+target_link_libraries(CliTest ${TESTING_FRAMEWORK} Cli Modules LispExpression)
+add_test(NAME CliLibraryTest COMMAND CliTest)

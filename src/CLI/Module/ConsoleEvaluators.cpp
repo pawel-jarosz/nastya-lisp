@@ -2,8 +2,7 @@
 // Created by caedus on 02.01.2021.
 //
 
-#include <stdexcept>
-
+#include "CLI/Module/ShutdownEvent.hpp"
 #include "ConsoleEvaluators.hpp"
 
 namespace nastya::cli::module {
@@ -15,6 +14,6 @@ ShutdownEvaluator::ShutdownEvaluator(interface::IConsoleManager& console) : m_co
 lisp::ObjectStorage ShutdownEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
 {
     m_console.shutdown();
-    throw std::runtime_error("Shutdown event");
+    BUT_THROW(ShutdownEvent, "Close event sent");
 }
 }  // namespace nastya::cli::module

@@ -56,6 +56,12 @@ std::string BooleanObject::toString() const
 {
     return nastya::lisp::typesystem::toString(m_value);
 }
+std::string BooleanObject::info() const
+{
+    std::stringstream ss;
+    ss << "Boolean => " << toString();
+    return ss.str();
+}
 
 LabelObject::LabelObject(std::string value) : GenericObject(ObjectType::Label), m_value(std::move(value))
 {
@@ -74,6 +80,12 @@ IObject* LabelObject::clone() const
 std::string LabelObject::toString() const
 {
     return nastya::lisp::typesystem::toString(m_value);
+}
+std::string LabelObject::info() const
+{
+    std::stringstream ss;
+    ss << "Label => " << toString();
+    return ss.str();
 }
 
 StringObject::StringObject(std::string value) : GenericObject(ObjectType::String), m_value(std::move(value))
@@ -94,6 +106,12 @@ std::string StringObject::toString() const
 {
     std::stringstream ss;
     ss << "\"" << nastya::lisp::typesystem::toString(m_value) << "\"";
+    return ss.str();
+}
+std::string StringObject::info() const
+{
+    std::stringstream ss;
+    ss << "String => " << toString();
     return ss.str();
 }
 
@@ -195,6 +213,20 @@ std::string NumberObject::toString() const
     }
     return nastya::lisp::typesystem::toString(m_float_value);
 }
+std::string NumberObject::info() const
+{
+    std::stringstream ss;
+    if (getNumberType() == lisp::NumberType::Floating)
+    {
+        ss << "Floating => ";
+    }
+    else
+    {
+        ss << "Integer => ";
+    }
+    ss << toString();
+    return ss.str();
+}
 
 ListObject::ListObject(std::vector<ObjectStorage> content)
 : GenericObject(ObjectType::List), m_content{std::move(content)}
@@ -228,6 +260,12 @@ std::string ListObject::toString() const
         ss << " " << m_content[i].toString();
     }
     ss << ")";
+    return ss.str();
+}
+std::string ListObject::info() const
+{
+    std::stringstream ss;
+    ss << "List => " << toString();
     return ss.str();
 }
 

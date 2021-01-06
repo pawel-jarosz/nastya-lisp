@@ -5,12 +5,15 @@ set(CLI_SOURCE
         Interface/IInputSource.hpp
         Interface/IOutputSink.hpp
         Interface/IIoFactory.hpp
+        Interface/ISplashScreen.hpp
         IO/InputStream.hpp
         IO/InputStream.cpp
         IO/OutputStream.hpp
         IO/OutputStream.cpp
         IO/StreamWrapperFactory.hpp
         IO/StreamWrapperFactory.cpp
+        SplashScreen/SplashScreen.hpp
+        SplashScreen/SplashScreen.cpp
         Module/ConsoleModule.hpp
         Module/ConsoleModule.cpp
         Module/ConsoleEvaluators.hpp

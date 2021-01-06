@@ -40,7 +40,7 @@ TEST_F(IoStreamTest, testOutputStream) {
     std::string test_case2{"But only line\n"};
     output->write(test_case2);
     getline(output_stream, result);
-    EXPECT_EQ(test_case2, result);
+    EXPECT_EQ(std::string(test_case2.begin(), --test_case2.end()), result);
 }
 
 }

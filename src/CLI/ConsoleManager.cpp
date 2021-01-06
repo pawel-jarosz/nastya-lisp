@@ -2,10 +2,11 @@
 // Created by caedus on 31.12.2020.
 //
 
-#include <iostream>
-
 #include <LispExpression/ObjectStorageException.hpp>
 #include <LispExpression/TypeSystem/NumberObject.hpp>
+
+#include <But/Format/format.hpp>
+#include <But/Format/apply.hpp>
 
 #include "ConsoleManager.hpp"
 
@@ -47,32 +48,34 @@ std::string toString(const lisp::ObjectStorage& object)
 
 ConsoleManager::ConsoleManager(vm::Machine& machine,
                                parser::IParser& parser,
-                               lisp::IExpressionBuilder& expression_builder)
+                               lisp::IExpressionBuilder& expression_builder,
+                               io::IIoFactory& io_provider)
 : m_machine{machine}, m_parser{parser}, m_expr_builder{expression_builder}
+, m_in{io_provider.create_input()}, m_out{io_provider.create_output()}
 {
 }
 
 void ConsoleManager::splashScreen()
 {
-    std::cout << "\t  __________________________________\n";
-    std::cout << "\t |                                  |\n";
-    std::cout << "\t | Nastya Lisp                      |\n";
-    std::cout << "\t | v. 2021.0.1                      |\n";
-    std::cout << "\t |__________________________________|\n" << std::endl;
+    m_out->writeLine("\t  __________________________________");
+    m_out->writeLine("\t |                                  |");
+    m_out->writeLine("\t | Nastya Lisp                      |");
+    m_out->writeLine("\t | v. 2021.0.1                      |");
+    m_out->writeLine("\t |__________________________________|\n");
 }
 
 int ConsoleManager::run()
 {
+    auto result_format = BUT_FORMAT("  | $0");
     std::stringstream ss;
     bool multiline = false;
     do
     {
         if (not multiline)
         {
-            std::cout << "? | ";
+            m_out->write("? | ");
         }
-        std::string line;
-        getline(std::cin, line);
+        std::string line = m_in->readLine();
 
         if (line == "")
         {
@@ -87,7 +90,7 @@ int ConsoleManager::run()
             auto result = m_machine.run(expression);
             if (not m_shutdown)
             {
-                std::cout << "  | " << toString(result) << std::endl;
+                m_out->writeLine(But::Format::apply(result_format, toString(result)));
                 std::stringstream empty_stream;
                 ss.swap(empty_stream);
             }

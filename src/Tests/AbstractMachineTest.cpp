@@ -66,7 +66,7 @@ TEST(AbstractMachineTest, testWhenModuleThrowsException) {
     TestingModuleException testing_exception;
     EXPECT_CALL(module_registry, getFunction(_)).WillOnce(Throw(testing_exception));
     Machine machine(module_registry);
-    EXPECT_THROW(machine.run(argument), MachineRuntimeException);
+    EXPECT_THROW(machine.run(argument), TestingModuleException);
 
 }
 
@@ -77,7 +77,7 @@ TEST(AbstractMachineTest, testWhenFunctionThrowsException) {
     TestingEvaluator evaluator;
     EXPECT_CALL(module_registry, getFunction(_)).WillOnce(ReturnRef(evaluator));
     Machine machine(module_registry);
-    EXPECT_THROW(machine.run(argument), MachineRuntimeException);
+    EXPECT_THROW(machine.run(argument), TestingBuiltinsException);
 }
 
 }

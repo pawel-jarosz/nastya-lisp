@@ -25,7 +25,7 @@ public:
     float getFloating() const;
     IObject* clone() const override;
     std::string toString() const override;
-
+    std::string info() const override;
 private:
     union
     {

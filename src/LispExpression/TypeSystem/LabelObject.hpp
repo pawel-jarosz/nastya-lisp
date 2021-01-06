@@ -16,6 +16,7 @@ public:
     std::string getValue() const;
     IObject* clone() const override;
     std::string toString() const override;
+    std::string info() const override;
 
 private:
     std::string m_value;

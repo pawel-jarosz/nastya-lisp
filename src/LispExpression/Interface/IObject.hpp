@@ -16,5 +16,6 @@ public:
     virtual ObjectType getType() const = 0;
     virtual IObject* clone() const = 0;
     virtual std::string toString() const = 0;
+    virtual std::string info() const = 0;
 };
 }  // namespace nastya::lisp

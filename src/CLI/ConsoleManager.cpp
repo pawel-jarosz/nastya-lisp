@@ -13,40 +13,6 @@
 
 namespace nastya::cli {
 
-std::string toString(const lisp::ObjectStorage& object)
-{
-    std::stringstream ss;
-    if (object.getType() == lisp::ObjectType::Number)
-    {
-        auto as_number = dynamic_cast<lisp::typesystem::NumberObject&>(object.getRawObject());
-        if (as_number.getNumberType() == lisp::NumberType::Floating)
-        {
-            ss << "Floating => ";
-        }
-        else
-        {
-            ss << "Integer => ";
-        }
-    }
-    switch (object.getType())
-    {
-        case lisp::ObjectType::Boolean:
-            ss << "Boolean => ";
-            break;
-        case lisp::ObjectType::String:
-            ss << "String => ";
-            break;
-        case lisp::ObjectType::List:
-            ss << "List => ";
-            break;
-        case lisp::ObjectType::Label:
-            ss << "Label => ";
-            break;
-    }
-    ss << object.toString();
-    return ss.str();
-}
-
 ConsoleManager::ConsoleManager(vm::IMachine& machine,
                                parser::IParser& parser,
                                lisp::IExpressionBuilder& expression_builder,
@@ -96,7 +62,7 @@ int ConsoleManager::run()
             auto result = m_machine.run(expression);
             if (not m_shutdown)
             {
-                m_out->writeLine(But::Format::apply(result_format, toString(result)));
+                m_out->writeLine(But::Format::apply(result_format, result.getRawObject().info()));
                 std::stringstream empty_stream;
                 ss.swap(empty_stream);
             }

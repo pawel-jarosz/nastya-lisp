@@ -26,6 +26,7 @@ public:
     const std::vector<ObjectStorage>& getContent() const;
     IObject* clone() const override;
     std::string toString() const override;
+    std::string info() const override;
 
 private:
     std::vector<ObjectStorage> m_content;

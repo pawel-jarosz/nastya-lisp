@@ -27,4 +27,21 @@ TEST(ObjectStorageTest, testNotinitializedStorage)
     EXPECT_THROW(storage.toString(), ObjectStorageException);
 }
 
+TEST(ObjectStorageTest, testAssignment) {
+    ObjectStorage a(std::unique_ptr<IObject>(new typesystem::StringObject("Dummy string")));
+    ObjectStorage b(std::unique_ptr<IObject>(new typesystem::StringObject("Short")));
+    b = a;
+    EXPECT_EQ(a.toString(), b.toString());
+}
+
+TEST(ObjectStorageTest, testMove) {
+    const std::string value{"dummy string"};
+    ObjectStorage a(std::unique_ptr<IObject>(new typesystem::StringObject(value)));
+    ObjectStorage b(std::unique_ptr<IObject>(new typesystem::StringObject("Short")));
+    b = std::move(a);
+    auto& raw_object = b.getRawObject();
+    auto string_object = dynamic_cast<typesystem::StringObject&>(raw_object);
+    EXPECT_EQ(string_object.getValue(), value);
+}
+
 }  // namespace nastya::lisp

@@ -2,13 +2,14 @@
 // Created by caedus on 31.12.2020.
 //
 
-#include <LispExpression/ObjectStorageException.hpp>
-#include <LispExpression/TypeSystem/NumberObject.hpp>
+#include "LispExpression/ObjectStorageException.hpp"
+#include "LispExpression/TypeSystem/NumberObject.hpp"
+#include "VirtualMachine/MachineRuntimeException.hpp"
+#include "CLI/Module/ShutdownEvent.hpp"
+#include "CLI/ConsoleManager.hpp"
 
 #include <But/Format/format.hpp>
 #include <But/Format/apply.hpp>
-
-#include "ConsoleManager.hpp"
 
 namespace nastya::cli {
 
@@ -46,30 +47,35 @@ std::string toString(const lisp::ObjectStorage& object)
     return ss.str();
 }
 
-ConsoleManager::ConsoleManager(vm::Machine& machine,
+ConsoleManager::ConsoleManager(vm::IMachine& machine,
                                parser::IParser& parser,
                                lisp::IExpressionBuilder& expression_builder,
-                               io::IIoFactory& io_provider)
+                               io::IIoFactory& io_provider,
+                               splashscreen::ISplashScreen& splash_screen)
 : m_machine{machine}, m_parser{parser}, m_expr_builder{expression_builder}
 , m_in{io_provider.create_input()}, m_out{io_provider.create_output()}
+, m_splashscreen{splash_screen}
+, m_shutdown{false}
 {
 }
 
 void ConsoleManager::splashScreen()
 {
-    m_out->writeLine("\t  __________________________________");
-    m_out->writeLine("\t |                                  |");
-    m_out->writeLine("\t | Nastya Lisp                      |");
-    m_out->writeLine("\t | v. 2021.0.1                      |");
-    m_out->writeLine("\t |__________________________________|\n");
+    const auto message_lines = m_splashscreen.getMessage();
+    for (const auto& message: message_lines) {
+        m_out->writeLine(message);
+    }
 }
 
 int ConsoleManager::run()
 {
+    // GCOVR_EXCL_START
+    //
+    // To be handled by manual test
     auto result_format = BUT_FORMAT("  | $0");
     std::stringstream ss;
     bool multiline = false;
-    do
+    while (not m_shutdown)
     {
         if (not multiline)
         {
@@ -96,16 +102,25 @@ int ConsoleManager::run()
             }
             multiline = false;
         }
-        catch (nastya::lisp::ObjectStorageException& e)
+        catch (vm::MachineRuntimeException& e) {
+            m_out->writeLine(e.what());
+        }
+        catch (lisp::ObjectStorageException& e)
         {
             multiline = true;
             continue;
         }
-        catch (std::runtime_error& error)
+        catch (module::ShutdownEvent& e)
         {
+            return 0;
         }
-    } while (not m_shutdown);
+        catch (std::exception& error)
+        {
+            m_out->writeLine(error.what());
+        }
+    }
     m_parser.reset(ss.str());
+    // GCOVR_EXCL_STOP
     return 0;
 }
 void ConsoleManager::shutdown()

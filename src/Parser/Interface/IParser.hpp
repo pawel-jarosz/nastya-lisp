@@ -11,7 +11,7 @@ namespace nastya::parser {
 class IParser
 {
 public:
-    IParser() = default;
+    ~IParser() = default;
     virtual Token getToken() = 0;
     virtual bool isEmpty() = 0;
     virtual void reset(std::string code) = 0;

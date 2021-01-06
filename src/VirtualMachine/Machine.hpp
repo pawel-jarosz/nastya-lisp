@@ -5,14 +5,11 @@
 #pragma once
 
 #include "Modules/Interface/IModuleRegistry.hpp"
-#include "Runtime/Interface/IMemory.hpp"
-#include "Runtime/Interface/IRuntimeEnvironment.hpp"
+#include "VirtualMachine/Interface/IMachine.hpp"
 
 namespace nastya::vm {
 
-class Machine
-: public runtime::IMemory
-, public runtime::IRuntimeEnvironment
+class Machine : public IMachine
 {
 public:
     Machine(const modules::IModuleRegistry& m_modules);

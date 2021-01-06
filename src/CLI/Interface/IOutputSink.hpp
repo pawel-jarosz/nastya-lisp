@@ -10,6 +10,7 @@ namespace nastya::cli::io {
 
 class IOutputSink {
 public:
+    virtual ~IOutputSink() = default;
     virtual void writeLine(std::string line) = 0;
     virtual void write(std::string line) = 0;
 };

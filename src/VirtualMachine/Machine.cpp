@@ -50,16 +50,7 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     std::unique_ptr<lisp::typesystem::ListObject> obj(new lisp::typesystem::ListObject(arguments));
     lisp::ObjectStorage argument(std::move(obj));
     std::string message;
-    try {
-        return m_modules.getFunction(label.getValue()).evaluate(*this, argument);
-    }
-    catch(modules::ModuleException& module_exception) {
-        message = module_exception.what();
-    }
-    catch(builtins::BuiltinsException& builtins_exception) {
-        message = builtins_exception.what();
-    }
-    BUT_THROW(MachineRuntimeException, message);
+    return m_modules.getFunction(label.getValue()).evaluate(*this, argument);
 }
 
 }  // namespace nastya::vm

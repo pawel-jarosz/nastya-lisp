@@ -2,8 +2,6 @@
 // Created by caedus on 03.01.2021.
 //
 
-#include <iostream>
-
 #include <gtest/gtest.h>
 
 #include "Builtins/BuiltinsException.hpp"
@@ -52,6 +50,11 @@ TEST(ListsEvaluatorTest, testHeadFailure) {
         // Evaluator receives empty argument list
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.openList().closeList().build();
+        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
+    }
+    {
+        lisp::testing::ListBuilder builder;
+        auto argument_list = builder.addNumber(2).build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {

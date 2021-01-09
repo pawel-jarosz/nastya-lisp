@@ -4,6 +4,7 @@
 
 #include "Builtins/Compare/CompareEvaluators.hpp"
 
+#include "LispExpression/TypeSystem/BooleanObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/ListObject.hpp"
 #include "Builtins/BuiltinsException.hpp"
@@ -20,9 +21,24 @@ lisp::typesystem::NumberObject* compare(const lisp::ObjectStorage& a, const lisp
     return new lisp::typesystem::NumberObject(comparable_a.compare(b.getRawObject()));
 }
 
-lisp::ObjectStorage EqualEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const {
-    BUT_THROW(BuiltinsException, "Not implemented!");
+lisp::typesystem::BooleanObject* equal(const lisp::ObjectStorage& a, const lisp::ObjectStorage& b) {
+    const auto& as_generic = dynamic_cast<lisp::typesystem::GenericObject&>(a.getRawObject());
+    return new lisp::typesystem::BooleanObject(as_generic.equal(b.getRawObject()));
 }
+
+lisp::ObjectStorage EqualEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const {
+    if (object.getType() != lisp::ObjectType::List)
+    {
+        BUT_THROW(BuiltinsException, "Lang.Compare.Equal expects list of arguments");
+    }
+    const auto& arguments_list = dynamic_cast<lisp::typesystem::ListObject&>(object.getRawObject());
+    if (arguments_list.getSize() != 2) {
+        BUT_THROW(BuiltinsException, "Lang.Compare.Equal expects exactly two argument");
+    }
+    const auto& first_argument = arguments_list.getContent()[0];
+    const auto& second_argument = arguments_list.getContent()[1];
+    auto returned_object = std::unique_ptr<lisp::IObject>(equal(first_argument, second_argument));
+    return lisp::ObjectStorage(std::move(returned_object));}
 
 lisp::ObjectStorage CompareEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const {
     if (object.getType() != lisp::ObjectType::List)
@@ -35,8 +51,8 @@ lisp::ObjectStorage CompareEvaluator::evaluate(runtime::IMemory& memory, const l
     }
     const auto& first_argument = arguments_list.getContent()[0];
     const auto& second_argument = arguments_list.getContent()[1];
-    auto returned_object = compare(first_argument, second_argument);
-    return lisp::ObjectStorage(std::unique_ptr<lisp::IObject>(returned_object));
+    auto returned_object = std::unique_ptr<lisp::IObject>(compare(first_argument, second_argument));
+    return lisp::ObjectStorage(std::move(returned_object));
 }
 
 }

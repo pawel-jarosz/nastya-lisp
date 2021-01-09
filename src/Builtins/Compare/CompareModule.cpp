@@ -9,9 +9,18 @@ namespace nastya::builtins::compare {
 
 void initializeModule(CompareModule& module)
 {
+    static LowerEvaluator lower;
+    static LowerOrEqualEvaluator lower_or_equal;
     static EqualEvaluator equal;
+    static GreaterOrEqualEvaluator greater_or_equal;
+    static GreaterEvaluator greater;
     static CompareEvaluator compare;
-    module.registerFunction(equal).registerFunction(compare);
+    module.registerFunction(compare)
+        .registerFunction(lower)
+        .registerFunction(lower_or_equal)
+        .registerFunction(equal)
+        .registerFunction(greater_or_equal)
+        .registerFunction(greater);
 }
 
 CompareModule::CompareModule() : Module("Lang.Compare")

@@ -7,6 +7,8 @@
 #include "Builtins/BuiltinsModuleBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
 
+#include <iostream>
+
 namespace nastya::builtins {
 using namespace ::testing;
 
@@ -37,10 +39,19 @@ TEST_F(BuiltinsModuleBuilderTest, verifyListsModule) {
 }
 
 TEST_F(BuiltinsModuleBuilderTest, verifyCompareModule) {
-    EXPECT_TRUE(registry.isAvailableFunction("Equal"));
-    EXPECT_TRUE(registry.isAvailableFunction("Compare"));
-    EXPECT_EQ(registry.getFunction("Equal").getName(), "Equal");
-    EXPECT_EQ(registry.getFunction("Compare").getName(), "Compare");
+    std::vector<std::string> methods = {
+        "Compare",
+        "Lower",
+        "LowerOrEqual",
+        "Equal",
+        "GreaterOrEqual",
+        "Greater"
+    };
+    for (const auto& method: methods) {
+        std::cout << "method: " << method << std::endl;
+        EXPECT_TRUE(registry.isAvailableFunction(method));
+        EXPECT_EQ(registry.getFunction(method).getName(), method);
+    }
 }
 
 }

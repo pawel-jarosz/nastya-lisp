@@ -4,6 +4,7 @@
 
 #include "Builtins/BuiltinsModuleBuilder.hpp"
 #include "Builtins/Lists/ListsModule.hpp"
+#include "Builtins/Compare/CompareModule.hpp"
 
 namespace nastya::builtins {
 
@@ -14,6 +15,7 @@ BuiltinsModuleBuilder::BuiltinsModuleBuilder(modules::ModuleRegistry& registry) 
 void BuiltinsModuleBuilder::build() const
 {
     m_registry.registerModule(lists::ListsModule::getInstance());
+    m_registry.registerModule(compare::CompareModule::getInstance());
 }
 
 }  // namespace nastya::builtins

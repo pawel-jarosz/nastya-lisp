@@ -5,6 +5,7 @@ set(LISP_EXPRESSION_LIBRARY_SRC
         Interface/IExpressionBuilder.hpp
         TypeSystem/ObjectType.hpp
         TypeSystem/GenericObject.hpp
+        TypeSystem/ComparableTrait.hpp
         TypeSystem/ListObject.hpp
         TypeSystem/BooleanObject.hpp
         TypeSystem/LabelObject.hpp

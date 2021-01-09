@@ -1,5 +1,4 @@
 #include <sstream>
-#include <type_traits>
 #include <utility>
 
 #include "LispExpression/TypeSystem/BooleanObject.hpp"
@@ -7,6 +6,9 @@
 #include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/StringObject.hpp"
+#include "LispExpression/TypeSystem/TypeSystemError.hpp"
+#include "GenericObject.hpp"
+
 
 namespace nastya::lisp::typesystem {
 
@@ -36,6 +38,10 @@ GenericObject::GenericObject(ObjectType type) : m_type{type}
 ObjectType GenericObject::getType() const
 {
     return m_type;
+}
+bool GenericObject::equal(const IObject& object) const
+{
+    return (toString() == object.toString());
 }
 
 BooleanObject::BooleanObject(bool value) : GenericObject(ObjectType::Boolean), m_value{value}
@@ -114,6 +120,23 @@ std::string StringObject::info() const
     ss << "String => " << toString();
     return ss.str();
 }
+int StringObject::compare(const IObject& rhs) const
+{
+    if (rhs.getType() != ObjectType::String) {
+        BUT_THROW(TypeSystemError, "Given arguments are not comparable");
+    }
+    const auto casted_rhs = dynamic_cast<const StringObject&>(rhs);
+    const auto rhs_text = casted_rhs.getValue();
+    if (m_value < rhs_text) {
+        return -1;
+    }
+    else if (m_value == rhs_text) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
 
 NumberObject::NumberObject() : NumberObject(0)
 {
@@ -185,13 +208,17 @@ NumberObject& NumberObject::operator=(NumberObject&& rhs)
 
 float NumberObject::getFloating() const
 {
-    // TODO: add exception if integer
+    if (m_type == NumberType::Integer) {
+        BUT_THROW(TypeSystemError, "Number is floating");
+    }
     return m_float_value;
 }
 
 int NumberObject::getInteger() const
 {
-    // TODO: add exception if floating
+    if (m_type == NumberType::Floating) {
+        BUT_THROW(TypeSystemError, "Number is integer");
+    }
     return m_int_value;
 }
 
@@ -226,6 +253,56 @@ std::string NumberObject::info() const
     }
     ss << toString();
     return ss.str();
+}
+
+int compare_int(const int lhs, const int rhs) {
+    if (lhs < rhs) {
+        return -1;
+    }
+    else if (lhs == rhs) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
+
+int compare_float(const float lhs, const float rhs) {
+    if (lhs < rhs) {
+        return -1;
+    }
+    else if (lhs == rhs) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
+
+int compare_number(const int value, const NumberObject& rhs) {
+    if(rhs.getNumberType() == NumberType::Integer) {
+        return compare_int(value, rhs.getInteger());
+    }
+    return compare_float(value,rhs.getFloating());
+}
+
+int compare_number(const float value, const NumberObject& rhs) {
+    if(rhs.getNumberType() == NumberType::Floating) {
+        return compare_int(value, rhs.getFloating());
+    }
+    return compare_float(value, rhs.getInteger());
+}
+
+int NumberObject::compare(const IObject& rhs) const
+{
+    if (rhs.getType() != ObjectType::Number) {
+        BUT_THROW(TypeSystemError, "Given arguments are not comparable");
+    }
+    auto casted_rhs = dynamic_cast<const NumberObject&>(rhs);
+    if (m_type == NumberType::Integer) {
+        return compare_number(m_int_value, casted_rhs);
+    }
+    return compare_number(m_float_value, casted_rhs);
 }
 
 ListObject::ListObject(std::vector<ObjectStorage> content)

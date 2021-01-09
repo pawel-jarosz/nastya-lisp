@@ -8,6 +8,7 @@
 #include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/StringObject.hpp"
+#include "LispExpression/TypeSystem/TypeSystemError.hpp"
 #include "LispExpression/Testing/ListBuilder.hpp"
 
 namespace nastya::lisp::typesystem {
@@ -27,6 +28,7 @@ TEST(TypeObjectTest, testBooleanObject)
         EXPECT_EQ(object.getValue(), cloned->getValue());
         EXPECT_EQ(object.toString(), result[i]);
         EXPECT_EQ(object.info(), result[i + 1]);
+        EXPECT_FALSE(object.isComparable());
         i += 2;
     }
 }
@@ -41,6 +43,7 @@ TEST(TypeObjectTest, testLabelObject)
     std::unique_ptr<LabelObject> cloned(dynamic_cast<LabelObject*>(object.clone()));
     EXPECT_EQ(object.getType(), cloned->getType());
     EXPECT_EQ(object.getValue(), cloned->getValue());
+    EXPECT_FALSE(object.isComparable());
 }
 
 TEST(TypeObjectTest, testStringObject)
@@ -53,6 +56,20 @@ TEST(TypeObjectTest, testStringObject)
     std::unique_ptr<StringObject> cloned(dynamic_cast<StringObject*>(object.clone()));
     EXPECT_EQ(object.getType(), cloned->getType());
     EXPECT_EQ(object.getValue(), cloned->getValue());
+    EXPECT_TRUE(object.isComparable());
+}
+
+TEST(TypeObjectTest, testStringCompare) {
+    std::string low = "a";
+    std::string middle = "b";
+    StringObject object(middle);
+    NumberObject rhs(2);
+    EXPECT_THROW(object.compare(rhs), TypeSystemError);
+    StringObject low_object(low);
+    StringObject middle_object(middle);
+    EXPECT_EQ(low_object.compare(middle_object), -1);
+    EXPECT_EQ(object.compare(middle_object), 0);
+    EXPECT_EQ(middle_object.compare(low_object), 1);
 }
 
 TEST(TypeObjectTest, testNumberObject)
@@ -60,6 +77,7 @@ TEST(TypeObjectTest, testNumberObject)
     NumberObject object;
     EXPECT_EQ(object.getInteger(), 0);
     EXPECT_EQ(object.getNumberType(), NumberType::Integer);
+    EXPECT_TRUE(object.isComparable());
 
     int integer_test_case = 132;
     NumberObject integer_object(integer_test_case);
@@ -67,6 +85,7 @@ TEST(TypeObjectTest, testNumberObject)
     EXPECT_EQ(integer_object.getType(), ObjectType::Number);
     EXPECT_EQ(integer_object.getNumberType(), NumberType::Integer);
     EXPECT_EQ(integer_object.info(), "Integer => " + std::to_string(integer_test_case));
+    EXPECT_TRUE(object.isComparable());
 
     float floating_test_case = 0.12345;
     std::stringstream ss;
@@ -76,6 +95,7 @@ TEST(TypeObjectTest, testNumberObject)
     EXPECT_EQ(floating_object.getType(), ObjectType::Number);
     EXPECT_EQ(floating_object.getNumberType(), NumberType::Floating);
     EXPECT_EQ(floating_object.info(), ss.str());
+    EXPECT_TRUE(floating_object.isComparable());
     {
         std::unique_ptr<NumberObject> cloned(dynamic_cast<NumberObject*>(integer_object.clone()));
         EXPECT_EQ(integer_object.getType(), cloned->getType());
@@ -86,6 +106,51 @@ TEST(TypeObjectTest, testNumberObject)
         std::unique_ptr<NumberObject> cloned(dynamic_cast<NumberObject*>(floating_object.clone()));
         EXPECT_EQ(floating_object.getType(), cloned->getType());
         EXPECT_EQ(floating_object.getFloating(), cloned->getFloating());
+    }
+}
+
+TEST(TypeObjectType, testNumberCompare) {
+    {
+        // NUMBER WITH SOMETHING ELSE
+        StringObject string("dummy");
+        NumberObject number(2);
+        EXPECT_THROW(number.compare(string), TypeSystemError);
+    }
+    {
+        // BOTH INTEGER
+        NumberObject low(1);
+        NumberObject low2(1);
+        NumberObject middle(2);
+        EXPECT_EQ(low.compare(low2), 0);
+        EXPECT_EQ(low.compare(middle), -1);
+        EXPECT_EQ(middle.compare(low), 1);
+    }
+    {
+        // BOTH FLOAT
+        NumberObject low(2.71f);
+        NumberObject low2(2.71f);
+        NumberObject middle(3.14f);
+        EXPECT_EQ(low.compare(low2), 0);
+        EXPECT_EQ(low.compare(middle), -1);
+        EXPECT_EQ(middle.compare(low), 1);
+    }
+    {
+        // INT WITH FLOAT
+        NumberObject low(2);
+        NumberObject low2(2.0f);
+        NumberObject middle(3.14f);
+        EXPECT_EQ(low.compare(low2), 0);
+        EXPECT_EQ(low.compare(middle), -1);
+        EXPECT_EQ(middle.compare(low), 1);
+    }
+    {
+        // FLOAT WITH INT
+        NumberObject low(2.0f);
+        NumberObject low2(2);
+        NumberObject middle(3);
+        EXPECT_EQ(low.compare(low2), 0);
+        EXPECT_EQ(low.compare(middle), -1);
+        EXPECT_EQ(middle.compare(low), 1);
     }
 }
 

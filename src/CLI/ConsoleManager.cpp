@@ -3,6 +3,7 @@
 //
 
 #include "LispExpression/ObjectStorageException.hpp"
+#include "LispExpression/TypeSystem/TypeSystemError.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "VirtualMachine/MachineRuntimeException.hpp"
 #include "CLI/Module/ShutdownEvent.hpp"
@@ -67,6 +68,9 @@ int ConsoleManager::run()
                 ss.swap(empty_stream);
             }
             multiline = false;
+        }
+        catch(lisp::typesystem::TypeSystemError& e) {
+            m_out->writeLine(e.what());
         }
         catch (vm::MachineRuntimeException& e) {
             m_out->writeLine(e.what());

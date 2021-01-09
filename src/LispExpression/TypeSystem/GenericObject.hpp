@@ -1,16 +1,17 @@
 #pragma once
 
 #include "LispExpression/Interface/IObject.hpp"
+#include "LispExpression/TypeSystem/EqualTrait.hpp"
 
 namespace nastya::lisp::typesystem {
 
-class GenericObject : public IObject
+class GenericObject : public IObject, public HasEqualTrait
 {
 public:
     ObjectType getType() const override;
-
+    bool equal(const IObject& object) const override;
 protected:
-    GenericObject(ObjectType type);
+    explicit GenericObject(ObjectType type);
 
 private:
     ObjectType m_type;

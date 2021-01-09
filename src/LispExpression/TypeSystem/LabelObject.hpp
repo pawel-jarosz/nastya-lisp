@@ -7,9 +7,10 @@
 #include <string>
 
 #include "LispExpression/TypeSystem/GenericObject.hpp"
+#include "LispExpression/TypeSystem/ComparableTrait.hpp"
 
 namespace nastya::lisp::typesystem {
-class LabelObject : public GenericObject
+class LabelObject : public GenericObject, public NonComparableObject
 {
 public:
     LabelObject(std::string value);

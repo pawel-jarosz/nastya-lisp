@@ -7,23 +7,53 @@
 #include "Builtins/BuiltinsModuleBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
 
-namespace nastya::builtins {
-using namespace testing;
+#include <iostream>
 
-TEST(BuiltinsModuleBuilderTest, verifyBuilder) {
+namespace nastya::builtins {
+using namespace ::testing;
+
+struct BuiltinsModuleBuilderTest : public Test {
+    BuiltinsModuleBuilderTest() : registry(), builder(registry) {
+        builder.build();
+    }
+
     modules::ModuleRegistry registry;
-    BuiltinsModuleBuilder builder(registry);
-    builder.build();
+    BuiltinsModuleBuilder builder;
+};
+
+TEST_F(BuiltinsModuleBuilderTest, basicExpectation) {
     auto registered_modules = registry.getAvailableModules();
-    EXPECT_EQ(registered_modules.size(), 1);
-    EXPECT_EQ(registered_modules[0], "Lang.Lists");
-    EXPECT_TRUE(registry.isAvailableFunction("Head"));
-    EXPECT_TRUE(registry.isAvailableFunction("Tail"));
-    EXPECT_TRUE(registry.isAvailableFunction("Quote"));
-    EXPECT_FALSE(registry.isAvailableFunction("Concat"));
-    EXPECT_EQ(registry.getFunction("Head").getName(), "Head");
-    EXPECT_EQ(registry.getFunction("Tail").getName(), "Tail");
-    EXPECT_EQ(registry.getFunction("Quote").getName(), "Quote");
+    EXPECT_EQ(registered_modules.size(), 3);
+    EXPECT_EQ(registered_modules[0], "Lang.Compare");
+    EXPECT_EQ(registered_modules[1], "Lang.Lists");
+    EXPECT_EQ(registered_modules[2], "Lang.Syntax");
+}
+
+TEST_F(BuiltinsModuleBuilderTest, verifyListsModule) {
+    std::vector<std::string> methods = {
+        "Head",
+        "Tail",
+        "Quote"
+    };
+    for (const auto& method: methods) {
+        EXPECT_TRUE(registry.isAvailableFunction(method));
+        EXPECT_EQ(registry.getFunction(method).getName(), method);
+    }
+}
+
+TEST_F(BuiltinsModuleBuilderTest, verifyCompareModule) {
+    std::vector<std::string> methods = {
+        "Compare",
+        "Lower",
+        "LowerOrEqual",
+        "Equal",
+        "GreaterOrEqual",
+        "Greater"
+    };
+    for (const auto& method: methods) {
+        EXPECT_TRUE(registry.isAvailableFunction(method));
+        EXPECT_EQ(registry.getFunction(method).getName(), method);
+    }
 }
 
 }

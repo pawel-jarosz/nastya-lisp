@@ -3,6 +3,14 @@ set(BUILTINS_LIBRARY_SRC
         Lists/ListsEvaluators.cpp
         Lists/ListsModule.hpp
         Lists/ListsModule.cpp
+        Compare/CompareEvaluators.hpp
+        Compare/CompareEvaluators.cpp
+        Compare/CompareModule.hpp
+        Compare/CompareModule.cpp
+        Syntax/SyntaxEvaluators.hpp
+        Syntax/SyntaxEvaluators.cpp
+        Syntax/SyntaxModule.hpp
+        Syntax/SyntaxModule.cpp
         BuiltinsModuleBuilder.hpp
         BuiltinsModuleBuilder.cpp)
 

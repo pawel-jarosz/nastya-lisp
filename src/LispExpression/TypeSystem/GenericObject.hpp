@@ -10,7 +10,7 @@ public:
     ObjectType getType() const override;
 
 protected:
-    GenericObject(ObjectType type);
+    explicit GenericObject(ObjectType type);
 
 private:
     ObjectType m_type;

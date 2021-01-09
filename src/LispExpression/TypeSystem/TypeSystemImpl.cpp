@@ -7,6 +7,8 @@
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/StringObject.hpp"
 #include "LispExpression/TypeSystem/TypeSystemError.hpp"
+#include "GenericObject.hpp"
+
 
 namespace nastya::lisp::typesystem {
 
@@ -36,6 +38,10 @@ GenericObject::GenericObject(ObjectType type) : m_type{type}
 ObjectType GenericObject::getType() const
 {
     return m_type;
+}
+bool GenericObject::equal(const IObject& object) const
+{
+    return (toString() == object.toString());
 }
 
 BooleanObject::BooleanObject(bool value) : GenericObject(ObjectType::Boolean), m_value{value}

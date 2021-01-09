@@ -14,8 +14,9 @@ BuiltinsModuleBuilder::BuiltinsModuleBuilder(modules::ModuleRegistry& registry) 
 
 void BuiltinsModuleBuilder::build() const
 {
-    m_registry.registerModule(lists::ListsModule::getInstance());
-    m_registry.registerModule(compare::CompareModule::getInstance());
+    m_registry
+        .registerModule(lists::ListsModule::getInstance())
+        .registerModule(compare::CompareModule::getInstance());
 }
 
 }  // namespace nastya::builtins

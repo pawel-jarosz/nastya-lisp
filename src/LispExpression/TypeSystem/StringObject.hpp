@@ -7,9 +7,10 @@
 #include <string>
 
 #include "LispExpression/TypeSystem/GenericObject.hpp"
+#include "LispExpression/TypeSystem/ComparableTrait.hpp"
 
 namespace nastya::lisp::typesystem {
-class StringObject : public GenericObject
+class StringObject : public GenericObject, public ComparableObject
 {
 public:
     StringObject(std::string value);
@@ -17,6 +18,7 @@ public:
     IObject* clone() const override;
     std::string toString() const override;
     std::string info() const override;
+    int compare(const IObject& rhs) const override;
 private:
     std::string m_value;
 };

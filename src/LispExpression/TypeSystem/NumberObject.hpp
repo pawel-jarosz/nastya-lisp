@@ -5,10 +5,11 @@
 #pragma once
 
 #include "LispExpression/TypeSystem/GenericObject.hpp"
+#include "LispExpression/TypeSystem/ComparableTrait.hpp"
 
 namespace nastya::lisp::typesystem {
 
-class NumberObject : public GenericObject
+class NumberObject : public GenericObject, public ComparableObject
 {
 public:
     NumberObject();
@@ -26,6 +27,7 @@ public:
     IObject* clone() const override;
     std::string toString() const override;
     std::string info() const override;
+    int compare(const IObject& rhs) const override;
 private:
     union
     {

@@ -5,9 +5,10 @@
 #pragma once
 
 #include "LispExpression/TypeSystem/GenericObject.hpp"
+#include "LispExpression/TypeSystem/ComparableTrait.hpp"
 
 namespace nastya::lisp::typesystem {
-class BooleanObject : public GenericObject
+class BooleanObject : public GenericObject, public NonComparableObject
 {
 public:
     BooleanObject(bool value);

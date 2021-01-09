@@ -8,11 +8,10 @@
 
 #include "LispExpression/ObjectStorage.hpp"
 #include "LispExpression/TypeSystem/GenericObject.hpp"
-
-// TODO: Implement after ObjectStorage
+#include "LispExpression/TypeSystem/ComparableTrait.hpp"
 
 namespace nastya::lisp::typesystem {
-class ListObject : public GenericObject
+class ListObject : public GenericObject, public NonComparableObject
 {
 public:
     ListObject();

@@ -198,3 +198,63 @@ TEST(DummyParserTest, testComplexExpression)
         EXPECT_EQ(received_token, expected_token);
     }
 }
+
+TEST(DummyParserTest, testTokenTypeStream) {
+    {
+        std::stringstream ss;
+        ss << TokenType::Boolean;
+        EXPECT_EQ(ss.str(), "Boolean");
+    }
+    {
+        std::stringstream ss;
+        ss << TokenType::Integer;
+        EXPECT_EQ(ss.str(), "Integer");
+    }
+    {
+        std::stringstream ss;
+        ss << TokenType::Floating;
+        EXPECT_EQ(ss.str(), "Floating");
+    }
+    {
+        std::stringstream ss;
+        ss << TokenType::String;
+        EXPECT_EQ(ss.str(), "String");
+    }
+    {
+        std::stringstream ss;
+        ss << TokenType::Label;
+        EXPECT_EQ(ss.str(), "Label");
+    }
+    {
+        std::stringstream ss;
+        ss << TokenType::S_expr_begin;
+        EXPECT_EQ(ss.str(), "S_expr_begin");
+    }
+    {
+        std::stringstream ss;
+        ss << TokenType::S_expr_end;
+        EXPECT_EQ(ss.str(), "S_expr_end");
+    }
+    {
+        std::stringstream ss;
+        ss << TokenType::Quote;
+        EXPECT_EQ(ss.str(), "Quote");
+    }
+    {
+        std::stringstream ss;
+        ss << TokenType::Eof;
+        EXPECT_EQ(ss.str(), "Eof");
+    }
+}
+
+TEST(DummyParserTest, testCompareToken) {
+    Token a{TokenType::Eof};
+    Token b{TokenType::S_expr_end};
+    EXPECT_FALSE(a == b);
+}
+
+TEST(DummyParserTest, testNotTerminatedQuotationMark) {
+    const std::string test_case = "\"not terminated quotation";
+    DummyParser parser(test_case);
+    EXPECT_THROW(parser.getToken(), ParserException);
+}

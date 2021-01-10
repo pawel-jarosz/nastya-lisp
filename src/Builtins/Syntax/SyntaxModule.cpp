@@ -10,7 +10,9 @@ namespace nastya::builtins::syntax {
 void initializeModule(SyntaxModule& module)
 {
     static IfEvaluator if_command;
-    module.registerFunction(if_command);
+    static CondEvaluator cond;
+    module.registerFunction(if_command)
+          .registerFunction(cond);
 }
 
 SyntaxModule::SyntaxModule() : Module("Lang.Syntax")

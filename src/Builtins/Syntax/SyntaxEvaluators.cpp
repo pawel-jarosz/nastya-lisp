@@ -30,4 +30,43 @@ lisp::ObjectStorage IfEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectS
     return as_list[2];
 }
 
+lisp::ObjectStorage CondEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
+{
+    if (object.getType() != lisp::ObjectType::List)
+    {
+        BUT_THROW(BuiltinsException, "Lang.Syntax.Cond expects list of arguments");
+    }
+    const auto& arguments_list = dynamic_cast<lisp::typesystem::ListObject&>(object.getRawObject());
+    if (arguments_list.isEmpty()) {
+        BUT_THROW(BuiltinsException, "Lang.Syntax.Cond unspecified return value");
+    }
+    const auto as_list = arguments_list.getContent();
+    for (const auto& item: as_list) {
+        if (item.getType() != lisp::ObjectType::List) {
+            BUT_THROW(BuiltinsException, "Lang.Syntax.Cond expected list value");
+        }
+        const auto& list = dynamic_cast<lisp::typesystem::ListObject&>(item.getRawObject());
+        const auto& condition = list.getContent();
+        if (list.getSize() != 2) {
+            BUT_THROW(BuiltinsException, "Lang.Syntax.Cond Invalid condition format");
+        }
+        if (condition[0].getType() == lisp::ObjectType::Boolean)
+        {
+            const auto& boolean = dynamic_cast<lisp::typesystem::BooleanObject&>(condition[0].getRawObject());
+            if (boolean.getValue())
+            {
+                return condition[1];
+            }
+            else {
+                continue;
+            }
+        }
+        if (condition[0].getType() == lisp::ObjectType::Label and condition[0].toString() == "Else") {
+            return condition[1];
+        }
+        BUT_THROW(BuiltinsException, "Lang.Syntax.Cond Invalid type");
+    }
+    BUT_THROW(BuiltinsException, "Lang.Syntax.Cond unspecified return value");
+}
+
 }  // namespace nastya::builtins::syntax

@@ -56,4 +56,14 @@ TEST_F(BuiltinsModuleBuilderTest, verifyCompareModule) {
     }
 }
 
+TEST_F(BuiltinsModuleBuilderTest, verifySyntaxModule) {
+    std::vector<std::string> methods = {
+        "If",
+        "Cond"
+    };
+    for (const auto& method: methods) {
+        EXPECT_TRUE(registry.isAvailableFunction(method));
+        EXPECT_EQ(registry.getFunction(method).getName(), method);
+    }
+}
 }

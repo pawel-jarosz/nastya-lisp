@@ -241,7 +241,7 @@ TEST(CompareEvaluatorTest, testGreaterOrEqualFails) {
 TEST(CompareEvaluatorTest, testGreaterSuccessStory)
 {
     {
-        GreaterOrEqualEvaluator evaluator;
+        GreaterEvaluator evaluator;
         runtime::MemoryMock memory_mock;
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.addNumber(2).addNumber(3).build();
@@ -249,15 +249,15 @@ TEST(CompareEvaluatorTest, testGreaterSuccessStory)
         EXPECT_EQ(result.toString(), "#false");
     }
     {
-        GreaterOrEqualEvaluator evaluator;
+        GreaterEvaluator evaluator;
         runtime::MemoryMock memory_mock;
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.addNumber(2).addNumber(2).build();
         auto result = evaluator.evaluate(memory_mock, argument_list);
-        EXPECT_EQ(result.toString(), "#true");
+        EXPECT_EQ(result.toString(), "#false");
     }
     {
-        GreaterOrEqualEvaluator evaluator;
+        GreaterEvaluator evaluator;
         runtime::MemoryMock memory_mock;
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.addNumber(4).addNumber(3).build();

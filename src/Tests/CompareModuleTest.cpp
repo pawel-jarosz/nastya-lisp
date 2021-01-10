@@ -48,6 +48,11 @@ TEST(CompareEvaluatorTest, testCompareFails) {
         auto too_many_arguments = builder.addNumber(2).addNumber(3).addNumber(4).build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, too_many_arguments), BuiltinsException);
     }
+    {
+        lisp::testing::ListBuilder builder;
+        auto one_non_comparable = builder.addLabel("dummy").addNumber(3).build();
+        EXPECT_THROW(evaluator.evaluate(memory_mock, one_non_comparable), BuiltinsException);
+    }
 }
 
 TEST(CompareEvaluatorTest, testEqualName) {

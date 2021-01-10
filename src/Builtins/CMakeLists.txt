@@ -16,5 +16,5 @@ set(BUILTINS_LIBRARY_SRC
 
 add_library(Builtins SHARED ${BUILTINS_LIBRARY_SRC})
 set_target_properties(Builtins PROPERTIES LINKER_LANGUAGE CXX)
-target_link_libraries(Builtins Modules LispExpression)
+target_link_libraries(Builtins Modules Utilities LispExpression)
 

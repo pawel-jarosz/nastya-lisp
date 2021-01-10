@@ -5,6 +5,7 @@ set(TESTING_FRAMEWORK GTest::gtest GTest::gmock GTest::gtest_main)
 
 add_subdirectory(Parser)
 add_subdirectory(LispExpression)
+add_subdirectory(Utilities)
 add_subdirectory(Modules)
 add_subdirectory(Builtins)
 add_subdirectory(VirtualMachine)

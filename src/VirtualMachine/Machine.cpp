@@ -24,6 +24,9 @@ Machine::Machine(const modules::IModuleRegistry& registry, const IArgumentPrepar
 
 lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
 {
+    if (list.getType() == lisp::ObjectType::Label and isSymbolAvailable(list)) {
+        return getFromHeap(Cast::as_label(list));
+    }
     if (list.getType() != lisp::ObjectType::List)
     {
         return list;
@@ -45,6 +48,24 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     const auto& strategy = m_preparation_manager.getStrategy(label.getValue());
     const auto arguments = strategy.extract_arguments(raw_object, *this);
     return m_modules.getFunction(label.getValue()).evaluate(*this, arguments);
+}
+
+bool Machine::registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,
+                                     const lisp::ObjectStorage& objectStorage)
+{
+    auto [it, state] = m_heap.try_emplace(variableName.getValue(), objectStorage);
+    return state;
+}
+
+const lisp::ObjectStorage& Machine::getFromHeap(const lisp::typesystem::LabelObject& variableName) const
+{
+    return m_heap.at(variableName.getValue());
+}
+
+bool Machine::isSymbolAvailable(const lisp::ObjectStorage& object) const
+{
+    const auto& label = utils::Cast::as_label(object);
+    return (m_heap.find(label.getValue()) != m_heap.end());
 }
 
 }  // namespace nastya::vm

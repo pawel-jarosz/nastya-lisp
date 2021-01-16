@@ -7,6 +7,8 @@
 #include "Modules/Module.hpp"
 #include "Modules/ModuleException.hpp"
 
+#include "Runtime/Testing/MemoryMock.hpp"
+
 namespace nastya::modules {
 using namespace ::testing;
 
@@ -31,10 +33,6 @@ struct DummyEvaluator : public runtime::IEvaluator
     }
     std::string evaluator_name;
     mutable bool called;
-};
-
-struct DummyMemory : runtime::IMemory
-{
 };
 
 struct ModuleTest : public Test
@@ -75,7 +73,7 @@ TEST_F(ModuleTest, testFunctionList)
 
 TEST_F(ModuleTest, testFunctionCall)
 {
-    DummyMemory memory;
+    runtime::MemoryMock memory;
     lisp::ObjectStorage storage;
     testing_module.registerFunction(evaluator1);
     auto& function = testing_module.getFunction("Head");

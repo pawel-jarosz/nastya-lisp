@@ -112,5 +112,5 @@ There is implemented syntactic sugar for ***Quote*** command - it is single quot
 ? | (Tail '(1 2 3))
   | List => (2 3)
 ? | (Head (Tail (Quote ("abc" (2 #true 3.4) 3))))
-  | List => (2 $true 3.4)
+  | List => (2 #true 3.4)
 ```

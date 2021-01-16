@@ -5,7 +5,7 @@
 #include "VirtualMachine/ArgumentPreparationStrategy/DefaultStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/QuoteStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/CondStrategy.hpp"
-
+#include "VirtualMachine/ArgumentPreparationStrategy/DefineStrategy.hpp"
 #include "Utilities/LispCast.hpp"
 
 #include <algorithm>
@@ -50,6 +50,18 @@ lisp::ObjectStorage CondStrategy::extract_arguments(const lisp::typesystem::List
         arguments.emplace_back(std::move(prepared_condition));
     }
 
+    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
+    lisp::ObjectStorage result(std::move(obj));
+    return result;
+}
+
+lisp::ObjectStorage DefineStrategy::extract_arguments(const lisp::typesystem::ListObject& object, vm::IMachine& vm) const
+{
+    const auto content = object.getContent();
+    // TODO: Add exception for invalid list of argument
+    const auto variable_name = content[0];
+    const auto variable_value = vm.run(content[1]);
+    std::vector<lisp::ObjectStorage> arguments = { variable_name, variable_value };
     std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
     lisp::ObjectStorage result(std::move(obj));
     return result;

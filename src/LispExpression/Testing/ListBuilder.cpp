@@ -10,6 +10,7 @@
 #include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/StringObject.hpp"
+#include "LispExpression/TypeSystem/BooleanObject.hpp"
 
 namespace nastya::lisp::testing {
 
@@ -78,6 +79,12 @@ ObjectStorage ListBuilder::build()
 {
     auto temp = make_unique_object(new typesystem::ListObject(m_objects));
     return ObjectStorage(std::move(temp));
+}
+ListBuilder& ListBuilder::addBoolean(bool value)
+{
+    auto temp = make_unique_object(new typesystem::BooleanObject(value));
+    m_objects.emplace_back(ObjectStorage(std::move(temp)));
+    return *this;
 }
 
 }  // namespace nastya::lisp::testing

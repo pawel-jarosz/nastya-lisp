@@ -17,5 +17,14 @@ struct IfEvaluator : public runtime::IEvaluator
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
 };
 
+struct CondEvaluator : public runtime::IEvaluator
+{
+    std::string getName() const override
+    {
+        return "Cond";
+    }
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+};
 
-}  // namespace nastya::builtins::lists
+
+}  // namespace nastya::builtins::syntax

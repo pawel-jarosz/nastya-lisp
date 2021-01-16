@@ -7,6 +7,7 @@
 #include "LispExpression/Testing/ListBuilder.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "Modules/ModuleException.hpp"
+#include "VirtualMachine/ArgumentPreparationManager.hpp"
 #include "VirtualMachine/MachineRuntimeException.hpp"
 #include "Builtins/BuiltinsException.hpp"
 
@@ -44,7 +45,9 @@ TEST(AbstractMachineTest, testAtomValueCase) {
     auto number = std::make_unique<lisp::typesystem::NumberObject>(2);
     lisp::ObjectStorage argument_and_expected_result(std::move(number));
     modules::ModuleRegistryMock module_registry;
-    Machine machine(module_registry);
+    nastya::vm::ArgumentPreparationManager preparation_manager;
+    nastya::vm::ArgumentPreparationManager::init(preparation_manager);
+    Machine machine(module_registry, preparation_manager);
     EXPECT_EQ(machine.run(argument_and_expected_result).toString(),
               argument_and_expected_result.toString());
 }
@@ -53,7 +56,9 @@ TEST(AbstractMachineTest, testEmptyListCase) {
     lisp::testing::ListBuilder builder;
     auto argument_and_expected_result = builder.build();
     modules::ModuleRegistryMock module_registry;
-    Machine machine(module_registry);
+    nastya::vm::ArgumentPreparationManager preparation_manager;
+    nastya::vm::ArgumentPreparationManager::init(preparation_manager);
+    Machine machine(module_registry, preparation_manager);
     EXPECT_EQ(machine.run(argument_and_expected_result).toString(),
               argument_and_expected_result.toString());
 
@@ -65,7 +70,9 @@ TEST(AbstractMachineTest, testWhenModuleThrowsException) {
     modules::ModuleRegistryMock module_registry;
     TestingModuleException testing_exception;
     EXPECT_CALL(module_registry, getFunction(_)).WillOnce(Throw(testing_exception));
-    Machine machine(module_registry);
+    nastya::vm::ArgumentPreparationManager preparation_manager;
+    nastya::vm::ArgumentPreparationManager::init(preparation_manager);
+    Machine machine(module_registry, preparation_manager);
     EXPECT_THROW(machine.run(argument), TestingModuleException);
 
 }
@@ -76,7 +83,9 @@ TEST(AbstractMachineTest, testWhenFunctionThrowsException) {
     modules::ModuleRegistryMock module_registry;
     TestingEvaluator evaluator;
     EXPECT_CALL(module_registry, getFunction(_)).WillOnce(ReturnRef(evaluator));
-    Machine machine(module_registry);
+    nastya::vm::ArgumentPreparationManager preparation_manager;
+    nastya::vm::ArgumentPreparationManager::init(preparation_manager);
+    Machine machine(module_registry, preparation_manager);
     EXPECT_THROW(machine.run(argument), TestingBuiltinsException);
 }
 

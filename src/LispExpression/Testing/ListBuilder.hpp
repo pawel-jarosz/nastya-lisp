@@ -19,6 +19,7 @@ public:
     explicit ListBuilder(ListBuilder* parent);
     ListBuilder& openList();
     ListBuilder& addList(const std::vector<ObjectStorage>& value);
+    ListBuilder& addBoolean(bool value);
     ListBuilder& addNumber(float value);
     ListBuilder& addNumber(int value);
     ListBuilder& addString(const std::string& value);

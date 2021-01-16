@@ -48,6 +48,11 @@ TEST(CompareEvaluatorTest, testCompareFails) {
         auto too_many_arguments = builder.addNumber(2).addNumber(3).addNumber(4).build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, too_many_arguments), BuiltinsException);
     }
+    {
+        lisp::testing::ListBuilder builder;
+        auto one_non_comparable = builder.addLabel("dummy").addNumber(3).build();
+        EXPECT_THROW(evaluator.evaluate(memory_mock, one_non_comparable), BuiltinsException);
+    }
 }
 
 TEST(CompareEvaluatorTest, testEqualName) {
@@ -236,7 +241,7 @@ TEST(CompareEvaluatorTest, testGreaterOrEqualFails) {
 TEST(CompareEvaluatorTest, testGreaterSuccessStory)
 {
     {
-        GreaterOrEqualEvaluator evaluator;
+        GreaterEvaluator evaluator;
         runtime::MemoryMock memory_mock;
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.addNumber(2).addNumber(3).build();
@@ -244,15 +249,15 @@ TEST(CompareEvaluatorTest, testGreaterSuccessStory)
         EXPECT_EQ(result.toString(), "#false");
     }
     {
-        GreaterOrEqualEvaluator evaluator;
+        GreaterEvaluator evaluator;
         runtime::MemoryMock memory_mock;
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.addNumber(2).addNumber(2).build();
         auto result = evaluator.evaluate(memory_mock, argument_list);
-        EXPECT_EQ(result.toString(), "#true");
+        EXPECT_EQ(result.toString(), "#false");
     }
     {
-        GreaterOrEqualEvaluator evaluator;
+        GreaterEvaluator evaluator;
         runtime::MemoryMock memory_mock;
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.addNumber(4).addNumber(3).build();

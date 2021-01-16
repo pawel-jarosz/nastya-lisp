@@ -62,7 +62,7 @@ std::pair<Token, size_t> read_string(const std::string& text, size_t start_pos)
         stream << text[start_pos];
         ++start_pos;
     }
-    throw std::logic_error{"Not terminated quotation mark"};
+    BUT_THROW(ParserException, "Not terminated quotation mark");
 }
 
 Token value_to_token(const std::string& value)

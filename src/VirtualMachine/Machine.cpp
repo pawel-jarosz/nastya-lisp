@@ -4,17 +4,21 @@
 
 #include <algorithm>
 
+#include <Utilities/LispCast.hpp>
+
+#include "Builtins/BuiltinsException.hpp"
 #include "LispExpression/TypeSystem/LabelObject.hpp"
 #include "LispExpression/TypeSystem/ListObject.hpp"
-#include "Builtins/BuiltinsException.hpp"
 #include "Modules/ModuleException.hpp"
 #include "VirtualMachine/Machine.hpp"
-
 #include "VirtualMachine/MachineRuntimeException.hpp"
 
 namespace nastya::vm {
+using namespace utils;
 
-Machine::Machine(const modules::IModuleRegistry& registry) : m_modules{registry}
+Machine::Machine(const modules::IModuleRegistry& registry, const IArgumentPreparationManager& preparation_manager)
+: m_modules{registry}
+, m_preparation_manager{preparation_manager}
 {
 }
 
@@ -28,7 +32,7 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     //
     // Casts does not required to be check for bad_cast error because type are checked with enum.
     // Index is correct because earlier we checked if it is not empty list.
-    auto raw_object = dynamic_cast<lisp::typesystem::ListObject&>(list.getRawObject());
+    const auto& raw_object = Cast::as_list(list);
     if (raw_object.isEmpty()) {
         return lisp::ObjectStorage(list);
     }
@@ -38,19 +42,9 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     }
     auto label = dynamic_cast<lisp::typesystem::LabelObject&>(content[0].getRawObject());
     // GCOVR_EXCL_STOP
-    std::vector<lisp::ObjectStorage> arguments;
-    if (label.getValue() == "Quote")
-    {
-        arguments = std::vector(++content.begin(), content.end());
-    }
-    else
-    {
-        std::for_each(++content.begin(), content.end(), [&](const auto& obj) { arguments.emplace_back(run(obj)); });
-    }
-    std::unique_ptr<lisp::typesystem::ListObject> obj(new lisp::typesystem::ListObject(arguments));
-    lisp::ObjectStorage argument(std::move(obj));
-    std::string message;
-    return m_modules.getFunction(label.getValue()).evaluate(*this, argument);
+    const auto& strategy = m_preparation_manager.getStrategy(label.getValue());
+    const auto arguments = strategy.extract_arguments(raw_object, *this);
+    return m_modules.getFunction(label.getValue()).evaluate(*this, arguments);
 }
 
 }  // namespace nastya::vm

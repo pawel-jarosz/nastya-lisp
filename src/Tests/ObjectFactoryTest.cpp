@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-
+#include "LispExpression/LispExpressionException.hpp"
 #include "LispExpression/ObjectFactory.hpp"
 #include "Parser/Types/Token.hpp"
 
@@ -16,7 +16,7 @@ TEST(ObjectFactoryTest, testObjectFactory)
     factory.registerToken(parser::TokenType::String, callback);
     factory.create(parser::Token{parser::TokenType::String});
     EXPECT_TRUE(called);
-    // TODO: check what if token is not registered
+    EXPECT_THROW(factory.create(parser::Token{parser::TokenType::S_expr_begin}), lisp::LispExpressionException);
 }
 
 }  // namespace nastya::lisp

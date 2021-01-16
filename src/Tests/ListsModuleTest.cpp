@@ -11,10 +11,12 @@
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "Modules/ModuleException.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
+#include "Utilities/LispCastException.hpp"
 
 namespace nastya::builtins::lists {
 
 using namespace ::testing;
+using namespace utils;
 
 TEST(ListsEvaluatorTest, testHeadName) {
     HeadEvaluator evaluator;
@@ -44,7 +46,7 @@ TEST(ListsEvaluatorTest, testHeadFailure) {
         // Evaluator receives as an argument not a list
         lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
             new lisp::typesystem::NumberObject(2)));
-        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
+        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
     {
         // Evaluator receives empty argument list
@@ -55,7 +57,7 @@ TEST(ListsEvaluatorTest, testHeadFailure) {
     {
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.addNumber(2).build();
-        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
+        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
     {
         // Evaluator receives more than one elements on list
@@ -104,7 +106,7 @@ TEST(ListsEvaluatorTest, testTailFailure)
         // 2
         lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
             new lisp::typesystem::NumberObject(2)));
-        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
+        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
     {
         // (())
@@ -122,7 +124,7 @@ TEST(ListsEvaluatorTest, testTailFailure)
         // (2)
         lisp::testing::ListBuilder builder;
         auto argument_list = builder.addNumber(2).build();
-        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
+        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
 }
 
@@ -155,7 +157,7 @@ TEST(ListsEvaluatorTest, testQuoteFailure) {
         // 2
         lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
             new lisp::typesystem::NumberObject(2)));
-        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
+        EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
     {
         // (2 2)

@@ -12,6 +12,7 @@
 #include "Modules/ModuleRegistry.hpp"
 #include "Parser/DummyParser.hpp"
 #include "VirtualMachine/Machine.hpp"
+#include "VirtualMachine/ArgumentPreparationManager.hpp"
 #include "CLI/SplashScreen/SplashScreen.hpp"
 
 #include <iostream>
@@ -43,7 +44,9 @@ int main(int argc, char* argv[])
     initModules(object_factory, module_registry);
     nastya::parser::DummyParser parser;
     nastya::lisp::LispExpressionBuilder expressionBuilder(parser, object_factory);
-    nastya::vm::Machine machine(module_registry);
+    nastya::vm::ArgumentPreparationManager preparation_manager;
+    nastya::vm::ArgumentPreparationManager::init(preparation_manager);
+    nastya::vm::Machine machine(module_registry, preparation_manager);
     nastya::cli::io::stdio::StreamWrapperFactory io_factory(std::cin, std::cout);
     nastya::cli::ConsoleManager console_manager(machine, parser, expressionBuilder, io_factory, splashscreen);
     nastya::cli::module::ConsoleModuleBuilder consoleModuleBuilder(module_registry, console_manager);

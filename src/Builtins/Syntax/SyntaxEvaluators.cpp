@@ -2,9 +2,10 @@
 // Created by caedus on 09.01.2021.
 //
 
-#include <LispExpression/TypeSystem/BooleanObject.hpp>
+#include "LispExpression/TypeSystem/BooleanObject.hpp"
 #include "LispExpression/TypeSystem/ListObject.hpp"
 #include "Builtins/BuiltinsException.hpp"
+#include "Utilities/LispCast.hpp"
 #include "SyntaxEvaluators.hpp"
 
 namespace nastya::builtins::syntax {
@@ -67,6 +68,15 @@ lisp::ObjectStorage CondEvaluator::evaluate(runtime::IMemory&, const lisp::Objec
         BUT_THROW(BuiltinsException, "Lang.Syntax.Cond Invalid type");
     }
     BUT_THROW(BuiltinsException, "Lang.Syntax.Cond unspecified return value");
+}
+
+lisp::ObjectStorage DefineEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
+{
+    const auto& list = utils::Cast::as_list(object, "Lang.Syntax.Define expects list of arguments").getContent();
+    const auto variable_name = utils::Cast::as_label(list[0], "Lang.Syntax.Define expects label");
+    const auto variable_value = list[1];
+    memory.registerVariableOnHeap(variable_name, variable_value);
+    return list[0];
 }
 
 }  // namespace nastya::builtins::syntax

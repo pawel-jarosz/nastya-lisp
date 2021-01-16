@@ -23,7 +23,16 @@ struct CondEvaluator : public runtime::IEvaluator
     {
         return "Cond";
     }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+};
+
+struct DefineEvaluator : public runtime::IEvaluator
+{
+    std::string getName() const override
+    {
+        return "Define";
+    }
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
 

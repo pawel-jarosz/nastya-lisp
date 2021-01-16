@@ -29,6 +29,7 @@ Repository contains the following content:
 * *build* - official build directory, used by docker scripts
 * *docker* - docker image description
 * *scripts* - utility scripts used during development for applying formatting or building software in docker
+* *docs* - tutorial by example and design documents
 
 ## Testing environment
 

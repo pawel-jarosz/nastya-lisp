@@ -79,4 +79,8 @@ lisp::ObjectStorage DefineEvaluator::evaluate(runtime::IMemory& memory, const li
     return list[0];
 }
 
+lisp::ObjectStorage LetInEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
+{
+    return object;
+}
 }  // namespace nastya::builtins::syntax

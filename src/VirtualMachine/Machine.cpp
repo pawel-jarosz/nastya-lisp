@@ -26,8 +26,9 @@ Machine::Machine(const modules::IModuleRegistry& registry, const IArgumentPrepar
 
 lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
 {
-    if (list.getType() == lisp::ObjectType::Label and isSymbolAvailable(list)) {
-        return getFromHeap(Cast::as_label(list));
+    const auto label_computation_result = computeLabel(list);
+    if (label_computation_result) {
+        return *label_computation_result;
     }
     if (list.getType() != lisp::ObjectType::List)
     {
@@ -72,6 +73,12 @@ const lisp::ObjectStorage& Machine::getFromHeap(const lisp::typesystem::LabelObj
 bool Machine::isSymbolAvailable(const lisp::ObjectStorage& object) const
 {
     const auto& label = utils::Cast::as_label(object);
+    const auto reversed_stack = m_stack | ranges::views::reverse;
+    for (const auto frame: reversed_stack) {
+        if (frame.find(label.getValue()) != frame.end()) {
+            return true;
+        }
+    }
     return (m_heap.find(label.getValue()) != m_heap.end());
 }
 
@@ -102,16 +109,34 @@ bool Machine::registerVariableOnStack(const lisp::typesystem::LabelObject& varia
 
 const lisp::ObjectStorage& Machine::getFromStack(const lisp::typesystem::LabelObject& variableName) const
 {
-    const auto reversed_stack = m_stack | ranges::views::reverse;
-    for (const auto frame: reversed_stack) {
-        try {
-            return frame.at(variableName.getValue());
-        }
-        catch(std::exception& e) {
-            continue;
+    auto it = m_stack.rbegin();
+    while (it != m_stack.rend()) {
+        const auto result = it->find(variableName.getValue());
+        if (result != it->end()) {
+            return result->second;
         }
     }
     BUT_THROW(MachineRuntimeException, "Variable is not available");
+}
+
+std::optional<lisp::ObjectStorage> Machine::computeLabel(const lisp::ObjectStorage& label) const
+{
+    if (label.getType() != lisp::ObjectType::Label) {
+        return {};
+    }
+
+    if (not isSymbolAvailable(label)) {
+        return label;
+    }
+    try {
+        std::unique_ptr<lisp::IObject> copied(getFromStack(Cast::as_label(label)).getRawObject().clone());
+        lisp::ObjectStorage result(std::move(copied));
+        return { result };
+    }
+    catch(MachineRuntimeException& e) {
+        const auto result = getFromHeap(Cast::as_label(label));
+        return { result };
+    }
 }
 
 }  // namespace nastya::vm

@@ -35,5 +35,15 @@ struct DefineEvaluator : public runtime::IEvaluator
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
+struct LetInEvaluator : public runtime::IEvaluator
+{
+    std::string getName() const override
+    {
+        return "Let";
+    }
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+
+};
+
 
 }  // namespace nastya::builtins::syntax

@@ -12,9 +12,11 @@ void initializeModule(SyntaxModule& module)
     static IfEvaluator if_command;
     static CondEvaluator cond;
     static DefineEvaluator define;
+    static LetInEvaluator letIn;
     module.registerFunction(if_command)
           .registerFunction(cond)
-          .registerFunction(define);
+          .registerFunction(define)
+          .registerFunction(letIn);
 }
 
 SyntaxModule::SyntaxModule() : Module("Lang.Syntax")

@@ -8,6 +8,7 @@
 #include "VirtualMachine/Interface/IMachine.hpp"
 #include "VirtualMachine/Interface/IArgumentPreparationManager.hpp"
 
+#include <optional>
 #include <vector>
 #include <map>
 
@@ -28,6 +29,7 @@ public:
     void pushStackFrame() override;
     bool popStackFrame() override;
 private:
+    std::optional<lisp::ObjectStorage> computeLabel(const lisp::ObjectStorage& label) const;
     const modules::IModuleRegistry& m_modules;
     const IArgumentPreparationManager& m_preparation_manager;
     std::map<std::string, lisp::ObjectStorage> m_heap;

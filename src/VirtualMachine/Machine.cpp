@@ -13,6 +13,8 @@
 #include "VirtualMachine/Machine.hpp"
 #include "VirtualMachine/MachineRuntimeException.hpp"
 
+#include <range/v3/view.hpp>
+
 namespace nastya::vm {
 using namespace utils;
 
@@ -59,13 +61,57 @@ bool Machine::registerVariableOnHeap(const lisp::typesystem::LabelObject& variab
 
 const lisp::ObjectStorage& Machine::getFromHeap(const lisp::typesystem::LabelObject& variableName) const
 {
-    return m_heap.at(variableName.getValue());
+    try {
+        return m_heap.at(variableName.getValue());
+    }
+    catch(std::exception& e) {
+        BUT_THROW(MachineRuntimeException, "Variable is not available");
+    }
 }
 
 bool Machine::isSymbolAvailable(const lisp::ObjectStorage& object) const
 {
     const auto& label = utils::Cast::as_label(object);
     return (m_heap.find(label.getValue()) != m_heap.end());
+}
+
+void Machine::pushStackFrame()
+{
+    m_stack.emplace_back(std::map<std::string, lisp::ObjectStorage>());
+}
+
+bool Machine::popStackFrame()
+{
+    if (not m_stack.empty()) {
+        m_stack.pop_back();
+        return true;
+    }
+    return false;
+}
+
+bool Machine::registerVariableOnStack(const lisp::typesystem::LabelObject& variableName,
+                                      const lisp::ObjectStorage& objectStorage)
+{
+    if (m_stack.empty()) {
+        pushStackFrame();
+    }
+    const auto top = m_stack.size() - 1;
+    auto [it, state] =  m_stack[top].try_emplace(variableName.toString(), objectStorage);
+    return false;
+}
+
+const lisp::ObjectStorage& Machine::getFromStack(const lisp::typesystem::LabelObject& variableName) const
+{
+    const auto reversed_stack = m_stack | ranges::views::reverse;
+    for (const auto frame: reversed_stack) {
+        try {
+            return frame.at(variableName.getValue());
+        }
+        catch(std::exception& e) {
+            continue;
+        }
+    }
+    BUT_THROW(MachineRuntimeException, "Variable is not available");
 }
 
 }  // namespace nastya::vm

@@ -6,6 +6,7 @@ set(LISP_EXPRESSION_LIBRARY_SRC
         TypeSystem/ObjectType.hpp
         TypeSystem/GenericObject.hpp
         TypeSystem/ComparableTrait.hpp
+        TypeSystem/LambdaObject.hpp
         TypeSystem/ListObject.hpp
         TypeSystem/BooleanObject.hpp
         TypeSystem/LabelObject.hpp

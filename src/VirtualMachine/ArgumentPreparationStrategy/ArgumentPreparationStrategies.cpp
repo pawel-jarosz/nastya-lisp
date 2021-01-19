@@ -3,10 +3,11 @@
 //
 
 #include "VirtualMachine/ArgumentPreparationStrategy/DefaultStrategy.hpp"
-#include "VirtualMachine/ArgumentPreparationStrategy/QuoteStrategy.hpp"
-#include "VirtualMachine/ArgumentPreparationStrategy/CondStrategy.hpp"
-#include "VirtualMachine/ArgumentPreparationStrategy/LetInStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/LambdaStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/DefineStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/QuoteStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/LetInStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/CondStrategy.hpp"
 #include "Utilities/LispCast.hpp"
 
 #include <algorithm>
@@ -95,6 +96,15 @@ lisp::ObjectStorage LetInStrategy::extract_arguments(const lisp::typesystem::Lis
     const auto result = vm.run(*expression);
     vm.popStackFrame();
     return result;
+}
+
+lisp::ObjectStorage LambdaStrategy::extract_arguments(const lisp::typesystem::ListObject& object, IMachine& vm) const
+{
+    const auto& content = object.getContent();
+    std::vector arguments(content.begin() + 1, content.end());
+    // check if only two arguments
+    std::unique_ptr<lisp::IObject> result(new lisp::typesystem::ListObject(arguments));
+    return lisp::ObjectStorage(std::move(result));
 }
 
 }

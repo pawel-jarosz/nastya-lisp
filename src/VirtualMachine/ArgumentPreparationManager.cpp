@@ -5,6 +5,7 @@
 #include "ArgumentPreparationManager.hpp"
 
 #include "VirtualMachine/ArgumentPreparationStrategy/DefaultStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/LambdaStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/LetInStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/QuoteStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/CondStrategy.hpp"
@@ -18,6 +19,7 @@ void ArgumentPreparationManager::init(ArgumentPreparationManager& manager)
     manager.registerStrategy(std::make_unique<CondStrategy>());
     manager.registerStrategy(std::make_unique<QuoteStrategy>());
     manager.registerStrategy(std::make_unique<LetInStrategy>());
+    manager.registerStrategy(std::make_unique<LambdaStrategy>());
 }
 
 void ArgumentPreparationManager::registerStrategy(std::unique_ptr<IArgumentPreparationStrategy> strategy) {

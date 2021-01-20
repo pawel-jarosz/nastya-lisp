@@ -12,7 +12,8 @@ enum ObjectType
     Number,
     String,
     Label,
-    List
+    List,
+    Lambda
 };
 
 enum class NumberType

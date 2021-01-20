@@ -2,6 +2,9 @@ set(VM_LIBRARY_SRC
         Interface/IArgumentPreparationStrategy.hpp
         Interface/IArgumentPreparationManager.hpp
         ArgumentPreparationStrategy/DefaultStrategy.hpp
+        ArgumentPreparationStrategy/DefineStrategy.hpp
+        ArgumentPreparationStrategy/LambdaStrategy.hpp
+        ArgumentPreparationStrategy/LetInStrategy.hpp
         ArgumentPreparationStrategy/QuoteStrategy.hpp
         ArgumentPreparationStrategy/CondStrategy.hpp
         ArgumentPreparationStrategy/ArgumentPreparationStrategies.cpp

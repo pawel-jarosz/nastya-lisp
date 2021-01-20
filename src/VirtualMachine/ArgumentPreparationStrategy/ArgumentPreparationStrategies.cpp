@@ -3,12 +3,15 @@
 //
 
 #include "VirtualMachine/ArgumentPreparationStrategy/DefaultStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/LambdaStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/DefineStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/QuoteStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/LetInStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/CondStrategy.hpp"
-
 #include "Utilities/LispCast.hpp"
 
 #include <algorithm>
+#include <iostream>
 
 namespace nastya::vm {
 
@@ -53,6 +56,55 @@ lisp::ObjectStorage CondStrategy::extract_arguments(const lisp::typesystem::List
     std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
     lisp::ObjectStorage result(std::move(obj));
     return result;
+}
+
+lisp::ObjectStorage DefineStrategy::extract_arguments(const lisp::typesystem::ListObject& object, vm::IMachine& vm) const
+{
+    const auto content = object.getContent();
+    // TODO: Add exception for invalid list of argument
+    const auto variable_name = content[0];
+    const auto variable_value = vm.run(content[1]);
+    std::vector<lisp::ObjectStorage> arguments = { variable_name, variable_value };
+    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
+    lisp::ObjectStorage result(std::move(obj));
+    return result;
+}
+
+bool isInLabel(const lisp::ObjectStorage& object) {
+    if (object.getType() != lisp::ObjectType::Label) {
+        return false;
+    }
+    const auto& label = utils::Cast::as_label(object);
+    return (label.getValue() == "In");
+}
+
+lisp::ObjectStorage LetInStrategy::extract_arguments(const lisp::typesystem::ListObject& object, vm::IMachine& vm) const
+{
+    // TODO: Exception handling
+    const auto& content = object.getContent();
+    const auto end_of_variable_definitions = std::find_if(content.begin() + 1, content.end(), isInLabel);
+    auto it = content.begin() + 1;
+    while(it != end_of_variable_definitions) {
+        const auto& tuple = utils::Cast::as_list(*it);
+        const auto& variable_name = utils::Cast::as_label(tuple.getContent()[0]);
+        const auto& variable_value = vm.run(tuple.getContent()[1]);
+        vm.pushStackFrame();
+        vm.registerVariableOnStack(variable_name, variable_value);
+        ++it;
+    }
+    const auto expression = end_of_variable_definitions + 1;
+    const auto result = vm.run(*expression);
+    vm.popStackFrame();
+    return result;
+}
+
+lisp::ObjectStorage LambdaStrategy::extract_arguments(const lisp::typesystem::ListObject& object, IMachine& vm) const
+{
+    const auto& content = object.getContent();
+    std::vector arguments(content.begin() + 1, content.end());
+    // check if only two arguments
+    std::unique_ptr<lisp::IObject> result(new lisp::typesystem::ListObject(arguments));
+    return lisp::ObjectStorage(std::move(result));
 }
 
 }

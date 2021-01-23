@@ -10,6 +10,7 @@
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/LabelObject.hpp"
 #include "LispExpression/TypeSystem/ListObject.hpp"
+#include "LispExpression/TypeSystem/LambdaObject.hpp"
 
 namespace nastya::utils {
 
@@ -19,6 +20,7 @@ struct Cast {
     static const lisp::typesystem::StringObject& as_string(const lisp::ObjectStorage& storage, std::string msg = "");
     static const lisp::typesystem::LabelObject& as_label(const lisp::ObjectStorage& storage, std::string msg = "");
     static const lisp::typesystem::ListObject& as_list(const lisp::ObjectStorage& storage, std::string msg = "");
+    static const lisp::typesystem::LambdaObject& as_lambda(const lisp::ObjectStorage& storage, std::string msg = "");
 };
 
 }

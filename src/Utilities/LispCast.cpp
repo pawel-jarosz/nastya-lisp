@@ -36,6 +36,11 @@ struct TypeToEnum<lisp::typesystem::BooleanObject> {
     constexpr static lisp::ObjectType type = lisp::ObjectType::Boolean;
 };
 
+template<>
+struct TypeToEnum<lisp::typesystem::LambdaObject> {
+    constexpr static lisp::ObjectType type = lisp::ObjectType::Lambda;
+};
+
 template<typename Target>
 const Target& cast(const lisp::ObjectStorage& storage, const std::string& msg) {
     if(storage.getType() == TypeToEnum<Target>::type) {
@@ -63,5 +68,10 @@ const lisp::typesystem::LabelObject& Cast::as_label(const lisp::ObjectStorage& s
 const lisp::typesystem::ListObject& Cast::as_list(const lisp::ObjectStorage& storage, std::string msg)
 {
     return cast<lisp::typesystem::ListObject>(storage, msg);
+}
+
+const lisp::typesystem::LambdaObject& Cast::as_lambda(const lisp::ObjectStorage& storage, std::string msg)
+{
+    return cast<lisp::typesystem::LambdaObject>(storage, msg);
 }
 }

@@ -142,6 +142,12 @@ Token DummyParser::getToken()
             return Token{TokenType::S_expr_begin, {}};
         case ')':
             return Token{TokenType::S_expr_end, {}};
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '^':
+        case '%': return Token{TokenType::Label, std::string{m_text[m_pos - 1]}};
         case '\'':
             return Token{TokenType::Quote, {}};
     }

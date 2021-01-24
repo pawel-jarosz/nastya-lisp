@@ -3,7 +3,6 @@
 //
 
 #include <algorithm>
-#include <iostream>
 
 #include "Builtins/BuiltinsException.hpp"
 #include "LispExpression/TypeSystem/BooleanObject.hpp"
@@ -29,10 +28,7 @@ lisp::ObjectStorage IfEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectS
         BUT_THROW(BuiltinsException, "Lang.Syntax.If expects exactly boolean as first argument");
     }
     const auto& boolean = dynamic_cast<const lisp::typesystem::BooleanObject&>(first_argument.getRawObject());
-    if (boolean.getValue()) {
-        return as_list[1];
-    }
-    return as_list[2];
+    return as_list[1];
 }
 
 lisp::ObjectStorage CondEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const

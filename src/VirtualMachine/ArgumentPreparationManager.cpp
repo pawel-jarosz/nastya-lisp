@@ -9,6 +9,7 @@
 #include "VirtualMachine/ArgumentPreparationStrategy/LetInStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/QuoteStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/CondStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/IfStrategy.hpp"
 #include <utility>
 
 namespace nastya::vm {
@@ -20,6 +21,7 @@ void ArgumentPreparationManager::init(ArgumentPreparationManager& manager)
     manager.registerStrategy(std::make_unique<QuoteStrategy>());
     manager.registerStrategy(std::make_unique<LetInStrategy>());
     manager.registerStrategy(std::make_unique<LambdaStrategy>());
+    manager.registerStrategy(std::make_unique<IfStrategy>());
 }
 
 void ArgumentPreparationManager::registerStrategy(std::unique_ptr<IArgumentPreparationStrategy> strategy) {

@@ -12,7 +12,6 @@
 #include "Modules/ModuleException.hpp"
 #include "VirtualMachine/Machine.hpp"
 #include "VirtualMachine/MachineRuntimeException.hpp"
-
 #include <range/v3/view.hpp>
 
 namespace nastya::vm {
@@ -48,9 +47,13 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     }
     auto label = dynamic_cast<lisp::typesystem::LabelObject&>(content[0].getRawObject());
     // GCOVR_EXCL_STOP
+    auto lambda = computeLabel(content[0]);
+    if (lambda and lambda.value().getType() == lisp::ObjectType::Lambda) {
+        return computeLambda(lambda.value(), content);
+    }
     const auto& strategy = m_preparation_manager.getStrategy(label.getValue());
     const auto arguments = strategy.extract_arguments(raw_object, *this);
-    return m_modules.getFunction(label.getValue()).evaluate(*this, arguments);
+    return m_modules.getFunction(label.getValue()).evaluate(*this, arguments);;
 }
 
 bool Machine::registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,
@@ -115,6 +118,7 @@ const lisp::ObjectStorage& Machine::getFromStack(const lisp::typesystem::LabelOb
         if (result != it->end()) {
             return result->second;
         }
+        it += 1;
     }
     BUT_THROW(MachineRuntimeException, "Variable is not available");
 }
@@ -124,7 +128,6 @@ std::optional<lisp::ObjectStorage> Machine::computeLabel(const lisp::ObjectStora
     if (label.getType() != lisp::ObjectType::Label) {
         return {};
     }
-
     if (not isSymbolAvailable(label)) {
         return label;
     }
@@ -137,6 +140,25 @@ std::optional<lisp::ObjectStorage> Machine::computeLabel(const lisp::ObjectStora
         const auto result = getFromHeap(Cast::as_label(label));
         return { result };
     }
+}
+
+lisp::ObjectStorage
+Machine::computeLambda(const lisp::ObjectStorage& lambda_storage, const std::vector<lisp::ObjectStorage>& call)
+{
+    const auto& lambda = utils::Cast::as_lambda(lambda_storage, "Label should be computed to be lambda...");
+    pushStackFrame();
+
+    const auto& arguments = lambda.getArgumentsList();
+    for (int i = 1; i < call.size(); i++) {
+        const auto computed_value = run(call[i]);
+        const auto argument_name = utils::Cast::as_label(arguments.getContent()[i - 1],
+                                                         "Name of variable should be label");
+        registerVariableOnStack(argument_name, computed_value);
+    }
+    lisp::ObjectStorage command{std::unique_ptr<lisp::IObject>(lambda.getCommand().clone())};
+    const auto result = run(command);
+    popStackFrame();
+    return result;
 }
 
 }  // namespace nastya::vm

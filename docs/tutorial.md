@@ -1,6 +1,5 @@
 # Nastya Lisp - language tutorial by examples
 
-
 ## Atomic types
 
 ```lisp
@@ -20,7 +19,8 @@
 
 ## Lists
 
-Lists are hetereogenous structure which means that it is an ordered set of data in different types. They are presented in following format:
+Lists are hetereogenous structure which means that it is an ordered set of data in different types.
+They are presented in following format:
 
 ``` lisp
 (1 #true 3.14)
@@ -28,7 +28,8 @@ Lists are hetereogenous structure which means that it is an ordered set of data 
 
 means a list with following elements - first element is element 1, second boolean #true and third 3.14.
 
-Lists are real fundament of this language all expressions in this language are atoms or they are a list. Basic command looks like simmilar manner:
+Lists are real fundament of this language all expressions in this language are atoms or they are a list.
+Basic command looks like similar manner:
 
 ``` lisp
 (command_label arg1 arg2 arg3 ... argN)
@@ -125,7 +126,8 @@ There is available two condition methods:
 ? | (If boolean_expression true_result false_result)
 ```
 
-where boolean expression is an expression which computes to boolean value. If expression reduces to `#true` then `If` expression returns `true_result` otherwise returns `false_result`.
+where boolean expression is an expression which computes to boolean value. If expression
+reduces to `#true` then `If` expression returns `true_result` otherwise returns `false_result`.
 
 ### Example
 
@@ -145,7 +147,9 @@ where boolean expression is an expression which computes to boolean value. If ex
 ? | (Cond (condition1 value1) (condition2 value2) ... (conditionN valueN) (Else otherwise_value))
 ```
 
-Conditions are an expression reductible to boolean value. If `condition1` is true then expression value is `value1`, than there is checked in similar manner `condition2`, `condition3`... If all conditions failed expression value is value in `Else` block - in our sample it is `otherwise_value`. `Else` value is not an obligatory block.
+Conditions are an expression reductible to boolean value. If `condition1` is true then expression value is `value1`,
+than there is checked in similar manner `condition2`, `condition3`... If all conditions failed expression value is
+value in `Else` block - in our sample it is `otherwise_value`. `Else` value is not an obligatory block.
 
 ``` lisp
 ? | (Cond ((Greater 1 2) 1) ((GreaterOrEqual 1 2) 2) ((Equal 1 2) 3) (Else 4))                       
@@ -156,19 +160,54 @@ Conditions are an expression reductible to boolean value. If `condition1` is tru
 
 ## `Define` command
 
-to be done...
+`Define` keyword register named constant value on pseudo-heap.
+
+``` lisp
+
+? | (Define Pi 3.14)
+  | Label => Pi
+? | Pi
+  | Floating => 3.14
+```
 
 ## `Let...In...` command
 
-to be done...
+Syntax `Let...In...` pushes a frame on the pseudo-stack and registers constants given in section `Let`,
+after registration computes formula in section `In`. The last step is remove top from the pseudo-stack.
+
+``` lisp
+? | (Define isEmpty (Lambda (list) (If (Equal list '()) #true #false)))
+  | Floating => 3.14
+```
 
 ## Lambda expression
 
-to be done...
+`Lambda` expression has following structure:
+
+``` lisp
+(Lambda (argument_name1 argument_name2 ... argument_nameN) (computable_expression))
+```
+
+There is an example:
+```lisp
+? | (Define IsEmpty (Lambda (list) (If (Equal list '()) #true #false)))
+  | Label => IsEmpty
+? | (IsEmpty '())
+  | Boolean => #true
+? | (IsEmpty '(123))(Define IsEmpty (Lambda (list) (If (Equal list (Quote ())) #true #false)))
+  | Boolean => #false
+? | (Define GetSize (Lambda (list) (If (IsEmpty list) 0 (+ 1 (GetSize (Tail list))))))
+  | Label => GetSize
+? | (GetSize '())
+  | Integer => 0
+? | (GetSize '(1 2 3))
+  | Integer => 3
+```
 
 ## Terminal command
 
-Command line interface implements additional module which implements functionalities to perform by user on an interface. There is available following command:
+Command line interface implements additional module which implements functionalities to perform by user on an interface.
+There is available following command:
 
 * `Exit-Console` - closing terminal.
 

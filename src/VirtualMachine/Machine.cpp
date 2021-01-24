@@ -12,7 +12,6 @@
 #include "Modules/ModuleException.hpp"
 #include "VirtualMachine/Machine.hpp"
 #include "VirtualMachine/MachineRuntimeException.hpp"
-#include <iostream>
 #include <range/v3/view.hpp>
 
 namespace nastya::vm {
@@ -54,7 +53,7 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     }
     const auto& strategy = m_preparation_manager.getStrategy(label.getValue());
     const auto arguments = strategy.extract_arguments(raw_object, *this);
-    return m_modules.getFunction(label.getValue()).evaluate(*this, arguments);
+    return m_modules.getFunction(label.getValue()).evaluate(*this, arguments);;
 }
 
 bool Machine::registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,
@@ -119,6 +118,7 @@ const lisp::ObjectStorage& Machine::getFromStack(const lisp::typesystem::LabelOb
         if (result != it->end()) {
             return result->second;
         }
+        it += 1;
     }
     BUT_THROW(MachineRuntimeException, "Variable is not available");
 }
@@ -128,7 +128,6 @@ std::optional<lisp::ObjectStorage> Machine::computeLabel(const lisp::ObjectStora
     if (label.getType() != lisp::ObjectType::Label) {
         return {};
     }
-
     if (not isSymbolAvailable(label)) {
         return label;
     }
@@ -148,6 +147,7 @@ Machine::computeLambda(const lisp::ObjectStorage& lambda_storage, const std::vec
 {
     const auto& lambda = utils::Cast::as_lambda(lambda_storage, "Label should be computed to be lambda...");
     pushStackFrame();
+
     const auto& arguments = lambda.getArgumentsList();
     for (int i = 1; i < call.size(); i++) {
         const auto computed_value = run(call[i]);

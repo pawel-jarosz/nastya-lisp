@@ -194,8 +194,14 @@ There is an example:
   | Label => IsEmpty
 ? | (IsEmpty '())
   | Boolean => #true
-? | (IsEmpty '(123))
+? | (IsEmpty '(123))(Define IsEmpty (Lambda (list) (If (Equal list (Quote ())) #true #false)))
   | Boolean => #false
+? | (Define GetSize (Lambda (list) (If (IsEmpty list) 0 (+ 1 (GetSize (Tail list))))))
+  | Label => GetSize
+? | (GetSize '())
+  | Integer => 0
+? | (GetSize '(1 2 3))
+  | Integer => 3
 ```
 
 ## Terminal command

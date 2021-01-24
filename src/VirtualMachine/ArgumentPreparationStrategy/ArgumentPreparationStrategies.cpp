@@ -8,10 +8,10 @@
 #include "VirtualMachine/ArgumentPreparationStrategy/QuoteStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/LetInStrategy.hpp"
 #include "VirtualMachine/ArgumentPreparationStrategy/CondStrategy.hpp"
+#include "VirtualMachine/ArgumentPreparationStrategy/IfStrategy.hpp"
 #include "Utilities/LispCast.hpp"
 
 #include <algorithm>
-#include <iostream>
 
 namespace nastya::vm {
 
@@ -105,6 +105,19 @@ lisp::ObjectStorage LambdaStrategy::extract_arguments(const lisp::typesystem::Li
     // check if only two arguments
     std::unique_ptr<lisp::IObject> result(new lisp::typesystem::ListObject(arguments));
     return lisp::ObjectStorage(std::move(result));
+}
+
+lisp::ObjectStorage IfStrategy::extract_arguments(const lisp::typesystem::ListObject& object, vm::IMachine& vm) const
+{
+    const auto content = object.getContent();
+    std::vector<lisp::ObjectStorage> arguments;
+    arguments.emplace_back(vm.run(content[1]));
+    const auto& boolean = utils::Cast::as_boolean(arguments[0], "Value should be computed to boolean");
+    arguments.emplace_back(vm.run(content[boolean.getValue() ? 2 : 3]));
+    arguments.emplace_back(lisp::ObjectStorage(std::unique_ptr<lisp::IObject>(new lisp::typesystem::ListObject())));
+    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
+    lisp::ObjectStorage result(std::move(obj));
+    return result;
 }
 
 }

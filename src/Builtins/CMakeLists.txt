@@ -1,4 +1,8 @@
 set(BUILTINS_LIBRARY_SRC
+        Arithmetic/ArithmeticEvaluators.hpp
+        Arithmetic/ArithmeticEvaluators.cpp
+        Arithmetic/ArithmeticModule.hpp
+        Arithmetic/ArithmeticModule.cpp
         Lists/ListsEvaluators.hpp
         Lists/ListsEvaluators.cpp
         Lists/ListsModule.hpp

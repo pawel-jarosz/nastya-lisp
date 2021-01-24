@@ -143,7 +143,11 @@ Token DummyParser::getToken()
         case ')':
             return Token{TokenType::S_expr_end, {}};
         case '+':
-            return Token{TokenType::Label, std::string{"+"}};
+        case '-':
+        case '*':
+        case '/':
+        case '^':
+        case '%': return Token{TokenType::Label, std::string{m_text[m_pos - 1]}};
         case '\'':
             return Token{TokenType::Quote, {}};
     }

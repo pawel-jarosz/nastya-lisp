@@ -23,10 +23,18 @@ struct BuiltinsModuleBuilderTest : public Test {
 
 TEST_F(BuiltinsModuleBuilderTest, basicExpectation) {
     auto registered_modules = registry.getAvailableModules();
-    EXPECT_EQ(registered_modules.size(), 3);
-    EXPECT_EQ(registered_modules[0], "Lang.Compare");
-    EXPECT_EQ(registered_modules[1], "Lang.Lists");
-    EXPECT_EQ(registered_modules[2], "Lang.Syntax");
+    EXPECT_EQ(registered_modules.size(), 4);
+    std::vector modules_list = {
+        "Lang.Arithmetic",
+        "Lang.Compare",
+        "Lang.Lists",
+        "Lang.Syntax"
+    };
+    for (const auto& module: modules_list) {
+        const auto begin = registered_modules.cbegin();
+        const auto end = registered_modules.cend();
+        EXPECT_NE(std::find(begin, end, module), end);
+    }
 }
 
 TEST_F(BuiltinsModuleBuilderTest, verifyListsModule) {
@@ -60,6 +68,16 @@ TEST_F(BuiltinsModuleBuilderTest, verifySyntaxModule) {
     std::vector<std::string> methods = {
         "If",
         "Cond"
+    };
+    for (const auto& method: methods) {
+        EXPECT_TRUE(registry.isAvailableFunction(method));
+        EXPECT_EQ(registry.getFunction(method).getName(), method);
+    }
+}
+
+TEST_F(BuiltinsModuleBuilderTest, verifyArithmeticModule) {
+    std::vector<std::string> methods = {
+        "+"
     };
     for (const auto& method: methods) {
         EXPECT_TRUE(registry.isAvailableFunction(method));

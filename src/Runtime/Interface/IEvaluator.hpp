@@ -15,6 +15,7 @@ namespace nastya::runtime {
 class IEvaluator
 {
 public:
+    virtual ~IEvaluator() = default;
     virtual std::string getName() const = 0;
     virtual lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
                                                   IMachine& vm) const = 0;

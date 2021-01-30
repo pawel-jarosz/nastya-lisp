@@ -1,4 +1,8 @@
 set(VM_LIBRARY_SRC
+        CallWrapper.hpp
+        CallWrapper.cpp
+        LambdaCallEvaluator.hpp
+        LambdaCallEvaluator.cpp
         Machine.hpp
         Machine.cpp
         MachineRuntimeException.hpp)

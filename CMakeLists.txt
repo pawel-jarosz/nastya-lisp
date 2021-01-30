@@ -21,7 +21,7 @@ if (${ENABLED_CODE_COVERAGE})
             EXECUTABLE ctest -j ${PROCESSOR_COUNT} # Executable in PROJECT_BINARY_DIR
             EXCLUDE src/Tests src/LispExpression/Testing src/Modules/Testing
                     src/Parser/Testing src/VirtualMachine/Testing
-                    src/CLI/Testing src/CLI/main.cpp
+                    src/CLI/Testing src/Runtime/Testing src/CLI/main.cpp
     )
 endif()
 

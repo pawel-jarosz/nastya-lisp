@@ -26,42 +26,4 @@ struct SubtractionEvaluator : public runtime::IEvaluator
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
 };
 
-struct MultiplicationEvaluator : public runtime::IEvaluator
-{
-    std::string getName() const override
-    {
-        return "*";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
-};
-
-struct DivisionEvaluator : public runtime::IEvaluator
-{
-    std::string getName() const override
-    {
-        return "/";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
-};
-
-struct ModuloEvaluator : public runtime::IEvaluator
-{
-    std::string getName() const override
-    {
-        return "%";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
-};
-
-struct PowerEvaluator : public runtime::IEvaluator
-{
-    std::string getName() const override
-    {
-        return "-";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
-};
-
-
-
 }

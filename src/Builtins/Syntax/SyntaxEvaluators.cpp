@@ -126,8 +126,8 @@ lisp::ObjectStorage DefineEvaluator::preExecute(const lisp::typesystem::ListObje
 {
     const auto content = object.getContent();
     // TODO: Add exception for invalid list of argument
-    const auto variable_name = content[0];
-    const auto variable_value = vm.run(content[1]);
+    const auto variable_name = content[1];
+    const auto variable_value = vm.run(content[2]);
     std::vector<lisp::ObjectStorage> arguments = { variable_name, variable_value };
     std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
     lisp::ObjectStorage result(std::move(obj));

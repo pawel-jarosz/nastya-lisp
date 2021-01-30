@@ -17,9 +17,8 @@
 namespace nastya::vm {
 using namespace utils;
 
-Machine::Machine(const modules::IModuleRegistry& registry, const IArgumentPreparationManager& preparation_manager)
+Machine::Machine(const modules::IModuleRegistry& registry)
 : m_modules{registry}
-, m_preparation_manager{preparation_manager}
 {
 }
 
@@ -51,9 +50,10 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     if (lambda and lambda.value().getType() == lisp::ObjectType::Lambda) {
         return computeLambda(lambda.value(), content);
     }
-    const auto& strategy = m_preparation_manager.getStrategy(label.getValue());
-    const auto arguments = strategy.extract_arguments(raw_object, *this);
-    return m_modules.getFunction(label.getValue()).evaluate(*this, arguments);;
+
+    const auto& function = m_modules.getFunction(label.getValue());
+    const auto arguments = function.preExecute(raw_object, *this);
+    return function.evaluate(*this, arguments);;
 }
 
 bool Machine::registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,

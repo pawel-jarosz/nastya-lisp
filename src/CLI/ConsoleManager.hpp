@@ -9,14 +9,14 @@
 #include "CLI/Interface/IIoFactory.hpp"
 #include "LispExpression/Interface/IExpressionBuilder.hpp"
 #include "Parser/Interface/IParser.hpp"
-#include "VirtualMachine/Interface/IMachine.hpp"
+#include "Runtime/Interface/IMachine.hpp"
 
 namespace nastya::cli {
 
 class ConsoleManager : public interface::IConsoleManager
 {
 public:
-    ConsoleManager(vm::IMachine& machine,
+    ConsoleManager(runtime::IMachine& machine,
                    parser::IParser& parser,
                    lisp::IExpressionBuilder& expression_builder,
                    io::IIoFactory& io_provider,
@@ -26,7 +26,7 @@ public:
     void shutdown() override;
 
 private:
-    vm::IMachine& m_machine;
+    runtime::IMachine& m_machine;
     parser::IParser& m_parser;
     lisp::IExpressionBuilder& m_expr_builder;
     But::NotNullUnique<io::IInputSource> m_in;

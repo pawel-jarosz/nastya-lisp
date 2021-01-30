@@ -31,6 +31,25 @@ lisp::ObjectStorage IfEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectS
     return as_list[boolean.getValue() ? 1 : 2];
 }
 
+lisp::ObjectStorage IfEvaluator::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+{
+    const auto content = object.getContent();
+    std::vector<lisp::ObjectStorage> arguments;
+    arguments.emplace_back(vm.run(content[1]));
+    const auto& boolean = utils::Cast::as_boolean(arguments[0], "Value should be computed to boolean");
+    if (boolean.getValue()) {
+        arguments.emplace_back(vm.run(content[2]));
+        arguments.emplace_back(lisp::ObjectStorage(std::unique_ptr<lisp::IObject>(new lisp::typesystem::ListObject())));
+    }
+    else {
+        arguments.emplace_back(lisp::ObjectStorage(std::unique_ptr<lisp::IObject>(new lisp::typesystem::ListObject())));
+        arguments.emplace_back(vm.run(content[3]));
+    }
+    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
+    lisp::ObjectStorage result(std::move(obj));
+    return result;
+}
+
 lisp::ObjectStorage CondEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
 {
     if (object.getType() != lisp::ObjectType::List)
@@ -70,6 +89,30 @@ lisp::ObjectStorage CondEvaluator::evaluate(runtime::IMemory&, const lisp::Objec
     BUT_THROW(BuiltinsException, "Lang.Syntax.Cond unspecified return value");
 }
 
+lisp::ObjectStorage CondEvaluator::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+{
+    const auto content = object.getContent();
+    std::vector conditions(++content.begin(), content.end());
+    std::vector<lisp::ObjectStorage> arguments;
+
+    for (const auto& condition: conditions) {
+        const auto& condition_tuple_list = utils::Cast::as_list(condition);
+        const auto condition_tuple = condition_tuple_list.getContent();
+        const auto bool_expression = condition_tuple[0];
+        const auto expected_value = condition_tuple[1];
+        const auto evaluated_bool = vm.run(bool_expression);
+        const auto evaluated_value = vm.run(expected_value);
+        std::vector<lisp::ObjectStorage> result{evaluated_bool, evaluated_value};
+        std::unique_ptr<lisp::IObject> result_as_list(new lisp::typesystem::ListObject(result));
+        nastya::lisp::ObjectStorage prepared_condition(std::move(result_as_list));
+        arguments.emplace_back(std::move(prepared_condition));
+    }
+
+    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
+    lisp::ObjectStorage result(std::move(obj));
+    return result;
+}
+
 lisp::ObjectStorage DefineEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
 {
     const auto& list = utils::Cast::as_list(object, "Lang.Syntax.Define expects list of arguments").getContent();
@@ -79,9 +122,49 @@ lisp::ObjectStorage DefineEvaluator::evaluate(runtime::IMemory& memory, const li
     return list[0];
 }
 
+lisp::ObjectStorage DefineEvaluator::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+{
+    const auto content = object.getContent();
+    // TODO: Add exception for invalid list of argument
+    const auto variable_name = content[0];
+    const auto variable_value = vm.run(content[1]);
+    std::vector<lisp::ObjectStorage> arguments = { variable_name, variable_value };
+    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
+    lisp::ObjectStorage result(std::move(obj));
+    return result;
+}
+
 lisp::ObjectStorage LetInEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
 {
     return object;
+}
+
+bool isInLabel(const lisp::ObjectStorage& object) {
+    if (object.getType() != lisp::ObjectType::Label) {
+        return false;
+    }
+    const auto& label = utils::Cast::as_label(object);
+    return (label.getValue() == "In");
+}
+
+lisp::ObjectStorage LetInEvaluator::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+{
+    // TODO: Exception handling
+    const auto& content = object.getContent();
+    const auto end_of_variable_definitions = std::find_if(content.begin() + 1, content.end(), isInLabel);
+    auto it = content.begin() + 1;
+    while(it != end_of_variable_definitions) {
+        const auto& tuple = utils::Cast::as_list(*it);
+        const auto& variable_name = utils::Cast::as_label(tuple.getContent()[0]);
+        const auto& variable_value = vm.run(tuple.getContent()[1]);
+        vm.pushStackFrame();
+        vm.registerVariableOnStack(variable_name, variable_value);
+        ++it;
+    }
+    const auto expression = end_of_variable_definitions + 1;
+    const auto result = vm.run(*expression);
+    vm.popStackFrame();
+    return result;
 }
 
 lisp::ObjectStorage LambdaEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
@@ -97,6 +180,15 @@ lisp::ObjectStorage LambdaEvaluator::evaluate(runtime::IMemory& memory, const li
     const auto& function = utils::Cast::as_list(arguments[1], "Lang.Syntax.Lambda expects list as a command");
     std::unique_ptr<lisp::IObject> lambda(new lisp::typesystem::LambdaObject(list_of_arguments, function));
     return lisp::ObjectStorage(std::move(lambda));
+}
+
+lisp::ObjectStorage LambdaEvaluator::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+{
+    const auto& content = object.getContent();
+    std::vector arguments(content.begin() + 1, content.end());
+    // check if only two arguments
+    std::unique_ptr<lisp::IObject> result(new lisp::typesystem::ListObject(arguments));
+    return lisp::ObjectStorage(std::move(result));
 }
 
 }  // namespace nastya::builtins::syntax

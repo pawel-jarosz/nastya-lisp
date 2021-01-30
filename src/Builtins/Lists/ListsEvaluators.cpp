@@ -43,4 +43,13 @@ lisp::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory& memory, const lis
     ASSERT_THROW(arguments_list.getSize() != 1, "Lang.Lists.Quote expects exactly one argument");
     return lisp::ObjectStorage(arguments_list.getContent()[0]);
 }
+
+lisp::ObjectStorage QuoteEvaluator::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+{
+    const auto content = object.getContent();
+    std::vector<lisp::ObjectStorage> arguments(++content.begin(), content.end());
+    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
+    lisp::ObjectStorage result(std::move(obj));
+    return result;
+}
 }  // namespace nastya::builtins::lists

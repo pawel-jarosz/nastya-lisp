@@ -4,7 +4,7 @@
 
 #include "CLI/ConsoleManager.hpp"
 #include "Parser/Testing/ParserMock.hpp"
-#include "VirtualMachine/Testing/MachineMock.hpp"
+#include "Runtime/Testing/MachineMock.hpp"
 #include "LispExpression/Testing/ExpressionBuilderMock.hpp"
 #include "CLI/Testing/IoFactoryMock.hpp"
 #include "CLI/Testing/SplashScreenMock.hpp"
@@ -24,7 +24,7 @@ namespace nastya::cli {
 using namespace ::testing;
 
 TEST(ConsoleManagerTest, testSplashScreen) {
-    vm::MachineMock machine;
+    runtime::MachineMock machine;
     parser::ParserMock parser;
     lisp::testing::ExpressionBuilderMock expression_builder;
     io::IoFactoryMock io_factory;

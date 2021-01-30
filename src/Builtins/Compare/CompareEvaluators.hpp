@@ -4,55 +4,43 @@
 
 #pragma once
 
-#include "Runtime/Interface/IEvaluator.hpp"
+#include "Runtime/GenericEvaluator.hpp"
 
 namespace nastya::builtins::compare {
 
-struct LowerEvaluator : public runtime::IEvaluator {
-    std::string getName() const override {
-        return "Lower";
-    }
-
+class LowerEvaluator : public runtime::GenericEvaluator {
+public:
+    LowerEvaluator() : runtime::GenericEvaluator{"Lower"} {}
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct LowerOrEqualEvaluator : public runtime::IEvaluator {
-    std::string getName() const override {
-        return "LowerOrEqual";
-    }
-
+class LowerOrEqualEvaluator : public runtime::GenericEvaluator {
+public:
+    LowerOrEqualEvaluator() : runtime::GenericEvaluator{"LowerOrEqual"} {}
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct EqualEvaluator : public runtime::IEvaluator {
-    std::string getName() const override {
-        return "Equal";
-    }
-
+class EqualEvaluator : public runtime::GenericEvaluator {
+public:
+    EqualEvaluator() : runtime::GenericEvaluator{"Equal"} {}
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct GreaterOrEqualEvaluator : public runtime::IEvaluator {
-    std::string getName() const override {
-        return "GreaterOrEqual";
-    }
-
+class GreaterOrEqualEvaluator : public runtime::GenericEvaluator {
+public:
+    GreaterOrEqualEvaluator() : runtime::GenericEvaluator{"GreaterOrEqual"} {}
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct GreaterEvaluator : public runtime::IEvaluator {
-    std::string getName() const override {
-        return "Greater";
-    }
-
+class GreaterEvaluator : public runtime::GenericEvaluator {
+public:
+    GreaterEvaluator() : runtime::GenericEvaluator{"Greater"} {}
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct CompareEvaluator : public runtime::IEvaluator {
-    std::string getName() const override {
-        return "Compare";
-    }
-
+class CompareEvaluator : public runtime::GenericEvaluator {
+public:
+    CompareEvaluator() : runtime::GenericEvaluator{"Compare"} {}
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 

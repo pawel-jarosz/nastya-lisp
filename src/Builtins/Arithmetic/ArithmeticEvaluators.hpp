@@ -4,26 +4,22 @@
 
 #pragma once
 
-#include "Runtime/Interface/IEvaluator.hpp"
+#include "Runtime/GenericEvaluator.hpp"
 
 namespace nastya::builtins::arithmetic {
 
-struct AddEvaluator : public runtime::IEvaluator
+class AddEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "+";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+public:
+    AddEvaluator() : runtime::GenericEvaluator{"+"} {}
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct SubtractionEvaluator : public runtime::IEvaluator
+class SubtractionEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "-";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+public:
+    SubtractionEvaluator() : runtime::GenericEvaluator{"-"} {}
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
 }

@@ -5,8 +5,7 @@
 #pragma once
 
 #include "Modules/Interface/IModuleRegistry.hpp"
-#include "VirtualMachine/Interface/IMachine.hpp"
-#include "VirtualMachine/Interface/IArgumentPreparationManager.hpp"
+#include "Runtime/Interface/IMachine.hpp"
 
 #include <optional>
 #include <vector>
@@ -14,10 +13,10 @@
 
 namespace nastya::vm {
 
-class Machine : public IMachine
+class Machine : public runtime::IMachine
 {
 public:
-    Machine(const modules::IModuleRegistry& m_modules, const IArgumentPreparationManager& m_preparation_manager);
+    Machine(const modules::IModuleRegistry& m_modules);
     lisp::ObjectStorage run(const lisp::ObjectStorage& list) override;
     bool isSymbolAvailable(const lisp::ObjectStorage& label) const;
     bool registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,
@@ -32,7 +31,6 @@ private:
     std::optional<lisp::ObjectStorage> computeLabel(const lisp::ObjectStorage& label) const;
     lisp::ObjectStorage computeLambda(const lisp::ObjectStorage& lambda, const std::vector<lisp::ObjectStorage>& call);
     const modules::IModuleRegistry& m_modules;
-    const IArgumentPreparationManager& m_preparation_manager;
     std::map<std::string, lisp::ObjectStorage> m_heap;
     std::vector<std::map<std::string, lisp::ObjectStorage>> m_stack;
 };

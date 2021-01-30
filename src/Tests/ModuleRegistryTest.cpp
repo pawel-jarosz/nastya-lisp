@@ -2,12 +2,13 @@
 // Created by caedus on 21.12.2020.
 //
 
+#include <Runtime/GenericEvaluator.hpp>
 #include <gtest/gtest.h>
 
+#include "Modules/Module.hpp"
+#include "Modules/ModuleException.hpp"
 #include "Modules/ModuleRegistry.hpp"
 #include "Modules/Testing/ModuleMock.hpp"
-#include "Modules/ModuleException.hpp"
-#include "Modules/Module.hpp"
 #include "Runtime/Interface/IEvaluator.hpp"
 
 namespace nastya::modules::testing {
@@ -19,11 +20,8 @@ public:
     }
 };
 
-struct IdEvaluator : nastya::runtime::IEvaluator {
-    std::string getName() const override {
-        return "Id";
-    }
-
+struct IdEvaluator : nastya::runtime::GenericEvaluator {
+    IdEvaluator() : nastya::runtime::GenericEvaluator("Id") {}
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& arguments) const override {
         return arguments;
     }

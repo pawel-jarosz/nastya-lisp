@@ -2,11 +2,11 @@
 // Created by caedus on 22.12.2020.
 //
 
+#include <Runtime/GenericEvaluator.hpp>
 #include <gtest/gtest.h>
 
 #include "Modules/Module.hpp"
 #include "Modules/ModuleException.hpp"
-
 #include "Runtime/Testing/MemoryMock.hpp"
 
 namespace nastya::modules {
@@ -14,17 +14,11 @@ using namespace ::testing;
 
 const std::string module_name = "TestingModule";
 
-struct DummyEvaluator : public runtime::IEvaluator
+struct DummyEvaluator : public runtime::GenericEvaluator
 {
-    DummyEvaluator(std::string name) : evaluator_name{name}, called(false)
+    DummyEvaluator(std::string name) : GenericEvaluator{name}, called(false)
     {
     }
-
-    std::string getName() const override
-    {
-        return evaluator_name;
-    }
-
     lisp::ObjectStorage evaluate(runtime::IMemory&, const lisp::ObjectStorage& obj) const override
     {
         lisp::ObjectStorage res;

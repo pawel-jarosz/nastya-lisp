@@ -8,12 +8,13 @@
 #include "Runtime/Interface/IMemory.hpp"
 #include "Runtime/Interface/IRuntimeEnvironment.hpp"
 
-namespace nastya::vm {
+namespace nastya::runtime {
 
 class IMachine
 : public runtime::IMemory
 , public runtime::IRuntimeEnvironment {
 public:
+    virtual ~IMachine() = default;
 };
 
 }

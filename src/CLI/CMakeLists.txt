@@ -1,6 +1,8 @@
 set(CLI_SOURCE
         ConsoleManager.hpp
         ConsoleManager.cpp
+        PreloadFromFile.hpp
+        PreloadFromFile.cpp
         Interface/IConsoleManager.hpp
         Interface/IInputSource.hpp
         Interface/IOutputSink.hpp

@@ -13,7 +13,7 @@
 #include "Parser/DummyParser.hpp"
 #include "VirtualMachine/Machine.hpp"
 #include "CLI/SplashScreen/SplashScreen.hpp"
-
+#include "CLI/PreloadFromFile.hpp"
 #include <iostream>
 
 void initModules(nastya::lisp::ObjectFactory& object_factory, nastya::modules::ModuleRegistry& module_registry)
@@ -44,6 +44,10 @@ int main(int argc, char* argv[])
     nastya::parser::DummyParser parser;
     nastya::lisp::LispExpressionBuilder expressionBuilder(parser, object_factory);
     nastya::vm::Machine machine(module_registry);
+    nastya::cli::PreloadFromFile preloadFromFile(parser, expressionBuilder, machine);
+    for (int it = 1; it < argc; it++) {
+        preloadFromFile.loadFile(argv[it]);
+    }
     nastya::cli::io::stdio::StreamWrapperFactory io_factory(std::cin, std::cout);
     nastya::cli::ConsoleManager console_manager(machine, parser, expressionBuilder, io_factory, splashscreen);
     nastya::cli::module::ConsoleModuleBuilder consoleModuleBuilder(module_registry, console_manager);

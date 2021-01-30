@@ -1,0 +1,2 @@
+(Define IsEmpty (Lambda (list) (If (Equal list '()) #true #false)))
+(Define GetSize (Lambda (list) (If (IsEmpty list) 0 (+ 1 (GetSize (Tail list))))))

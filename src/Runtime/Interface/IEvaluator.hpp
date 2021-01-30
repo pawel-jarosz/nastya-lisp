@@ -19,6 +19,7 @@ public:
     virtual lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
                                                   IMachine& vm) const = 0;
     virtual lisp::ObjectStorage evaluate(IMemory& memory, const lisp::ObjectStorage& object) const = 0;
+    virtual void postExecute(IMachine& vm) const = 0;
 };
 
 }  // namespace nastya::runtime

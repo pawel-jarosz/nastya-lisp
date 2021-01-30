@@ -27,5 +27,8 @@ lisp::ObjectStorage GenericEvaluator::preExecute(const lisp::typesystem::ListObj
     lisp::ObjectStorage result(std::move(obj));
     return result;
 }
+void GenericEvaluator::postExecute(IMachine& vm) const
+{
+}
 
 }

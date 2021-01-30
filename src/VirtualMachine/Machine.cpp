@@ -53,7 +53,9 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
 
     const auto& function = m_modules.getFunction(label.getValue());
     const auto arguments = function.preExecute(raw_object, *this);
-    return function.evaluate(*this, arguments);;
+    const auto result = function.evaluate(*this, arguments);
+    function.postExecute(*this);
+    return result;
 }
 
 bool Machine::registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,

@@ -11,7 +11,6 @@
 #include "Modules/ModuleRegistry.hpp"
 #include "Parser/DummyParser.hpp"
 #include "VirtualMachine/Machine.hpp"
-#include "VirtualMachine/ArgumentPreparationManager.hpp"
 
 TEST(VMTest, testHeadList)
 {
@@ -26,9 +25,7 @@ TEST(VMTest, testHeadList)
     nastya::builtins::BuiltinsModuleBuilder builtins_builder(module_registry);
 
     builtins_builder.build();
-    nastya::vm::ArgumentPreparationManager preparation_manager;
-    nastya::vm::ArgumentPreparationManager::init(preparation_manager);
-    nastya::vm::Machine machine(module_registry, preparation_manager);
+    nastya::vm::Machine machine(module_registry);
     auto result = machine.run(expression);
     EXPECT_EQ(result.toString(), "2");
 }

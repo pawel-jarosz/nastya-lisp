@@ -147,7 +147,11 @@ Token DummyParser::getToken()
         case '*':
         case '/':
         case '^':
-        case '%': return Token{TokenType::Label, std::string{m_text[m_pos - 1]}};
+        case '%':
+            if (m_pos < m_text.size() and isblank(m_text[m_pos])) {
+                return Token{TokenType::Label, std::string{m_text[m_pos - 1]}};
+            }
+            break;
         case '\'':
             return Token{TokenType::Quote, {}};
     }

@@ -4,35 +4,33 @@
 
 #pragma once
 
+#include <Runtime/GenericEvaluator.hpp>
+
 #include "Runtime/Interface/IEvaluator.hpp"
 
 namespace nastya::builtins::lists {
 
-struct HeadEvaluator : public runtime::IEvaluator
+class HeadEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "Head";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+public:
+    HeadEvaluator() : runtime::GenericEvaluator{"Head"} {}
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct TailEvaluator : public runtime::IEvaluator
+class TailEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "Tail";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+public:
+    TailEvaluator() : runtime::GenericEvaluator{"Tail"} {}
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct QuoteEvaluator : public runtime::IEvaluator
+class QuoteEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "Quote";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+public:
+    QuoteEvaluator() : runtime::GenericEvaluator{"Quote"} {}
+    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+                                   runtime::IMachine& vm) const override;
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
 }  // namespace nastya::builtins::lists

@@ -1,17 +1,10 @@
 set(VM_LIBRARY_SRC
-        Interface/IArgumentPreparationStrategy.hpp
-        Interface/IArgumentPreparationManager.hpp
-        ArgumentPreparationStrategy/DefaultStrategy.hpp
-        ArgumentPreparationStrategy/DefineStrategy.hpp
-        ArgumentPreparationStrategy/LambdaStrategy.hpp
-        ArgumentPreparationStrategy/LetInStrategy.hpp
-        ArgumentPreparationStrategy/QuoteStrategy.hpp
-        ArgumentPreparationStrategy/CondStrategy.hpp
-        ArgumentPreparationStrategy/ArgumentPreparationStrategies.cpp
+        CallWrapper.hpp
+        CallWrapper.cpp
+        LambdaCallEvaluator.hpp
+        LambdaCallEvaluator.cpp
         Machine.hpp
         Machine.cpp
-        ArgumentPreparationManager.hpp
-        ArgumentPreparationManager.cpp
         MachineRuntimeException.hpp)
 
 add_library(VM SHARED ${VM_LIBRARY_SRC})

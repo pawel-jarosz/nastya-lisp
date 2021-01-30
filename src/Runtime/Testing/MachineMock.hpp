@@ -5,9 +5,9 @@
 #pragma once
 #include <gmock/gmock.h>
 
-#include "VirtualMachine/Interface/IMachine.hpp"
+#include "Runtime/Interface/IMachine.hpp"
 
-namespace nastya::vm {
+namespace nastya::runtime {
 using namespace ::testing;
 class MachineMock : public IMachine
 {

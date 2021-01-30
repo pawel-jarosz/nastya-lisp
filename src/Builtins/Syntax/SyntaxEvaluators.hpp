@@ -4,53 +4,53 @@
 
 #pragma once
 
-#include "Runtime/Interface/IEvaluator.hpp"
+#include "Runtime/GenericEvaluator.hpp"
 
 namespace nastya::builtins::syntax {
 
-struct IfEvaluator : public runtime::IEvaluator
+class IfEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "If";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
-};
-
-struct CondEvaluator : public runtime::IEvaluator
-{
-    std::string getName() const override
-    {
-        return "Cond";
-    }
+public:
+    IfEvaluator() : runtime::GenericEvaluator{"If"} {}
+    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+                                   runtime::IMachine& vm) const override;
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct DefineEvaluator : public runtime::IEvaluator
+class CondEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "Define";
-    }
+public:
+    CondEvaluator() : runtime::GenericEvaluator{"Cond"} {}
+    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+                                   runtime::IMachine& vm) const override;
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-struct LetInEvaluator : public runtime::IEvaluator
+class DefineEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "Let";
-    }
+public:
+    DefineEvaluator() : runtime::GenericEvaluator{"Define"} {}
+    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+                                   runtime::IMachine& vm) const override;
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+};
+
+class LetInEvaluator : public runtime::GenericEvaluator
+{
+public:
+    LetInEvaluator() : runtime::GenericEvaluator{"Let"} {}
+    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+                                   runtime::IMachine& vm) const override;
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 
 };
 
-struct LambdaEvaluator : public runtime::IEvaluator
+class LambdaEvaluator : public runtime::GenericEvaluator
 {
-    std::string getName() const override
-    {
-        return "Lambda";
-    }
+public:
+    LambdaEvaluator() : runtime::GenericEvaluator{"Lambda"} {}
+    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+                                   runtime::IMachine& vm) const override;
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 
 };

@@ -1,0 +1,2 @@
+(Define Factorial (Lambda (x) (If (Equal x 0) 1 (* n (Factorial (n - 1))))))
+(Define Fibonacci (Lambda (x) (If (LowerOrEqual x 1) 1 (+ (Fibonacci (- x 1)) (Fibonacci (- x 2))))))

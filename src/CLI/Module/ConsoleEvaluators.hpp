@@ -5,19 +5,15 @@
 #pragma once
 
 #include "CLI/Interface/IConsoleManager.hpp"
-#include "Runtime/Interface/IEvaluator.hpp"
+#include "Runtime/GenericEvaluator.hpp"
 
 namespace nastya::cli::module {
 
-class ShutdownEvaluator : public runtime::IEvaluator
+class ShutdownEvaluator : public runtime::GenericEvaluator
 {
 public:
     ShutdownEvaluator(interface::IConsoleManager& console);
-    std::string getName() const override
-    {
-        return "Exit-Console";
-    }
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const;
+    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 
 private:
     interface::IConsoleManager& m_console;

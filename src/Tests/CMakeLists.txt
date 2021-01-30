@@ -1,5 +1,5 @@
 add_executable(ModulesTest ModuleTest.cpp ModuleRegistryTest.cpp)
-target_link_libraries(ModulesTest ${TESTING_FRAMEWORK} Modules)
+target_link_libraries(ModulesTest ${TESTING_FRAMEWORK} Modules Runtime)
 add_test(NAME ModulesLibraryTest COMMAND ModulesTest)
 
 add_executable(Tests LispExpressionBuilderTest.cpp ExecutorEnvironmentTest.cpp)
@@ -23,7 +23,7 @@ target_link_libraries(ParserTest ${TESTING_FRAMEWORK} Parser)
 add_test(NAME ParserLibraryTest COMMAND ParserTest)
 
 add_executable(AbstractMachineTest AbstractMachineTest.cpp)
-target_link_libraries(AbstractMachineTest ${TESTING_FRAMEWORK} VM)
+target_link_libraries(AbstractMachineTest ${TESTING_FRAMEWORK} Runtime VM)
 add_test(NAME AbstractMachineLibraryTest COMMAND AbstractMachineTest)
 
 add_executable(CliTest ConsoleModuleTest.cpp IoStreamTest.cpp SplashScreenTest.cpp ConsoleManagerTest.cpp)

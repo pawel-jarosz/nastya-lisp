@@ -10,7 +10,9 @@ namespace nastya::builtins::arithmetic {
 void initializeModule(ArithmeticModule& module)
 {
     static AddEvaluator add;
-    module.registerFunction(add);
+    static SubtractionEvaluator subtraction;
+    module.registerFunction(add)
+        .registerFunction(subtraction);
 }
 
 ArithmeticModule::ArithmeticModule() : Module("Lang.Arithmetic")

@@ -28,7 +28,7 @@ lisp::ObjectStorage IfEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectS
         BUT_THROW(BuiltinsException, "Lang.Syntax.If expects exactly boolean as first argument");
     }
     const auto& boolean = dynamic_cast<const lisp::typesystem::BooleanObject&>(first_argument.getRawObject());
-    return as_list[1];
+    return as_list[boolean.getValue() ? 1 : 2];
 }
 
 lisp::ObjectStorage CondEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const

@@ -113,8 +113,14 @@ lisp::ObjectStorage IfStrategy::extract_arguments(const lisp::typesystem::ListOb
     std::vector<lisp::ObjectStorage> arguments;
     arguments.emplace_back(vm.run(content[1]));
     const auto& boolean = utils::Cast::as_boolean(arguments[0], "Value should be computed to boolean");
-    arguments.emplace_back(vm.run(content[boolean.getValue() ? 2 : 3]));
-    arguments.emplace_back(lisp::ObjectStorage(std::unique_ptr<lisp::IObject>(new lisp::typesystem::ListObject())));
+    if (boolean.getValue()) {
+        arguments.emplace_back(vm.run(content[2]));
+        arguments.emplace_back(lisp::ObjectStorage(std::unique_ptr<lisp::IObject>(new lisp::typesystem::ListObject())));
+    }
+    else {
+        arguments.emplace_back(lisp::ObjectStorage(std::unique_ptr<lisp::IObject>(new lisp::typesystem::ListObject())));
+        arguments.emplace_back(vm.run(content[3]));
+    }
     std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
     lisp::ObjectStorage result(std::move(obj));
     return result;

@@ -10,6 +10,9 @@ RUN apt-get install -y build-essential g++ gdb clang clang-format clang-tidy cma
 RUN cd /usr/src/googletest; mkdir build; cd build; cmake ..; make ; make install
 RUN cd /usr/src/; git clone https://github.com/el-bart/but.git; cd but; cd build; cmake .. ; make ; make install
 
+RUN rm /var/lib/dpkg/lock
+RUN apt-get install -y librange-v3-dev
+
 RUN mkdir -p /home/builder
 RUN groupadd builder
 RUN useradd -r -u $USER_ID -g builder builder

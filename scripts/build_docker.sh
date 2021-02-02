@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pushd ../docker
 USER_ID=$(id -u $USER)

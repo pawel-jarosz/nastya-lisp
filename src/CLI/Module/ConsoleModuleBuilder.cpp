@@ -2,8 +2,9 @@
 // Created by caedus on 02.01.2021.
 //
 
-#include "ConsoleModule.hpp"
-#include "ConsoleModuleBuilder.hpp"
+#include "CLI/Module/ConsoleModule.hpp"
+#include "CLI/Module/ConsoleModuleBuilder.hpp"
+#include "CLI/Module/ConsoleEvaluators.hpp"
 
 namespace nastya::cli::module {
 
@@ -14,7 +15,9 @@ ConsoleModuleBuilder::ConsoleModuleBuilder(modules::ModuleRegistry& registry, in
 
 void ConsoleModuleBuilder::build() const
 {
-    m_registry.registerModule(ConsoleModule::getInstance(m_console));
+    auto module = std::make_unique<ConsoleModule>();
+    module->registerFunction(std::unique_ptr<runtime::IEvaluator>(new ShutdownEvaluator(m_console)));
+    m_registry.registerModule(std::unique_ptr<modules::IModule>(module.release()));
 }
 
 }  // namespace nastya::cli::module

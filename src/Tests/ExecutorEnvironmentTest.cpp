@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Builtins/BuiltinsModuleBuilder.hpp"
+#include "Builtins/BuiltinsBuilder.hpp"
 #include "LispExpression/LispExpressionBuilder.hpp"
 #include "LispExpression/ObjectFactory.hpp"
 #include "LispExpression/ObjectFactoryBuilder.hpp"

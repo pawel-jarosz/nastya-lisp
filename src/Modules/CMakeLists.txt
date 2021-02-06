@@ -4,7 +4,8 @@ set(MODULES_LIBRARY_SRC
         Module.hpp
         Module.cpp
         ModuleRegistry.hpp
-        ModuleRegistry.cpp)
+        ModuleRegistry.cpp
+        ModuleBuilder.hpp)
 
 add_library(Modules SHARED ${MODULES_LIBRARY_SRC})
 set_target_properties(Modules PROPERTIES LINKER_LANGUAGE CXX)

@@ -2,9 +2,14 @@
 // Created by caedus on 31.12.2020.
 //
 
-#include "Builtins/BuiltinsModuleBuilder.hpp"
+#include <iostream>
+
+#include "Builtins/BuiltinsModulesFactory.hpp"
+#include "Builtins/BuiltinsBuilder.hpp"
 #include "CLI/ConsoleManager.hpp"
 #include "CLI/IO/StreamWrapperFactory.hpp"
+#include "CLI/PreloadFromFile.hpp"
+#include "CLI/SplashScreen/SplashScreen.hpp"
 #include "LispExpression/LispExpressionBuilder.hpp"
 #include "LispExpression/ObjectFactory.hpp"
 #include "LispExpression/ObjectFactoryBuilder.hpp"
@@ -12,15 +17,13 @@
 #include "Modules/ModuleRegistry.hpp"
 #include "Parser/DummyParser.hpp"
 #include "VirtualMachine/Machine.hpp"
-#include "CLI/SplashScreen/SplashScreen.hpp"
-#include "CLI/PreloadFromFile.hpp"
-#include <iostream>
 
 void initModules(nastya::lisp::ObjectFactory& object_factory, nastya::modules::ModuleRegistry& module_registry)
 {
     nastya::lisp::ObjectFactoryBuilder object_factory_builder(object_factory);
     object_factory_builder.build();
-    nastya::builtins::BuiltinsModuleBuilder builtins_builder(module_registry);
+    nastya::builtins::BuiltinsModulesFactory modules_factory;
+    nastya::builtins::BuiltinsBuilder builtins_builder(module_registry, modules_factory);
     builtins_builder.build();
 }
 

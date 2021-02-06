@@ -2,23 +2,22 @@
 // Created by caedus on 06.01.2021.
 //
 
-#include "CLI/ConsoleManager.hpp"
-#include "Parser/Testing/ParserMock.hpp"
-#include "Runtime/Testing/MachineMock.hpp"
-#include "LispExpression/Testing/ExpressionBuilderMock.hpp"
-#include "CLI/Testing/IoFactoryMock.hpp"
-#include "CLI/Testing/SplashScreenMock.hpp"
-#include "CLI/Testing/OutputSinkMock.hpp"
-#include "CLI/Testing/InputSourceMock.hpp"
-
-#include "LispExpression/Testing/ListBuilder.hpp"
-#include "Builtins/BuiltinsModuleBuilder.hpp"
-#include "Modules/ModuleRegistry.hpp"
-#include "VirtualMachine/Machine.hpp"
-
 #include <thread>
 
 #include <gtest/gtest.h>
+
+#include "Builtins/BuiltinsBuilder.hpp"
+#include "CLI/ConsoleManager.hpp"
+#include "CLI/Testing/InputSourceMock.hpp"
+#include "CLI/Testing/IoFactoryMock.hpp"
+#include "CLI/Testing/OutputSinkMock.hpp"
+#include "CLI/Testing/SplashScreenMock.hpp"
+#include "LispExpression/Testing/ExpressionBuilderMock.hpp"
+#include "LispExpression/Testing/ListBuilder.hpp"
+#include "Modules/ModuleRegistry.hpp"
+#include "Parser/Testing/ParserMock.hpp"
+#include "Runtime/Testing/MachineMock.hpp"
+#include "VirtualMachine/Machine.hpp"
 
 namespace nastya::cli {
 using namespace ::testing;

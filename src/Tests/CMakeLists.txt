@@ -1,6 +1,6 @@
-add_executable(ModulesTest ModuleTest.cpp ModuleRegistryTest.cpp)
-target_link_libraries(ModulesTest ${TESTING_FRAMEWORK} Modules Runtime)
-add_test(NAME ModulesLibraryTest COMMAND ModulesTest)
+#add_executable(ModulesTest ModuleTest.cpp ModuleRegistryTest.cpp)
+#target_link_libraries(ModulesTest ${TESTING_FRAMEWORK} Modules Runtime)
+#add_test(NAME ModulesLibraryTest COMMAND ModulesTest)
 
 add_executable(Tests LispExpressionBuilderTest.cpp ExecutorEnvironmentTest.cpp)
 target_link_libraries(Tests ${TESTING_FRAMEWORK} Builtins Modules LispExpression Parser VM)

@@ -2,12 +2,12 @@
 // Created by caedus on 03.01.2021.
 //
 
+#include <iostream>
+
 #include <gtest/gtest.h>
 
-#include "Builtins/BuiltinsModuleBuilder.hpp"
+#include "Builtins/BuiltinsBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
-
-#include <iostream>
 
 namespace nastya::builtins {
 using namespace ::testing;

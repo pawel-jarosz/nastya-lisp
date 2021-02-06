@@ -31,12 +31,13 @@ struct DummyEvaluator : public runtime::GenericEvaluator
 
 struct ModuleTest : public Test
 {
-    ModuleTest() : testing_module{module_name}, evaluator1("Head"), evaluator2("Tail")
+    ModuleTest()
+    : testing_module{module_name}
     {
     }
 
     Module testing_module;
-    DummyEvaluator evaluator1, evaluator2;
+    std::unique_ptr<DummyEvaluator> evaluator1, evaluator2;
 };
 
 TEST_F(ModuleTest, testModuleName)
@@ -46,16 +47,20 @@ TEST_F(ModuleTest, testModuleName)
 
 TEST_F(ModuleTest, testFunctionRegistration)
 {
+    evaluator1.reset(new DummyEvaluator("Head"));
+    evaluator2.reset(new DummyEvaluator("Tail"));
     EXPECT_FALSE(testing_module.isFunctionAvailable("Head"));
-    testing_module.registerFunction(evaluator1);
+    testing_module.registerFunction(std::move(evaluator1));
     EXPECT_TRUE(testing_module.isFunctionAvailable("Head"));
-    EXPECT_THROW(testing_module.registerFunction(evaluator1), ModuleException);
+    EXPECT_THROW(testing_module.registerFunction(std::move(evaluator1)), ModuleException);
 }
 
 TEST_F(ModuleTest, testFunctionList)
 {
-    testing_module.registerFunction(evaluator1);
-    testing_module.registerFunction(evaluator2);
+    evaluator1.reset(new DummyEvaluator("Head"));
+    evaluator2.reset(new DummyEvaluator("Tail"));
+    testing_module.registerFunction(std::move(evaluator1));
+    testing_module.registerFunction(std::move(evaluator2));
     auto list = testing_module.getFunctionsList();
     EXPECT_TRUE(testing_module.isFunctionAvailable("Head"));
     EXPECT_TRUE(testing_module.isFunctionAvailable("Tail"));
@@ -67,12 +72,13 @@ TEST_F(ModuleTest, testFunctionList)
 
 TEST_F(ModuleTest, testFunctionCall)
 {
+    evaluator1.reset(new DummyEvaluator("Head"));
     runtime::MemoryMock memory;
     lisp::ObjectStorage storage;
-    testing_module.registerFunction(evaluator1);
+    testing_module.registerFunction(std::move(evaluator1));
     auto& function = testing_module.getFunction("Head");
     function.evaluate(memory, storage);
-    EXPECT_TRUE(evaluator1.called);
+    EXPECT_TRUE(evaluator1->called);
 }
 
 }  // namespace nastya::modules

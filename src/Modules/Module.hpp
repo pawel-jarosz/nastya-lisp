@@ -18,11 +18,11 @@ public:
     bool isFunctionAvailable(const std::string& function_name) const override;
     std::vector<std::string> getFunctionsList() const override;
     runtime::IEvaluator& getFunction(const std::string& function_name) const override;
-    Module& registerFunction(runtime::IEvaluator& evaluator);
+    Module& registerFunction(std::unique_ptr<runtime::IEvaluator> evaluator);
 
 private:
     std::string m_module_name;
-    std::map<std::string, runtime::IEvaluator&> m_functions;
+    std::map<std::string, std::unique_ptr<runtime::IEvaluator>> m_functions;
 };
 
 }  // namespace nastya::modules

@@ -5,12 +5,12 @@
 #include <gtest/gtest.h>
 
 #include "CLI/Module/ConsoleEvaluators.hpp"
-#include "CLI/Testing/ConsoleManagerMock.hpp"
 #include "CLI/Module/ConsoleModule.hpp"
-#include "CLI/Module/ConsoleModuleBuilder.hpp"
+#include "CLI/Module/ConsoleModuleRegistration.hpp"
+#include "CLI/Testing/ConsoleManagerMock.hpp"
+#include "LispExpression/Testing/ListBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
-#include "LispExpression/Testing/ListBuilder.hpp"
 
 namespace nastya::cli {
 
@@ -27,16 +27,16 @@ TEST(ConsoleModuleTest, testShutdown) {
 
 TEST(ConsoleModuleTest, testModule) {
     ConsoleManagerMock console_manager;
-    auto& module = module::ConsoleModule::getInstance(console_manager);
-    EXPECT_EQ(module.getModuleName(), "CLI.App");
-    EXPECT_TRUE(module.isFunctionAvailable("Exit-Console"));
-    EXPECT_NO_THROW(module.getFunction("Exit-Console"));
+    auto module = nastya::cli::module::create_module(console_manager);
+    EXPECT_EQ(module->getModuleName(), "CLI.App");
+    EXPECT_TRUE(module->isFunctionAvailable("Exit-Console"));
+    EXPECT_NO_THROW(module->getFunction("Exit-Console"));
 }
 
 TEST(ConsoleModuleTest, testModuleRegistration) {
     ConsoleManagerMock console_manager;
     modules::ModuleRegistry registry;
-    module::ConsoleModuleBuilder builder(registry, console_manager);
+    module::ConsoleModuleRegistration builder(registry, console_manager);
     builder.build();
     EXPECT_EQ(registry.getAvailableModules()[0], "CLI.App");
 }

@@ -174,20 +174,20 @@ TEST(ListsEvaluatorTest, testQuoteFailure) {
 }
 
 TEST(ListsModuleTest, testModule) {
-    auto& module = ListsModule::getInstance();
-    EXPECT_EQ(module.getModuleName(), "Lang.Lists");
-    EXPECT_FALSE(module.isFunctionAvailable("Concat"));
+    const auto module = lists::create_module_builder()->build();
+    EXPECT_EQ(module->getModuleName(), "Lang.Lists");
+    EXPECT_FALSE(module->isFunctionAvailable("Concat"));
 
-    auto registered_functions = module.getFunctionsList();
+    auto registered_functions = module->getFunctionsList();
     std::vector<std::string> functions = {"Head", "Tail", "Quote"};
 
     EXPECT_EQ(registered_functions.size(), functions.size());
-    EXPECT_THROW(module.getFunction("Concat"), modules::ModuleException);
+    EXPECT_THROW(module->getFunction("Concat"), modules::ModuleException);
     for (const auto& function_name: functions) {
-        EXPECT_TRUE(module.isFunctionAvailable(function_name));
+        EXPECT_TRUE(module->isFunctionAvailable(function_name));
         auto it = std::find(registered_functions.begin(), registered_functions.end(), function_name);
         EXPECT_NE(it, registered_functions.end());
-        auto& evaluator = module.getFunction(function_name);
+        auto& evaluator = module->getFunction(function_name);
         EXPECT_EQ(evaluator.getName(), function_name);
     }
 }

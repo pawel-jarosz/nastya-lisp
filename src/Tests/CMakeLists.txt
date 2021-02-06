@@ -6,7 +6,7 @@ add_executable(Tests LispExpressionBuilderTest.cpp ExecutorEnvironmentTest.cpp)
 target_link_libraries(Tests ${TESTING_FRAMEWORK} Builtins Modules LispExpression Parser VM)
 add_test(NAME IntegrationTests COMMAND Tests)
 
-add_executable(BuiltinsTest BuiltinsModuleBuilderTest.cpp ListsModuleTest.cpp CompareModuleTest.cpp SyntaxModuleTest.cpp)
+add_executable(BuiltinsTest ListsModuleTest.cpp CompareModuleTest.cpp SyntaxModuleTest.cpp)
 target_link_libraries(BuiltinsTest ${TESTING_FRAMEWORK} Builtins)
 add_test(NAME BuiltinsLibraryTest COMMAND BuiltinsTest)
 

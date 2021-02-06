@@ -20,8 +20,8 @@ set(CLI_SOURCE
         Module/ConsoleModule.cpp
         Module/ConsoleEvaluators.hpp
         Module/ConsoleEvaluators.cpp
-        Module/ConsoleModuleBuilder.hpp
-        Module/ConsoleModuleBuilder.cpp
+        Module/ConsoleModuleRegistration.hpp
+        Module/ConsoleModuleRegistration.cpp
 )
 
 add_library(Cli ${CLI_SOURCE})

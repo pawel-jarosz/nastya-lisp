@@ -9,10 +9,10 @@
 
 namespace nastya::cli::module {
 
-class ConsoleModuleBuilder
+class ConsoleModuleRegistration
 {
 public:
-    ConsoleModuleBuilder(modules::ModuleRegistry& registry, interface::IConsoleManager& console);
+    ConsoleModuleRegistration(modules::ModuleRegistry& registry, interface::IConsoleManager& console);
     void build() const;
 
 private:

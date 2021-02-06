@@ -4,8 +4,8 @@
 
 #include <iostream>
 
-#include "Builtins/BuiltinsModulesFactory.hpp"
 #include "Builtins/BuiltinsBuilder.hpp"
+#include "Builtins/BuiltinsModulesFactory.hpp"
 #include "CLI/ConsoleManager.hpp"
 #include "CLI/IO/StreamWrapperFactory.hpp"
 #include "CLI/PreloadFromFile.hpp"
@@ -13,7 +13,7 @@
 #include "LispExpression/LispExpressionBuilder.hpp"
 #include "LispExpression/ObjectFactory.hpp"
 #include "LispExpression/ObjectFactoryBuilder.hpp"
-#include "Module/ConsoleModuleBuilder.hpp"
+#include "Module/ConsoleModuleRegistration.hpp"
 #include "Modules/ModuleRegistry.hpp"
 #include "Parser/DummyParser.hpp"
 #include "VirtualMachine/Machine.hpp"
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
     }
     nastya::cli::io::stdio::StreamWrapperFactory io_factory(std::cin, std::cout);
     nastya::cli::ConsoleManager console_manager(machine, parser, expressionBuilder, io_factory, splashscreen);
-    nastya::cli::module::ConsoleModuleBuilder consoleModuleBuilder(module_registry, console_manager);
+    nastya::cli::module::ConsoleModuleRegistration consoleModuleBuilder(module_registry, console_manager);
     consoleModuleBuilder.build();
     console_manager.splashScreen();
     auto return_code = console_manager.run();

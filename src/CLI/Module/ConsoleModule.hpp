@@ -16,4 +16,6 @@ public:
     ConsoleModule();
 };
 
+std::unique_ptr<modules::IModule> create_module(cli::interface::IConsoleManager& console);
+
 }  // namespace nastya::cli::module

@@ -3,21 +3,23 @@
 //
 
 #pragma once
+#include <string>
 
-#include <map>
-
-#include "Modules/Module.hpp"
-#include "Runtime/Interface/IEvaluator.hpp"
+#include "Modules/ModuleBuilder.hpp"
+#include "Builtins/Syntax/SyntaxEvaluators.hpp"
 
 namespace nastya::builtins::syntax {
 
-class SyntaxModule : public modules::Module
-{
-public:
-    static modules::IModule& getInstance();
+const std::string MODULE_NAME = "Lang.Syntax";
+using Builder = modules::ModuleBuilder<IfEvaluator,
+    CondEvaluator,
+    DefineEvaluator,
+    LetInEvaluator,
+    LambdaEvaluator>;
 
-private:
-    SyntaxModule();
-};
+inline std::unique_ptr<modules::IModuleBuilder> create_module_builder() {
+    auto builder = std::make_unique<Builder>(MODULE_NAME);
+    return std::unique_ptr<modules::IModuleBuilder>(builder.release());
+}
 
 }  // namespace nastya::builtins::syntax

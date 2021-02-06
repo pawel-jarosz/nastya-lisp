@@ -4,18 +4,20 @@
 
 #pragma once
 
-#include "Modules/Module.hpp"
-#include "Runtime/Interface/IEvaluator.hpp"
+#include <string>
+
+#include "Modules/ModuleBuilder.hpp"
+#include "Builtins/Arithmetic/ArithmeticEvaluators.hpp"
 
 namespace nastya::builtins::arithmetic {
 
-class ArithmeticModule : public modules::Module
-{
-public:
-    static modules::IModule& getInstance();
+const std::string MODULE_NAME = "Lang.Arithmetic`";
+using Builder = modules::ModuleBuilder<AddEvaluator, SubtractionEvaluator>;
 
-private:
-    ArithmeticModule();
-};
+inline std::unique_ptr<modules::IModuleBuilder> create_module_builder()
+{
+    auto builder = std::make_unique<Builder>(MODULE_NAME);
+    return std::unique_ptr<modules::IModuleBuilder>(builder.release());
+}
 
 }  // namespace nastya::builtins::arithmetic

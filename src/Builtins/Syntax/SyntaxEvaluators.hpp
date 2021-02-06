@@ -4,11 +4,12 @@
 
 #pragma once
 
+#include "Runtime/GenericEvaluatorFactory.hpp"
 #include "Runtime/GenericEvaluator.hpp"
 
 namespace nastya::builtins::syntax {
 
-class IfEvaluator : public runtime::GenericEvaluator
+class IfEvaluator : public runtime::GenericEvaluator, public runtime::GenericEvaluatorFactory<IfEvaluator>
 {
 public:
     IfEvaluator() : runtime::GenericEvaluator{"If"} {}
@@ -17,7 +18,7 @@ public:
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-class CondEvaluator : public runtime::GenericEvaluator
+class CondEvaluator : public runtime::GenericEvaluator, public runtime::GenericEvaluatorFactory<CondEvaluator>
 {
 public:
     CondEvaluator() : runtime::GenericEvaluator{"Cond"} {}
@@ -26,7 +27,7 @@ public:
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-class DefineEvaluator : public runtime::GenericEvaluator
+class DefineEvaluator : public runtime::GenericEvaluator, public runtime::GenericEvaluatorFactory<DefineEvaluator>
 {
 public:
     DefineEvaluator() : runtime::GenericEvaluator{"Define"} {}
@@ -35,7 +36,7 @@ public:
     lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
 };
 
-class LetInEvaluator : public runtime::GenericEvaluator
+class LetInEvaluator : public runtime::GenericEvaluator, public runtime::GenericEvaluatorFactory<LetInEvaluator>
 {
 public:
     LetInEvaluator() : runtime::GenericEvaluator{"Let"} {}
@@ -45,7 +46,7 @@ public:
 
 };
 
-class LambdaEvaluator : public runtime::GenericEvaluator
+class LambdaEvaluator : public runtime::GenericEvaluator, public runtime::GenericEvaluatorFactory<LambdaEvaluator>
 {
 public:
     LambdaEvaluator() : runtime::GenericEvaluator{"Lambda"} {}

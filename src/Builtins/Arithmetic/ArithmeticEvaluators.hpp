@@ -4,11 +4,13 @@
 
 #pragma once
 
+#include "Runtime/GenericEvaluatorFactory.hpp"
 #include "Runtime/GenericEvaluator.hpp"
 
 namespace nastya::builtins::arithmetic {
 
 class AddEvaluator : public runtime::GenericEvaluator
+                   , public runtime::GenericEvaluatorFactory<AddEvaluator>
 {
 public:
     AddEvaluator() : runtime::GenericEvaluator{"+"} {}
@@ -16,6 +18,7 @@ public:
 };
 
 class SubtractionEvaluator : public runtime::GenericEvaluator
+                           , public runtime::GenericEvaluatorFactory<SubtractionEvaluator>
 {
 public:
     SubtractionEvaluator() : runtime::GenericEvaluator{"-"} {}

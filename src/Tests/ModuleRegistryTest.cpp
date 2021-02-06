@@ -31,13 +31,14 @@ using namespace ::testing;
 
 TEST(ModuleRegistryTest, testRegister)
 {
-    ModuleMock module, module2;
+    auto module = std::make_unique<ModuleMock>();
+    auto module2 = std::make_unique<ModuleMock>();
     const std::string module_name1 = "MockModule";
     const std::string module_name2 = "MockModule2";
-    EXPECT_CALL(module, getModuleName).WillRepeatedly(Return(module_name1));
-    EXPECT_CALL(module2, getModuleName).WillRepeatedly(Return(module_name2));
+    EXPECT_CALL(*module, getModuleName).WillRepeatedly(Return(module_name1));
+    EXPECT_CALL(*module2, getModuleName).WillRepeatedly(Return(module_name2));
     ModuleRegistry registry;
-    registry.registerModule(module);
+    registry.registerModule(std::move(module));
     EXPECT_THROW(registry.registerModule(module), ModuleException);
     registry.registerModule(module2);
     auto list = registry.getAvailableModules();

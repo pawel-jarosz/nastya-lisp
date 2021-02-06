@@ -8,9 +8,9 @@
 
 namespace nastya::modules {
 
-ModuleRegistry& ModuleRegistry::registerModule(const IModule& module)
+ModuleRegistry& ModuleRegistry::registerModule(std::unique_ptr<IModule> module)
 {
-    auto result = m_modules.try_emplace(module.getModuleName(), module);
+    auto result = m_modules.try_emplace(module->getModuleName(), std::move(module));
     if (not result.second) {
         BUT_THROW(ModuleException, "Cannot register module!");
     }
@@ -20,7 +20,7 @@ ModuleRegistry& ModuleRegistry::registerModule(const IModule& module)
 std::vector<std::string> ModuleRegistry::getAvailableModules() const
 {
     std::vector<std::string> modules;
-    for (auto [key, value] : m_modules)
+    for (const auto& [key, value] : m_modules)
     {
         modules.emplace_back(std::move(key));
     }
@@ -29,9 +29,9 @@ std::vector<std::string> ModuleRegistry::getAvailableModules() const
 
 bool ModuleRegistry::isAvailableFunction(const std::string& function_name)
 {
-    for (auto [module_name, module] : m_modules)
+    for (const auto& [module_name, module] : m_modules)
     {
-        if (module.isFunctionAvailable(function_name))
+        if (module->isFunctionAvailable(function_name))
         {
             return true;
         }
@@ -41,11 +41,11 @@ bool ModuleRegistry::isAvailableFunction(const std::string& function_name)
 
 runtime::IEvaluator& ModuleRegistry::getFunction(std::string function_name) const
 {
-    for (auto [module_name, module] : m_modules)
+    for (const auto& [module_name, module] : m_modules)
     {
-        if (module.isFunctionAvailable(function_name))
+        if (module->isFunctionAvailable(function_name))
         {
-            return module.getFunction(function_name);
+            return module->getFunction(function_name);
         }
     }
     BUT_THROW(ModuleException, "Function not found");

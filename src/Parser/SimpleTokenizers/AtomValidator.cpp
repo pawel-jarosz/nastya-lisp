@@ -4,10 +4,15 @@
 
 #include "Parser/SimpleTokenizers/AtomValidator.hpp"
 
+#include "Parser/SimpleTokenizers/BooleanValidator.hpp"
+#include "Parser/SimpleTokenizers/LabelValidator.hpp"
+#include "Parser/SimpleTokenizers/NumberValidator.hpp"
+
 namespace nastya::parser {
 
 std::optional<Token> AtomValidator::validate(const std::string& value, ParsingContext& context) const
 {
+    context.end_position = context.start_position;
     if (not isprint(value[context.end_position]))
     {
         return {};
@@ -22,5 +27,13 @@ std::optional<Token> AtomValidator::validate(const std::string& value, ParsingCo
 
 }
 
+std::unique_ptr<IValidator> AtomValidator::create()
+{
+    auto result = std::make_unique<AtomValidator>();
+    result->addValidator(BooleanValidator::create())
+        .addValidator(NumberValidator::create())
+        .addValidator(LabelValidator::create());
+    return std::unique_ptr<IValidator>(result.release());
+}
 }
 

@@ -30,22 +30,23 @@ size_t analyse_quotation(const std::string& text, size_t next_pos)
 
 std::optional<Token> StringValidator::validate(const std::string& value, ParsingContext& context) const
 {
-    auto start_pos = context.end_position;
-    if (value.empty() or value[start_pos] == '\"') {
+    if (value[context.start_position] != '\"') {
         return {};
     }
+    context.end_position = context.start_position;
     bool escaped = false;
+    ++context.end_position;
     std::stringstream stream;
-    ++start_pos;
-    while (start_pos < value.size())
+
+    while (context.end_position < value.size())
     {
-        if (value[start_pos] == '\\')
+        if (value[context.end_position] == '\\')
         {
             escaped = true;
             continue;
         }
 
-        bool is_quotation = (value[start_pos] == '\"');
+        bool is_quotation = (value[context.end_position] == '\"');
         if (is_quotation and escaped)
         {
             escaped = false;
@@ -54,13 +55,18 @@ std::optional<Token> StringValidator::validate(const std::string& value, Parsing
         }
         else if (is_quotation)
         {
-            context.end_position = analyse_quotation(value, start_pos + 1);
-            return { Token{TokenType::String, {stream.str()}}};
+            context.end_position = analyse_quotation(value, context.end_position + 1);
+            return {Token{TokenType::String, {stream.str()}}};
         }
-        stream << value[start_pos];
-        ++start_pos;
+        stream << value[context.end_position];
+        ++context.end_position;
     }
     BUT_THROW(ParserException, "Not terminated quotation mark");
+}
+std::unique_ptr<IValidator> StringValidator::create()
+{
+    auto result = std::make_unique<StringValidator>();
+    return std::unique_ptr<IValidator>(result.release());
 }
 
 }

@@ -5,16 +5,10 @@
 #pragma once
 
 #include "Parser/Types/Token.hpp"
+#include "Parser/Types/ParsingContext.hpp"
 #include <optional>
 
 namespace nastya::parser {
-
-struct ParsingContext {
-    const size_t start_position;
-    size_t end_position;
-
-    ParsingContext(size_t start_pos) : start_position{start_pos}{};
-};
 
 class IValidator
 {

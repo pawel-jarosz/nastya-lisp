@@ -15,7 +15,7 @@
 #include "LispExpression/ObjectFactoryBuilder.hpp"
 #include "Module/ConsoleModuleRegistration.hpp"
 #include "Modules/ModuleRegistry.hpp"
-#include "Parser/DummyParser.hpp"
+#include "Parser/Tokenizer.hpp"
 #include "VirtualMachine/Machine.hpp"
 
 void initModules(nastya::lisp::ObjectFactory& object_factory, nastya::modules::ModuleRegistry& module_registry)
@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
     nastya::modules::ModuleRegistry module_registry;
     auto splashscreen = createSplashScreen();
     initModules(object_factory, module_registry);
-    nastya::parser::DummyParser parser;
+    nastya::parser::Tokenizer parser;
     nastya::lisp::LispExpressionBuilder expressionBuilder(parser, object_factory);
     nastya::vm::Machine machine(module_registry);
     nastya::cli::PreloadFromFile preloadFromFile(parser, expressionBuilder, machine);

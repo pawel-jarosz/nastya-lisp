@@ -15,27 +15,23 @@
 
 namespace nastya::parser {
 
-namespace {
+Tokenizer::Tokenizer() : Tokenizer("")
+{
 
-std::unique_ptr<IValidator> validator_builder() {
-    auto composite = std::make_unique<CompositeValidator>();
-    composite->addValidator(OmitBlanksValidator::create())
-        .addValidator(ReservedCharacterValidator::create())
-        .addValidator(StringValidator::create())
-        .addValidator(AtomValidator::create());
-    return std::unique_ptr<IValidator>(composite.release());
 }
 
-}  // namespace
 
 Tokenizer::Tokenizer(std::string text) : m_text{std::move(text)}, m_context{0}
 {
+    addValidator(OmitBlanksValidator::create())
+    .addValidator(ReservedCharacterValidator::create())
+    .addValidator(StringValidator::create())
+    .addValidator(AtomValidator::create());
 }
 
 Token Tokenizer::getToken()
 {
-    const auto validator = validator_builder();
-    auto result = validator->validate(m_text, m_context);
+    auto result = validate(m_text, m_context);
     if (not result) {
         BUT_THROW(ParserException, "Invalid token");
     }
@@ -51,6 +47,7 @@ bool Tokenizer::isEmpty()
     }
     return (m_context.start_position == m_text.size());
 }
+
 void Tokenizer::reset(std::string code)
 {
     m_text = std::move(code);

@@ -1,8 +1,8 @@
 set(PARSER_LIBRARY_SRC
     Types/Token.hpp
     TokenImpl.cpp
-    DummyParser.hpp
-    DummyParser.cpp
+        Tokenizer.hpp
+        Tokenizer.cpp
     ParserException.hpp
     SimpleTokenizers/AtomValidator.hpp
     SimpleTokenizers/AtomValidator.cpp
@@ -15,7 +15,11 @@ set(PARSER_LIBRARY_SRC
     SimpleTokenizers/NumberValidator.hpp
     SimpleTokenizers/NumberValidator.cpp
     SimpleTokenizers/StringValidator.hpp
-    SimpleTokenizers/StringValidator.cpp)
+    SimpleTokenizers/StringValidator.cpp
+    SimpleTokenizers/ReservedCharacterValidator.hpp
+    SimpleTokenizers/ReservedCharacterValidator.cpp
+    SimpleTokenizers/OmitBlanksValidator.hpp
+    SimpleTokenizers/OmitBlanksValidator.cpp)
 
 add_library(Parser SHARED ${PARSER_LIBRARY_SRC})
 set_target_properties(Parser PROPERTIES LINKER_LANGUAGE CXX)

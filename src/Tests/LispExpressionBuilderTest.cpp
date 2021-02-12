@@ -14,8 +14,8 @@
 #include "LispExpression/TypeSystem/ListObject.hpp"
 #include "LispExpression/TypeSystem/NumberObject.hpp"
 #include "LispExpression/TypeSystem/StringObject.hpp"
-#include "Parser/DummyParser.hpp"
 #include "Parser/Interface/IParser.hpp"
+#include "Parser/Tokenizer.hpp"
 
 namespace nastya {
 
@@ -105,7 +105,7 @@ TEST_F(LispExpressionBuilderTest, testEmptyList)
 {
     lisp::testing::ListBuilder list_builder;
     auto test_case = list_builder.build();
-    parser::DummyParser parser(test_case.toString());
+    parser::Tokenizer parser(test_case.toString());
     lisp::LispExpressionBuilder expression_builder(parser, object_factory);
     EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
 }
@@ -115,21 +115,21 @@ TEST_F(LispExpressionBuilderTest, testSingleton)
     {
         lisp::testing::ListBuilder list_builder;
         auto test_case = list_builder.addNumber(2).build();
-        parser::DummyParser parser(test_case.toString());
+        parser::Tokenizer parser(test_case.toString());
         lisp::LispExpressionBuilder expression_builder(parser, object_factory);
         EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
     }
     {
         lisp::testing::ListBuilder list_builder;
         auto test_case = list_builder.addLabel("Label").build();
-        parser::DummyParser parser(test_case.toString());
+        parser::Tokenizer parser(test_case.toString());
         lisp::LispExpressionBuilder expression_builder(parser, object_factory);
         EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
     }
     {
         lisp::testing::ListBuilder list_builder;
         auto test_case = list_builder.addString("String").build();
-        parser::DummyParser parser(test_case.toString());
+        parser::Tokenizer parser(test_case.toString());
         lisp::LispExpressionBuilder expression_builder(parser, object_factory);
         EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
     }
@@ -139,7 +139,7 @@ TEST_F(LispExpressionBuilderTest, testMultipleElementsOnTheList)
 {
     lisp::testing::ListBuilder list_builder;
     auto test_case = list_builder.addLabel("Label").addString("DummyString").addNumber(2).addNumber(2.3f).build();
-    parser::DummyParser parser(test_case.toString());
+    parser::Tokenizer parser(test_case.toString());
     lisp::LispExpressionBuilder expression_builder(parser, object_factory);
     EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
 }
@@ -155,7 +155,7 @@ TEST_F(LispExpressionBuilderTest, testExpressionWithComplexList)
                          .closeList()
                          .addLabel("Next")
                          .build();
-    parser::DummyParser parser(test_case.toString());
+    parser::Tokenizer parser(test_case.toString());
     lisp::LispExpressionBuilder expression_builder(parser, object_factory);
     EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
 }
@@ -163,12 +163,12 @@ TEST_F(LispExpressionBuilderTest, testExpressionWithComplexList)
 TEST_F(LispExpressionBuilderTest, testQuotedExpression)
 {
     {
-        parser::DummyParser parser("'(1 2 3)");
+        parser::Tokenizer parser("'(1 2 3)");
         lisp::LispExpressionBuilder expression_builder(parser, object_factory);
         EXPECT_EQ("(Quote (1 2 3))", expression_builder.build().toString());
     }
     {
-        parser::DummyParser parser("(Tail '(1 2 3))");
+        parser::Tokenizer parser("(Tail '(1 2 3))");
         lisp::LispExpressionBuilder expression_builder(parser, object_factory);
         EXPECT_EQ("(Tail (Quote (1 2 3)))", expression_builder.build().toString());
     }
@@ -176,7 +176,7 @@ TEST_F(LispExpressionBuilderTest, testQuotedExpression)
 
 TEST_F(LispExpressionBuilderTest, testComplexQuotedExpression)
 {
-    parser::DummyParser parser("(Tail '((1 2 (3)) (4 5 6)))");
+    parser::Tokenizer parser("(Tail '((1 2 (3)) (4 5 6)))");
     lisp::LispExpressionBuilder expression_builder(parser, object_factory);
     EXPECT_EQ("(Tail (Quote ((1 2 (3)) (4 5 6))))", expression_builder.build().toString());
 }

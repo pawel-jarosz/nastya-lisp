@@ -4,8 +4,8 @@
 
 #include <gtest/gtest.h>
 
-#include "Parser/DummyParser.hpp"
 #include "Parser/ParserException.hpp"
+#include "Parser/Tokenizer.hpp"
 
 using namespace nastya::parser;
 
@@ -58,19 +58,19 @@ struct TestCase
 TEST(DummyParserTest, testKeywordCharacter)
 {
     {
-        DummyParser parser{"("};
+        Tokenizer parser{"("};
         EXPECT_EQ(parser.getToken(), Token{TokenType::S_expr_begin});
     }
     {
-        DummyParser parser{")"};
+        Tokenizer parser{")"};
         EXPECT_EQ(parser.getToken(), Token{TokenType::S_expr_end});
     }
     {
-        DummyParser parser{"'"};
+        Tokenizer parser{"'"};
         EXPECT_EQ(parser.getToken(), Token{TokenType::Quote});
     }
     {
-        DummyParser parser{""};
+        Tokenizer parser{""};
         EXPECT_EQ(parser.getToken(), Token{TokenType::Eof});
     }
 }
@@ -90,7 +90,7 @@ TEST(DummyParserTest, testInteger)
     };
     for (const auto& test_case : positive_cases)
     {
-        DummyParser parser(test_case.first);
+        Tokenizer parser(test_case.first);
         EXPECT_EQ(parser.getToken(), create_integer_token(test_case.second));
     }
 
@@ -109,22 +109,22 @@ TEST(DummyParserTest, testFloating)
 
     for (const auto& test_case : test_cases)
     {
-        DummyParser parser(test_case.first);
+        Tokenizer parser(test_case.first);
         EXPECT_EQ(parser.getToken(), create_floating_token(test_case.second));
     }
     FloatingTestCase invalid_test{"123.456u", 123.456};
-    DummyParser parser(invalid_test.first);
+    Tokenizer parser(invalid_test.first);
     EXPECT_THROW(parser.getToken(), ParserException);
 }
 
 TEST(DummyParserTest, testBoolean)
 {
     {
-        DummyParser parser{"#true"};
+        Tokenizer parser{"#true"};
         EXPECT_EQ(parser.getToken(), (Token{TokenType::Boolean, true}));
     }
     {
-        DummyParser parser{"#false"};
+        Tokenizer parser{"#false"};
         EXPECT_EQ(parser.getToken(), (Token{TokenType::Boolean, false}));
     }
 }
@@ -135,7 +135,7 @@ TEST(DummyParserTest, testLabel)
     std::vector test_cases = {LabelTestCase{"dummy", "dummy"}};
     for (const auto& test_case : test_cases)
     {
-        DummyParser parser(test_case.first);
+        Tokenizer parser(test_case.first);
         std::cout << "Test string: " << test_case.first << std::endl;
         EXPECT_EQ(parser.getToken(), create_label_token(test_case.second));
     }
@@ -154,7 +154,7 @@ TEST(DummyParserTest, testString)
         StringTestCase{"\"string has blank characters inside \n\t\"", "string has blank characters inside \n\t"}};
     for (const auto& test_case : test_cases)
     {
-        DummyParser parser(test_case.first);
+        Tokenizer parser(test_case.first);
         std::cout << "Test string: " << test_case.first << std::endl;
         EXPECT_EQ(parser.getToken(), create_string_token(test_case.second));
     }
@@ -167,7 +167,7 @@ TEST(DummyParserTest, testEmptyExpressions)
     std::vector expected_tokens = {Token{TokenType::S_expr_begin}, Token{TokenType::S_expr_end}, Token{TokenType::Eof}};
     for (auto test_case : test_cases)
     {
-        DummyParser parser(test_case);
+        Tokenizer parser(test_case);
         for (auto expected_token : expected_tokens)
         {
             EXPECT_EQ(parser.getToken(), expected_token);
@@ -177,7 +177,7 @@ TEST(DummyParserTest, testEmptyExpressions)
 
 TEST(DummyParserTest, testComplexExpression)
 {
-    DummyParser parser("(check_if (define lambda name) #true \"expected_string\")");
+    Tokenizer parser("(check_if (define lambda name) #true \"expected_string\")");
     std::vector expected_tokens = {Token{TokenType::S_expr_begin},
                                    create_label_token("check_if"),
                                    Token{TokenType::S_expr_begin},
@@ -255,6 +255,6 @@ TEST(DummyParserTest, testCompareToken) {
 
 TEST(DummyParserTest, testNotTerminatedQuotationMark) {
     const std::string test_case = "\"not terminated quotation";
-    DummyParser parser(test_case);
+    Tokenizer parser(test_case);
     EXPECT_THROW(parser.getToken(), ParserException);
 }

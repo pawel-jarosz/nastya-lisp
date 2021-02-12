@@ -7,14 +7,15 @@
 #include <string>
 
 #include "Parser/Interface/IParser.hpp"
+#include "Parser/SimpleTokenizers/CompositeValidator.hpp"
 #include "Parser/Types/ParsingContext.hpp"
 
 namespace nastya::parser {
 
-class Tokenizer : public IParser
+class Tokenizer : public IParser, private CompositeValidator
 {
 public:
-    Tokenizer() = default;
+    Tokenizer();
     explicit Tokenizer(std::string text);
     Token getToken() override;
     bool isEmpty() override;

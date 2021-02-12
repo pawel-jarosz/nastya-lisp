@@ -7,21 +7,23 @@
 #include <string>
 
 #include "Parser/Interface/IParser.hpp"
+#include "Parser/Types/ParsingContext.hpp"
 
 namespace nastya::parser {
 
-class DummyParser : public IParser
+class Tokenizer : public IParser
 {
 public:
-    DummyParser() = default;
-    explicit DummyParser(std::string text);
+    Tokenizer() = default;
+    explicit Tokenizer(std::string text);
     Token getToken() override;
     bool isEmpty() override;
     void reset(std::string code) override;
 
 private:
     std::string m_text;
-    size_t m_pos;
+    ParsingContext m_context;
+
 };
 
 }  // namespace nastya::parser

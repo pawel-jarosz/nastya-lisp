@@ -14,7 +14,6 @@ class ParserMock : public IParser
 {
 public:
     MOCK_METHOD(Token, getToken, (), (override));
-    MOCK_METHOD(bool, isEmpty, (), (override));
     MOCK_METHOD(void, reset, (std::string code), (override));
 };
 

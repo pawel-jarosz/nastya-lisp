@@ -39,15 +39,6 @@ Token Tokenizer::getToken()
     return *result;
 }
 
-bool Tokenizer::isEmpty()
-{
-    while (m_context.start_position < m_text.size() and isblank(m_text[m_context.start_position]))
-    {
-        ++m_context.start_position;
-    }
-    return (m_context.start_position == m_text.size());
-}
-
 void Tokenizer::reset(std::string code)
 {
     m_text = std::move(code);

@@ -2,8 +2,8 @@
 // Created by caedus on 13.12.2020.
 //
 
-#include "LispExpression/ObjectStorage.hpp"
-#include "LispExpression/ObjectStorageException.hpp"
+#include "ObjectStorage.hpp"
+#include "ObjectStorageException.hpp"
 
 namespace nastya::lisp {
 

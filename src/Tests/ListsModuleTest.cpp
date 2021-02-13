@@ -8,7 +8,7 @@
 #include "Builtins/Lists/ListsEvaluators.hpp"
 #include "Builtins/Lists/ListsModule.hpp"
 #include "LispExpression/Testing/ListBuilder.hpp"
-#include "LispExpression/TypeSystem/NumberObject.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
 #include "Modules/ModuleException.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
 #include "Utilities/LispCastException.hpp"

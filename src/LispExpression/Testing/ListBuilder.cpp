@@ -6,11 +6,11 @@
 #include <type_traits>
 
 #include "LispExpression/Testing/ListBuilder.hpp"
-#include "LispExpression/TypeSystem/LabelObject.hpp"
-#include "LispExpression/TypeSystem/ListObject.hpp"
-#include "LispExpression/TypeSystem/NumberObject.hpp"
-#include "LispExpression/TypeSystem/StringObject.hpp"
-#include "LispExpression/TypeSystem/BooleanObject.hpp"
+#include "TypeSystem/Types/LabelObject.hpp"
+#include "TypeSystem/Types/ListObject.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
+#include "TypeSystem/Types/StringObject.hpp"
+#include "TypeSystem/Types/BooleanObject.hpp"
 
 namespace nastya::lisp::testing {
 

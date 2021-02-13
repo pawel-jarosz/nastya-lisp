@@ -8,7 +8,7 @@
 #include "Builtins/Syntax/SyntaxEvaluators.hpp"
 #include "Builtins/Syntax/SyntaxModule.hpp"
 #include "LispExpression/Testing/ListBuilder.hpp"
-#include "LispExpression/TypeSystem/NumberObject.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
 #include "Modules/ModuleException.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
 

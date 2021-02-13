@@ -1,14 +1,14 @@
 #include <sstream>
 #include <utility>
 
-#include "LispExpression/TypeSystem/GenericObject.hpp"
-#include "LispExpression/TypeSystem/BooleanObject.hpp"
-#include "LispExpression/TypeSystem/LabelObject.hpp"
-#include "LispExpression/TypeSystem/ListObject.hpp"
-#include "LispExpression/TypeSystem/NumberObject.hpp"
-#include "LispExpression/TypeSystem/StringObject.hpp"
-#include "LispExpression/TypeSystem/TypeSystemError.hpp"
-#include "LispExpression/TypeSystem/LambdaObject.hpp"
+#include "TypeSystem/Types/BooleanObject.hpp"
+#include "TypeSystem/Types/GenericObject.hpp"
+#include "TypeSystem/Types/LabelObject.hpp"
+#include "TypeSystem/Types/LambdaObject.hpp"
+#include "TypeSystem/Types/ListObject.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
+#include "TypeSystem/Types/StringObject.hpp"
+#include "TypeSystem/Types/TypeSystemError.hpp"
 
 namespace nastya::lisp::typesystem {
 

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "LispExpression/ObjectStorage.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::runtime {
 

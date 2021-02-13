@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include <LispExpression/TypeSystem/ListObject.hpp>
+#include "TypeSystem/Types/ListObject.hpp"
 
 #include "IMachine.hpp"
-#include "LispExpression/ObjectStorage.hpp"
 #include "Runtime/Interface/IMemory.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::runtime {
 

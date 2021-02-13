@@ -3,9 +3,9 @@
 
 #include <gtest/gtest.h>
 
-#include "LispExpression/ObjectStorage.hpp"
-#include "LispExpression/ObjectStorageException.hpp"
-#include "LispExpression/TypeSystem/StringObject.hpp"
+#include "TypeSystem/Types/StringObject.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
+#include "TypeSystem/ObjectStorageException.hpp"
 
 namespace nastya::lisp {
 

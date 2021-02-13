@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#include "LispExpression/TypeSystem/LabelObject.hpp"
-#include "LispExpression/ObjectStorage.hpp"
+#include "TypeSystem/Types/LabelObject.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::runtime {
 

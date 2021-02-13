@@ -7,7 +7,7 @@
 #include <memory>
 #include <vector>
 
-#include <LispExpression/ObjectStorage.hpp>
+#include <TypeSystem/ObjectStorage.hpp>
 
 namespace nastya::lisp::testing {
 

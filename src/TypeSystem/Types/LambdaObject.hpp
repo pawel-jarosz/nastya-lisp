@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "LispExpression/TypeSystem/ListObject.hpp"
+#include "ListObject.hpp"
 
 namespace nastya::lisp::typesystem {
 

@@ -7,8 +7,8 @@
 #include <Utilities/LispCast.hpp>
 
 #include "Builtins/BuiltinsException.hpp"
-#include "LispExpression/TypeSystem/LabelObject.hpp"
-#include "LispExpression/TypeSystem/ListObject.hpp"
+#include "TypeSystem/Types/LabelObject.hpp"
+#include "TypeSystem/Types/ListObject.hpp"
 #include "Modules/ModuleException.hpp"
 #include "VirtualMachine/Machine.hpp"
 #include "VirtualMachine/MachineRuntimeException.hpp"

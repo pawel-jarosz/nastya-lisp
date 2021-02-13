@@ -7,7 +7,7 @@
 #include <memory>
 #include <ostream>
 
-#include "LispExpression/Interface/IObjectStorage.hpp"
+#include "TypeSystem/Interface/IObjectStorage.hpp"
 
 namespace nastya::lisp {
 

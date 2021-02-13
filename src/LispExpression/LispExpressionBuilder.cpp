@@ -10,7 +10,7 @@
 #include "LispExpression/Interface/IObjectFactory.hpp"
 #include "LispExpression/LispExpressionBuilder.hpp"
 #include "LispExpression/LispExpressionException.hpp"
-#include "LispExpression/TypeSystem/ListObject.hpp"
+#include "TypeSystem/Types/ListObject.hpp"
 
 namespace nastya::lisp {
 

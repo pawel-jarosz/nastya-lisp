@@ -5,9 +5,9 @@
 #include <algorithm>
 
 #include "Builtins/BuiltinsException.hpp"
-#include "LispExpression/TypeSystem/BooleanObject.hpp"
-#include "LispExpression/TypeSystem/LambdaObject.hpp"
-#include "LispExpression/TypeSystem/ListObject.hpp"
+#include "TypeSystem/Types/BooleanObject.hpp"
+#include "TypeSystem/Types/LambdaObject.hpp"
+#include "TypeSystem/Types/ListObject.hpp"
 #include "SyntaxEvaluators.hpp"
 #include "Utilities/LispCast.hpp"
 

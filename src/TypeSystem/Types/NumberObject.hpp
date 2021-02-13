@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "LispExpression/TypeSystem/GenericObject.hpp"
-#include "LispExpression/TypeSystem/ComparableTrait.hpp"
+#include "ComparableTrait.hpp"
+#include "GenericObject.hpp"
 
 namespace nastya::lisp::typesystem {
 

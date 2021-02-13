@@ -8,8 +8,8 @@
 
 #include "LispExpression/Interface/IExpressionBuilder.hpp"
 #include "LispExpression/Interface/IObjectFactory.hpp"
-#include "LispExpression/ObjectStorage.hpp"
 #include "Parser/Interface/IParser.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::lisp {
 

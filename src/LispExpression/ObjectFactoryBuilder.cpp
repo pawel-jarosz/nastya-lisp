@@ -1,8 +1,8 @@
 #include "LispExpression/ObjectFactoryBuilder.hpp"
-#include "LispExpression/TypeSystem/BooleanObject.hpp"
-#include "LispExpression/TypeSystem/LabelObject.hpp"
-#include "LispExpression/TypeSystem/NumberObject.hpp"
-#include "LispExpression/TypeSystem/StringObject.hpp"
+#include "TypeSystem/Types/BooleanObject.hpp"
+#include "TypeSystem/Types/LabelObject.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
+#include "TypeSystem/Types/StringObject.hpp"
 
 namespace nastya::lisp {
 

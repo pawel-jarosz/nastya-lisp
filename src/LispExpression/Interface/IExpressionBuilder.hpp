@@ -6,8 +6,8 @@
 
 #include <memory>
 
-#include "LispExpression/Interface/IObject.hpp"
-#include "LispExpression/ObjectStorage.hpp"
+#include "TypeSystem/Interface/IObject.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::lisp {
 

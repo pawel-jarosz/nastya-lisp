@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "LispExpression/TypeSystem/LambdaObject.hpp"
+#include "TypeSystem/Types/LambdaObject.hpp"
 #include "Runtime/GenericEvaluator.hpp"
 #include "Utilities/LispCast.hpp"
 

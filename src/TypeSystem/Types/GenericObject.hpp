@@ -1,7 +1,7 @@
 #pragma once
 
-#include "LispExpression/Interface/IObject.hpp"
-#include "LispExpression/TypeSystem/EqualTrait.hpp"
+#include "EqualTrait.hpp"
+#include "TypeSystem/Interface/IObject.hpp"
 
 namespace nastya::lisp::typesystem {
 

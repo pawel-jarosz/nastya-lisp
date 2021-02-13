@@ -2,15 +2,15 @@
 // Created by caedus on 31.12.2020.
 //
 
-#include "LispExpression/ObjectStorageException.hpp"
-#include "LispExpression/TypeSystem/TypeSystemError.hpp"
-#include "LispExpression/TypeSystem/NumberObject.hpp"
-#include "VirtualMachine/MachineRuntimeException.hpp"
-#include "CLI/Module/ShutdownEvent.hpp"
-#include "CLI/ConsoleManager.hpp"
-
-#include <But/Format/format.hpp>
 #include <But/Format/apply.hpp>
+#include <But/Format/format.hpp>
+
+#include "CLI/ConsoleManager.hpp"
+#include "CLI/Module/ShutdownEvent.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
+#include "TypeSystem/Types/TypeSystemError.hpp"
+#include "TypeSystem/ObjectStorageException.hpp"
+#include "VirtualMachine/MachineRuntimeException.hpp"
 
 namespace nastya::cli {
 

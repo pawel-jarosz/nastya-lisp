@@ -6,9 +6,9 @@
 
 #include <vector>
 
-#include "LispExpression/ObjectStorage.hpp"
-#include "LispExpression/TypeSystem/GenericObject.hpp"
-#include "LispExpression/TypeSystem/ComparableTrait.hpp"
+#include "ComparableTrait.hpp"
+#include "GenericObject.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::lisp::typesystem {
 class ListObject : public GenericObject, public NonComparableObject

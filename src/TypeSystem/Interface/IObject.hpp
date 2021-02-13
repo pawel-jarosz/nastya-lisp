@@ -6,7 +6,7 @@
 
 #include <string>
 
-#include "LispExpression/TypeSystem/ObjectType.hpp"
+#include "TypeSystem/Types/ObjectType.hpp"
 
 namespace nastya::lisp {
 class IObject

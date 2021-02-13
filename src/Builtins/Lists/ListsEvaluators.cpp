@@ -2,7 +2,7 @@
 // Created by caedus on 21.12.2020.
 //
 
-#include "LispExpression/TypeSystem/ListObject.hpp"
+#include "TypeSystem/Types/ListObject.hpp"
 #include "Builtins/BuiltinsException.hpp"
 #include "Utilities/LispCast.hpp"
 #include "ListsEvaluators.hpp"

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "LispExpression/Interface/IObject.hpp"
+#include "IObject.hpp"
 
 namespace nastya::lisp {
 

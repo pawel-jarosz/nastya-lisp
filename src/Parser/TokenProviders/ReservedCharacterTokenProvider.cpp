@@ -2,13 +2,13 @@
 // Created by caedus on 12.02.2021.
 //
 
-#include "Parser/SimpleTokenizers/ReservedCharacterValidator.hpp"
-
 #include <iostream>
+
+#include "Parser/TokenProviders/ReservedCharacterTokenProvider.hpp"
 
 namespace nastya::parser {
 
-std::optional<Token> ReservedCharacterValidator::validate(const std::string& value, ParsingContext& context) const
+std::optional<Token> ReservedCharacterTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
 {
     context.end_position = context.start_position + 1;
     switch (value[context.start_position])
@@ -33,10 +33,10 @@ std::optional<Token> ReservedCharacterValidator::validate(const std::string& val
     return {};
 }
 
-std::unique_ptr<IValidator> ReservedCharacterValidator::create()
+std::unique_ptr<ITokenProvider> ReservedCharacterTokenProvider::create()
 {
-    auto result = std::make_unique<ReservedCharacterValidator>();
-    return std::unique_ptr<IValidator>(result.release());
+    auto result = std::make_unique<ReservedCharacterTokenProvider>();
+    return std::unique_ptr<ITokenProvider>(result.release());
 }
 
 }

@@ -2,18 +2,18 @@
 // Created by caedus on 09.02.2021.
 //
 
-#include "Parser/SimpleTokenizers/NumberValidator.hpp"
-
 #include <regex>
+
+#include "Parser/TokenProviders/NumberTokenProvider.hpp"
 
 namespace nastya::parser {
 
-void NumberValidator::addType(std::string regex, NumberFactory factory)
+void NumberTokenProvider::addType(std::string regex, NumberFactory factory)
 {
     m_factories.emplace_back(std::pair(regex, std::move(factory)));
 }
 
-std::optional<Token> NumberValidator::validate(const std::string& value, ParsingContext&) const
+std::optional<Token> NumberTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext&) const
 {
     for (const auto& [type_regex, factory]: m_factories) {
         std::regex regex_object(type_regex);
@@ -28,12 +28,12 @@ std::optional<Token> NumberValidator::validate(const std::string& value, Parsing
     }
     return {};
 }
-std::unique_ptr<IValidator> NumberValidator::create()
+std::unique_ptr<ITokenProvider> NumberTokenProvider::create()
 {
-    auto result = std::make_unique<NumberValidator>();
+    auto result = std::make_unique<NumberTokenProvider>();
     result->addType(FLOATING_REGEX, parse_float);
     result->addType(INTEGER_REGEX, parse_integer);
-    return std::unique_ptr<IValidator>(result.release());
+    return std::unique_ptr<ITokenProvider>(result.release());
 }
 
 std::optional<Token> parse_float(const std::string& value) {

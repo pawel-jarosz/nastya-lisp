@@ -4,22 +4,22 @@ set(PARSER_LIBRARY_SRC
         Tokenizer.hpp
         Tokenizer.cpp
     ParserException.hpp
-    SimpleTokenizers/AtomValidator.hpp
-    SimpleTokenizers/AtomValidator.cpp
-    SimpleTokenizers/BooleanValidator.hpp
-    SimpleTokenizers/BooleanValidator.cpp
-    SimpleTokenizers/CompositeValidator.hpp
-    SimpleTokenizers/CompositeValidator.cpp
-    SimpleTokenizers/LabelValidator.hpp
-    SimpleTokenizers/LabelValidator.cpp
-    SimpleTokenizers/NumberValidator.hpp
-    SimpleTokenizers/NumberValidator.cpp
-    SimpleTokenizers/StringValidator.hpp
-    SimpleTokenizers/StringValidator.cpp
-    SimpleTokenizers/ReservedCharacterValidator.hpp
-    SimpleTokenizers/ReservedCharacterValidator.cpp
-    SimpleTokenizers/OmitBlanksValidator.hpp
-    SimpleTokenizers/OmitBlanksValidator.cpp)
+        TokenProviders/AtomicValueTokenProvider.hpp
+        TokenProviders/AtomicValueTokenProvider.cpp
+        TokenProviders/BooleanTokenProvider.hpp
+        TokenProviders/BooleanTokenProvider.cpp
+        TokenProviders/TokenProvidersAggregator.hpp
+        TokenProviders/TokenProvidersAggregator.cpp
+        TokenProviders/LabelTokenProvider.hpp
+        TokenProviders/LabelTokenProvider.cpp
+        TokenProviders/NumberTokenProvider.hpp
+        TokenProviders/NumberTokenProvider.cpp
+        TokenProviders/StringTokenProvider.hpp
+        TokenProviders/StringTokenProvider.cpp
+        TokenProviders/ReservedCharacterTokenProvider.hpp
+        TokenProviders/ReservedCharacterTokenProvider.cpp
+        TokenProviders/OmitBlanks.hpp
+        TokenProviders/OmitBlanks.cpp)
 
 add_library(Parser SHARED ${PARSER_LIBRARY_SRC})
 set_target_properties(Parser PROPERTIES LINKER_LANGUAGE CXX)

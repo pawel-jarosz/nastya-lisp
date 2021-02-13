@@ -2,12 +2,12 @@
 // Created by caedus on 11.02.2021.
 //
 
-#include "Parser/SimpleTokenizers/StringValidator.hpp"
 #include "Parser/ParserException.hpp"
+#include "Parser/TokenProviders/StringTokenProvider.hpp"
 
 namespace nastya::parser {
 
-StringValidator::StringValidator()
+StringTokenProvider::StringTokenProvider()
 {
 }
 
@@ -28,7 +28,7 @@ size_t analyse_quotation(const std::string& text, size_t next_pos)
     return next_pos;
 }
 
-std::optional<Token> StringValidator::validate(const std::string& value, ParsingContext& context) const
+std::optional<Token> StringTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
 {
     if (value[context.start_position] != '\"') {
         return {};
@@ -63,10 +63,10 @@ std::optional<Token> StringValidator::validate(const std::string& value, Parsing
     }
     BUT_THROW(ParserException, "Not terminated quotation mark");
 }
-std::unique_ptr<IValidator> StringValidator::create()
+std::unique_ptr<ITokenProvider> StringTokenProvider::create()
 {
-    auto result = std::make_unique<StringValidator>();
-    return std::unique_ptr<IValidator>(result.release());
+    auto result = std::make_unique<StringTokenProvider>();
+    return std::unique_ptr<ITokenProvider>(result.release());
 }
 
 }

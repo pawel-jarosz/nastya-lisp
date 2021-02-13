@@ -4,11 +4,11 @@
 
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <optional>
-#include <functional>
 
-#include "Parser/Interface/IValidator.hpp"
+#include "Parser/Interface/ITokenProvider.hpp"
 #include "Parser/Types/Token.hpp"
 
 namespace nastya::parser {
@@ -18,12 +18,13 @@ using NumberFactory = std::function<std::optional<Token>(const std::string& valu
 const std::string INTEGER_REGEX = "(-)?[0-9]+";
 const std::string FLOATING_REGEX = "(-)?[0-9]+\\.[0-9]+(e(-)?[0-9]+)?(f|d)?";
 
-class NumberValidator : public IValidator {
+class NumberTokenProvider : public ITokenProvider
+{
 public:
-    NumberValidator() = default;
+    NumberTokenProvider() = default;
     void addType(std::string regex, NumberFactory factory);
-    std::optional<Token> validate(const std::string& value, ParsingContext& context) const override;
-    static std::unique_ptr<IValidator> create();
+    std::optional<Token> getTokenIfAvailable(const std::string& value, ParsingContext& context) const override;
+    static std::unique_ptr<ITokenProvider> create();
 private:
     std::vector<std::pair<std::string, NumberFactory>> m_factories;
 };

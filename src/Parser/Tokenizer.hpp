@@ -7,12 +7,12 @@
 #include <string>
 
 #include "Parser/Interface/IParser.hpp"
-#include "Parser/SimpleTokenizers/CompositeValidator.hpp"
+#include "Parser/TokenProviders/TokenProvidersAggregator.hpp"
 #include "Parser/Types/ParsingContext.hpp"
 
 namespace nastya::parser {
 
-class Tokenizer : public IParser, private CompositeValidator
+class Tokenizer : public IParser, private TokenProvidersAggregator
 {
 public:
     Tokenizer();

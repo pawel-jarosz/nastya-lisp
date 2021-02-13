@@ -10,11 +10,11 @@
 
 namespace nastya::parser {
 
-class IValidator
+class ITokenProvider
 {
 public:
-    ~IValidator() = default;
-    virtual std::optional<Token> validate(const std::string& value, ParsingContext& context) const = 0;
+    ~ITokenProvider() = default;
+    virtual std::optional<Token> getTokenIfAvailable(const std::string& value, ParsingContext& context) const = 0;
 };
 
 }  // namespace nastya::parser

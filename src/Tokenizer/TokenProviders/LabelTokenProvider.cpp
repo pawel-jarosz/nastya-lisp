@@ -4,7 +4,7 @@
 
 #include <regex>
 
-#include "Parser/TokenProviders/LabelTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/LabelTokenProvider.hpp"
 
 namespace nastya::parser {
 

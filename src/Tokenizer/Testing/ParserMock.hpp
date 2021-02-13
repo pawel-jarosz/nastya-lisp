@@ -6,11 +6,11 @@
 
 #include <gmock/gmock.h>
 
-#include "Parser/Interface/IParser.hpp"
+#include "Tokenizer/Interface/ITokenizer.hpp"
 
 namespace nastya::parser {
 
-class ParserMock : public IParser
+class ParserMock : public ITokenizer
 {
 public:
     MOCK_METHOD(Token, getToken, (), (override));

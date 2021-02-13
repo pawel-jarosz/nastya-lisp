@@ -5,7 +5,7 @@
 #include <memory>
 #include <optional>
 
-#include "Parser/Interface/ITokenProvider.hpp"
+#include "Tokenizer/Interface/ITokenProvider.hpp"
 
 namespace nastya::parser {
 

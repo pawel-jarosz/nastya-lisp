@@ -2,10 +2,10 @@
 // Created by caedus on 11.02.2021.
 //
 
-#include "Parser/TokenProviders/AtomicValueTokenProvider.hpp"
-#include "Parser/TokenProviders/BooleanTokenProvider.hpp"
-#include "Parser/TokenProviders/LabelTokenProvider.hpp"
-#include "Parser/TokenProviders/NumberTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/AtomicValueTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/BooleanTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/LabelTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/NumberTokenProvider.hpp"
 
 namespace nastya::parser {
 

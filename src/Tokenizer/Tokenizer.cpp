@@ -5,13 +5,13 @@
 #include <cctype>
 #include <regex>
 
-#include <Parser/ParserException.hpp>
+#include "Tokenizer/TokenizerException.hpp"
 
-#include "Parser/TokenProviders/AtomicValueTokenProvider.hpp"
-#include "Parser/TokenProviders/OmitBlanks.hpp"
-#include "Parser/TokenProviders/ReservedCharacterTokenProvider.hpp"
-#include "Parser/TokenProviders/StringTokenProvider.hpp"
-#include "Parser/Tokenizer.hpp"
+#include "Tokenizer/TokenProviders/AtomicValueTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/OmitBlanks.hpp"
+#include "Tokenizer/TokenProviders/ReservedCharacterTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/StringTokenProvider.hpp"
+#include "Tokenizer/Tokenizer.hpp"
 
 namespace nastya::parser {
 
@@ -33,7 +33,7 @@ Token Tokenizer::getToken()
 {
     auto result = getTokenIfAvailable(m_text, m_context);
     if (not result) {
-        BUT_THROW(ParserException, "Invalid token");
+        BUT_THROW(TokenizerException, "Invalid token");
     }
     m_context.start_position = m_context.end_position;
     return *result;

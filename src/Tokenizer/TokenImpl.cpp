@@ -1,4 +1,4 @@
-#include "Parser/Types/Token.hpp"
+#include "Tokenizer/Types/Token.hpp"
 
 namespace nastya::parser {
 

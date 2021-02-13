@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "LispExpression/LispExpressionException.hpp"
 #include "LispExpression/ObjectFactory.hpp"
-#include "Parser/Types/Token.hpp"
+#include "Tokenizer/Types/Token.hpp"
 
 namespace nastya::lisp {
 

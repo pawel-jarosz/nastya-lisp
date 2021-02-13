@@ -2,7 +2,7 @@
 // Created by caedus on 12.02.2021.
 //
 
-#include "Parser/TokenProviders/OmitBlanks.hpp"
+#include "Tokenizer/TokenProviders/OmitBlanks.hpp"
 
 namespace nastya::parser {
 

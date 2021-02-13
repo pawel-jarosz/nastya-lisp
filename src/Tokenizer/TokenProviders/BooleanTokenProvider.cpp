@@ -2,7 +2,7 @@
 // Created by caedus on 09.02.2021.
 //
 
-#include "Parser/TokenProviders/BooleanTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/BooleanTokenProvider.hpp"
 
 namespace nastya::parser {
 

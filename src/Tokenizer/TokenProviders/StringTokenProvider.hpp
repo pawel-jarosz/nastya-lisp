@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "Parser/Interface/ITokenProvider.hpp"
+#include "Tokenizer/Interface/ITokenProvider.hpp"
 
 #pragma once
 

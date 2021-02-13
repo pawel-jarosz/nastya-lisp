@@ -9,19 +9,19 @@
 #include "LispExpression/ObjectFactory.hpp"
 #include "LispExpression/ObjectFactoryBuilder.hpp"
 #include "LispExpression/Testing/ListBuilder.hpp"
+#include "Tokenizer/Interface/ITokenizer.hpp"
+#include "Tokenizer/Tokenizer.hpp"
 #include "TypeSystem/Types/BooleanObject.hpp"
 #include "TypeSystem/Types/LabelObject.hpp"
 #include "TypeSystem/Types/ListObject.hpp"
 #include "TypeSystem/Types/NumberObject.hpp"
 #include "TypeSystem/Types/StringObject.hpp"
-#include "Parser/Interface/IParser.hpp"
-#include "Parser/Tokenizer.hpp"
 
 namespace nastya {
 
 using namespace testing;
 
-class ParserMock : public parser::IParser
+class ParserMock : public parser::ITokenizer
 {
 public:
     MOCK_METHOD(parser::Token, getToken, ());

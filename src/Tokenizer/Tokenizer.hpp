@@ -6,13 +6,14 @@
 
 #include <string>
 
-#include "Parser/Interface/IParser.hpp"
-#include "Parser/TokenProviders/TokenProvidersAggregator.hpp"
-#include "Parser/Types/ParsingContext.hpp"
+#include "Tokenizer/Interface/ITokenizer.hpp"
+#include "Tokenizer/TokenProviders/TokenProvidersAggregator.hpp"
+#include "Tokenizer/Types/ParsingContext.hpp"
 
 namespace nastya::parser {
 
-class Tokenizer : public IParser, private TokenProvidersAggregator
+class Tokenizer : public ITokenizer
+, private TokenProvidersAggregator
 {
 public:
     Tokenizer();

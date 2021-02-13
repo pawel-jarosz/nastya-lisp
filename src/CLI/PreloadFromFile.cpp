@@ -8,7 +8,7 @@
 
 namespace nastya::cli {
 
-PreloadFromFile::PreloadFromFile(parser::IParser& parser, lisp::IExpressionBuilder& expressionBuilder, runtime::IMachine& machine)
+PreloadFromFile::PreloadFromFile(parser::ITokenizer& parser, lisp::IExpressionBuilder& expressionBuilder, runtime::IMachine& machine)
 : m_parser{parser}, m_expressionBuilder{expressionBuilder}, m_machine{machine}
 {
 }

@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "Parser/Types/Token.hpp"
-#include "Parser/Types/ParsingContext.hpp"
+#include "Tokenizer/Types/Token.hpp"
+#include "Tokenizer/Types/ParsingContext.hpp"
 #include <optional>
 
 namespace nastya::parser {

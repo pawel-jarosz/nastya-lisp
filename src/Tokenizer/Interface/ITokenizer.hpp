@@ -4,14 +4,14 @@
 
 #pragma once
 
-#include "Parser/Types/Token.hpp"
+#include "Tokenizer/Types/Token.hpp"
 
 namespace nastya::parser {
 
-class IParser
+class ITokenizer
 {
 public:
-    ~IParser() = default;
+    ~ITokenizer() = default;
     virtual Token getToken() = 0;
     virtual void reset(std::string code) = 0;
 };

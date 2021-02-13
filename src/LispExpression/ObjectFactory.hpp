@@ -7,7 +7,7 @@
 #include <functional>
 
 #include "LispExpression/Interface/IObjectFactory.hpp"
-#include "Parser/Types/Token.hpp"
+#include "Tokenizer/Types/Token.hpp"
 
 namespace nastya::lisp {
 class ObjectFactory : public IObjectFactory

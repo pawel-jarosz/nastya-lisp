@@ -6,7 +6,7 @@
 
 #include <memory>
 
-#include "Parser/TokenProviders/TokenProvidersAggregator.hpp"
+#include "Tokenizer/TokenProviders/TokenProvidersAggregator.hpp"
 
 namespace nastya::parser {
 

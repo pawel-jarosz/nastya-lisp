@@ -15,7 +15,7 @@
 #include "LispExpression/ObjectFactoryBuilder.hpp"
 #include "Module/ConsoleModuleRegistration.hpp"
 #include "Modules/ModuleRegistry.hpp"
-#include "Parser/Tokenizer.hpp"
+#include "Tokenizer/Tokenizer.hpp"
 #include "VirtualMachine/Machine.hpp"
 
 void initModules(nastya::lisp::ObjectFactory& object_factory, nastya::modules::ModuleRegistry& module_registry)

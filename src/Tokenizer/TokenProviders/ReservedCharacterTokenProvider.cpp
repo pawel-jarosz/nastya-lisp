@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "Parser/TokenProviders/ReservedCharacterTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/ReservedCharacterTokenProvider.hpp"
 
 namespace nastya::parser {
 

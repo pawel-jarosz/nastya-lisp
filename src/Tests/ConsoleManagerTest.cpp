@@ -15,7 +15,7 @@
 #include "LispExpression/Testing/ExpressionBuilderMock.hpp"
 #include "LispExpression/Testing/ListBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
-#include "Parser/Testing/ParserMock.hpp"
+#include "Tokenizer/Testing/ParserMock.hpp"
 #include "Runtime/Testing/MachineMock.hpp"
 #include "VirtualMachine/Machine.hpp"
 

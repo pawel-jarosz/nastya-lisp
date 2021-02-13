@@ -4,8 +4,8 @@
 
 #include <gtest/gtest.h>
 
-#include "Parser/ParserException.hpp"
-#include "Parser/Tokenizer.hpp"
+#include "Tokenizer/TokenizerException.hpp"
+#include "Tokenizer/Tokenizer.hpp"
 
 using namespace nastya::parser;
 
@@ -114,7 +114,7 @@ TEST(DummyParserTest, testFloating)
     }
     FloatingTestCase invalid_test{"123.456u", 123.456};
     Tokenizer parser(invalid_test.first);
-    EXPECT_THROW(parser.getToken(), ParserException);
+    EXPECT_THROW(parser.getToken(), TokenizerException);
 }
 
 TEST(DummyParserTest, testBoolean)
@@ -256,5 +256,5 @@ TEST(DummyParserTest, testCompareToken) {
 TEST(DummyParserTest, testNotTerminatedQuotationMark) {
     const std::string test_case = "\"not terminated quotation";
     Tokenizer parser(test_case);
-    EXPECT_THROW(parser.getToken(), ParserException);
+    EXPECT_THROW(parser.getToken(), TokenizerException);
 }

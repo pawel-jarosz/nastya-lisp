@@ -4,7 +4,7 @@
 
 #include <regex>
 
-#include "Parser/TokenProviders/NumberTokenProvider.hpp"
+#include "Tokenizer/TokenProviders/NumberTokenProvider.hpp"
 
 namespace nastya::parser {
 

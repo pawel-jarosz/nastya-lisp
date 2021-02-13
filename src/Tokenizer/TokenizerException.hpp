@@ -8,6 +8,6 @@
 
 namespace nastya::parser {
 
-BUT_DEFINE_EXCEPTION(ParserException, But::Exception, "ParserException");
+BUT_DEFINE_EXCEPTION(TokenizerException, But::Exception, "TokenizerException");
 
 }

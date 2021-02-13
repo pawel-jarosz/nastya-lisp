@@ -6,7 +6,7 @@
 
 #include <functional>
 
-#include "Parser/Types/Token.hpp"
+#include "Tokenizer/Types/Token.hpp"
 #include "TypeSystem/Interface/IObject.hpp"
 
 namespace nastya::lisp {

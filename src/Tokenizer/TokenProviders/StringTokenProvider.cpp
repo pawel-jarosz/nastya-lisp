@@ -2,8 +2,8 @@
 // Created by caedus on 11.02.2021.
 //
 
-#include "Parser/ParserException.hpp"
-#include "Parser/TokenProviders/StringTokenProvider.hpp"
+#include "Tokenizer/TokenizerException.hpp"
+#include "Tokenizer/TokenProviders/StringTokenProvider.hpp"
 
 namespace nastya::parser {
 
@@ -19,7 +19,7 @@ size_t analyse_quotation(const std::string& text, size_t next_pos)
     }
     if (next_pos < text.size() and not isblank(text[next_pos]))
     {
-        BUT_THROW(ParserException, "Invalid syntax - quotation is not closed before the end");
+        BUT_THROW(TokenizerException, "Invalid syntax - quotation is not closed before the end");
     }
     while (next_pos < text.size() and isblank(text[next_pos]))
     {
@@ -61,7 +61,7 @@ std::optional<Token> StringTokenProvider::getTokenIfAvailable(const std::string&
         stream << value[context.end_position];
         ++context.end_position;
     }
-    BUT_THROW(ParserException, "Not terminated quotation mark");
+    BUT_THROW(TokenizerException, "Not terminated quotation mark");
 }
 std::unique_ptr<ITokenProvider> StringTokenProvider::create()
 {

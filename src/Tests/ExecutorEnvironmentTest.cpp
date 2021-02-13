@@ -9,7 +9,7 @@
 #include "LispExpression/ObjectFactory.hpp"
 #include "LispExpression/ObjectFactoryBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
-#include "Parser/Tokenizer.hpp"
+#include "Tokenizer/Tokenizer.hpp"
 #include "VirtualMachine/Machine.hpp"
 
 TEST(VMTest, testHeadList)

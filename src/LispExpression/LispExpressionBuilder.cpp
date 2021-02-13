@@ -121,7 +121,7 @@ void LispExpressionBuilder::LispExpressionBuilderImpl::addGenericObject(const pa
     }
 }
 
-LispExpressionBuilder::LispExpressionBuilder(parser::IParser& parser, IObjectFactory& object_factory)
+LispExpressionBuilder::LispExpressionBuilder(parser::ITokenizer& parser, IObjectFactory& object_factory)
 : m_parser{parser}
 , m_object_factory{object_factory}
 , m_impl(new LispExpressionBuilder::LispExpressionBuilderImpl(object_factory))

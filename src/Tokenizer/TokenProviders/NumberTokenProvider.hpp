@@ -8,8 +8,8 @@
 #include <memory>
 #include <optional>
 
-#include "Parser/Interface/ITokenProvider.hpp"
-#include "Parser/Types/Token.hpp"
+#include "Tokenizer/Interface/ITokenProvider.hpp"
+#include "Tokenizer/Types/Token.hpp"
 
 namespace nastya::parser {
 

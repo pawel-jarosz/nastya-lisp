@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "LispExpression/ObjectFactory.hpp"
-#include "LispExpression/ObjectFactoryBuilder.hpp"
+#include "Parser/ObjectFactory.hpp"
+#include "Parser/ObjectFactoryBuilder.hpp"
 #include "TypeSystem/Types/BooleanObject.hpp"
 #include "TypeSystem/Types/LabelObject.hpp"
 #include "TypeSystem/Types/NumberObject.hpp"

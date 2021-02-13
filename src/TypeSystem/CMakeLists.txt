@@ -9,6 +9,10 @@ set(TYPESYSTEM_LIBRARY_SRC
         Types/NumberObject.hpp
         Types/StringObject.hpp
         TypeSystemImpl.cpp
+        Interface/IObject.hpp
+        Interface/IObjectStorage.hpp
+        ObjectStorage.hpp
+        ObjectStorage.cpp
         )
 
 add_library(TypeSystem SHARED ${TYPESYSTEM_LIBRARY_SRC})

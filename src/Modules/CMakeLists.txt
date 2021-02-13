@@ -9,5 +9,5 @@ set(MODULES_LIBRARY_SRC
 
 add_library(Modules SHARED ${MODULES_LIBRARY_SRC})
 set_target_properties(Modules PROPERTIES LINKER_LANGUAGE CXX)
-target_link_libraries(Modules LispExpression)
+target_link_libraries(Modules TypeSystem)
 

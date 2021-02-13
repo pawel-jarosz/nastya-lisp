@@ -7,7 +7,7 @@
 #include "CLI/Interface/IConsoleManager.hpp"
 #include "CLI/Interface/IIoFactory.hpp"
 #include "CLI/Interface/ISplashScreen.hpp"
-#include "LispExpression/Interface/IExpressionBuilder.hpp"
+#include "Parser/Interface/IExpressionBuilder.hpp"
 #include "Runtime/Interface/IMachine.hpp"
 #include "Tokenizer/Interface/ITokenizer.hpp"
 

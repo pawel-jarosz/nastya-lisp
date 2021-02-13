@@ -5,9 +5,9 @@
 #include <gtest/gtest.h>
 
 #include "Builtins/BuiltinsBuilder.hpp"
-#include "LispExpression/LispExpressionBuilder.hpp"
-#include "LispExpression/ObjectFactory.hpp"
-#include "LispExpression/ObjectFactoryBuilder.hpp"
+#include "Parser/LispExpressionBuilder.hpp"
+#include "Parser/ObjectFactory.hpp"
+#include "Parser/ObjectFactoryBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
 #include "Tokenizer/Tokenizer.hpp"
 #include "VirtualMachine/Machine.hpp"

@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 
 #include "Builtins/BuiltinsException.hpp"
-#include "LispExpression/Testing/ListBuilder.hpp"
+#include "Parser/Testing/ListBuilder.hpp"
 #include "TypeSystem/Types/NumberObject.hpp"
 #include "Modules/ModuleException.hpp"
 #include "Modules/Testing/ModuleRegistryMock.hpp"

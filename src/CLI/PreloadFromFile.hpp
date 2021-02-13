@@ -2,7 +2,7 @@
 // Created by caedus on 30.01.2021.
 //
 
-#include "LispExpression/Interface/IExpressionBuilder.hpp"
+#include "Parser/Interface/IExpressionBuilder.hpp"
 #include "Runtime/Interface/IMachine.hpp"
 #include "Tokenizer/Interface/ITokenizer.hpp"
 

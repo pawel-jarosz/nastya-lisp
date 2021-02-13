@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LispExpression/Interface/IObjectFactory.hpp"
+#include "Parser/Interface/IObjectFactory.hpp"
 
 namespace nastya::lisp {
 

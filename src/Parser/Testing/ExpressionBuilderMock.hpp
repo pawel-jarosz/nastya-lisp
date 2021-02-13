@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "LispExpression/Interface/IExpressionBuilder.hpp"
+#include "Parser/Interface/IExpressionBuilder.hpp"
 
 namespace nastya::lisp::testing {
 

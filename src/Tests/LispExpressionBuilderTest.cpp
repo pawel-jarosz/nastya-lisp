@@ -5,10 +5,10 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include "LispExpression/LispExpressionBuilder.hpp"
-#include "LispExpression/ObjectFactory.hpp"
-#include "LispExpression/ObjectFactoryBuilder.hpp"
-#include "LispExpression/Testing/ListBuilder.hpp"
+#include "Parser/LispExpressionBuilder.hpp"
+#include "Parser/ObjectFactory.hpp"
+#include "Parser/ObjectFactoryBuilder.hpp"
+#include "Parser/Testing/ListBuilder.hpp"
 #include "Tokenizer/Interface/ITokenizer.hpp"
 #include "Tokenizer/Tokenizer.hpp"
 #include "TypeSystem/Types/BooleanObject.hpp"

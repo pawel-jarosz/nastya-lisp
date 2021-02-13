@@ -2,8 +2,8 @@
 // Created by caedus on 13.12.2020.
 //
 
-#include "LispExpression/LispExpressionException.hpp"
-#include "LispExpression/ObjectFactory.hpp"
+#include "Parser/LispExpressionException.hpp"
+#include "Parser/ObjectFactory.hpp"
 
 namespace nastya::lisp {
 

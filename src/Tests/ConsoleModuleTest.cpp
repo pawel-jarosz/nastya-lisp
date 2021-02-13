@@ -8,7 +8,7 @@
 #include "CLI/Module/ConsoleModule.hpp"
 #include "CLI/Module/ConsoleModuleRegistration.hpp"
 #include "CLI/Testing/ConsoleManagerMock.hpp"
-#include "LispExpression/Testing/ListBuilder.hpp"
+#include "Parser/Testing/ListBuilder.hpp"
 #include "Modules/ModuleRegistry.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
 

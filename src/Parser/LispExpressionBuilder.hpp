@@ -6,8 +6,8 @@
 
 #include <memory>
 
-#include "LispExpression/Interface/IExpressionBuilder.hpp"
-#include "LispExpression/Interface/IObjectFactory.hpp"
+#include "Parser/Interface/IExpressionBuilder.hpp"
+#include "Parser/Interface/IObjectFactory.hpp"
 #include "Tokenizer/Interface/ITokenizer.hpp"
 #include "TypeSystem/ObjectStorage.hpp"
 

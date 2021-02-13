@@ -7,9 +7,9 @@
 #include <stack>
 #include <vector>
 
-#include "LispExpression/Interface/IObjectFactory.hpp"
-#include "LispExpression/LispExpressionBuilder.hpp"
-#include "LispExpression/LispExpressionException.hpp"
+#include "Parser/Interface/IObjectFactory.hpp"
+#include "Parser/LispExpressionBuilder.hpp"
+#include "Parser/LispExpressionException.hpp"
 #include "TypeSystem/Types/ListObject.hpp"
 
 namespace nastya::lisp {

@@ -8,6 +8,6 @@
 
 namespace nastya::lisp {
 
-BUT_DEFINE_EXCEPTION(LispExpressionException, But::Exception, "LispExpression");
+BUT_DEFINE_EXCEPTION(LispExpressionException, But::Exception, "Parser");
 
 }

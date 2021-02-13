@@ -6,7 +6,7 @@
 
 #include <functional>
 
-#include "LispExpression/Interface/IObjectFactory.hpp"
+#include "Parser/Interface/IObjectFactory.hpp"
 #include "Tokenizer/Types/Token.hpp"
 
 namespace nastya::lisp {

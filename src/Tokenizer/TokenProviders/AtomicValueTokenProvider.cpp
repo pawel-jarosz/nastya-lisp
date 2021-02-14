@@ -9,6 +9,12 @@
 
 namespace nastya::tokens {
 
+AtomicValueTokenProvider::AtomicValueTokenProvider() {
+    addProvider(BooleanTokenProvider::create())
+    .addProvider(NumberTokenProvider::create())
+    .addProvider(LabelTokenProvider::create());
+}
+
 std::optional<Token> AtomicValueTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
 {
     context.end_position = context.start_position;
@@ -29,9 +35,6 @@ std::optional<Token> AtomicValueTokenProvider::getTokenIfAvailable(const std::st
 std::unique_ptr<ITokenProvider> AtomicValueTokenProvider::create()
 {
     auto result = std::make_unique<AtomicValueTokenProvider>();
-    result->addProvider(BooleanTokenProvider::create())
-        .addProvider(NumberTokenProvider::create())
-        .addProvider(LabelTokenProvider::create());
     return std::unique_ptr<ITokenProvider>(result.release());
 }
 }

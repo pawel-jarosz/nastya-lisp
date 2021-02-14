@@ -8,17 +8,17 @@ set(TYPESYSTEM_LIBRARY_SRC
         Types/LabelObject.hpp
         Types/NumberObject.hpp
         Types/StringObject.hpp
-        TypesImpl/GenericObject.cpp
+        Internal/GenericObject.cpp
         Interface/IObject.hpp
         Interface/IObjectStorage.hpp
         ObjectStorage.hpp
         ObjectStorage.cpp
-        TypesImpl/StringObject.cpp
-        TypesImpl/BooleanObject.cpp
-        TypesImpl/NumberObject.cpp
-        TypesImpl/LabelObject.cpp
-        TypesImpl/ListObject.cpp
-        TypesImpl/LambdaObject.cpp)
+        Internal/StringObject.cpp
+        Internal/BooleanObject.cpp
+        Internal/NumberObject.cpp
+        Internal/LabelObject.cpp
+        Internal/ListObject.cpp
+        Internal/LambdaObject.cpp)
 
 add_library(TypeSystem SHARED ${TYPESYSTEM_LIBRARY_SRC})
 set_target_properties(TypeSystem PROPERTIES LINKER_LANGUAGE CXX)

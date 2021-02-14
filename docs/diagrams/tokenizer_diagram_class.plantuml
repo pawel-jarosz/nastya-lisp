@@ -1,0 +1,72 @@
+@startuml
+note "Tokenizer based on Compositor design pattern" as DesignNote
+
+interface ITokenizer
+ITokenizer : +Token getToken()
+ITokenizer : +void reset(String text)
+
+interface ITokenProvider
+ITokenProvider : OptionalToken getTokenIfAvailable(String& value, ParsingContext& context)
+
+class TokenProvidersAggregator {
++ OptionalToken getTokenIfAvailable(...)
++ &this addProvider(ITokenProvider* validator);
+- ProviderVector validators
+}
+
+note "def addProvider(validator):\n\tvalidators.push_back(validator)\ndef getTokenIfAvailable(...):\n\tforeach(validator in validators):\n\t\tauto result = validator->getTokenIfAvailable(value, context)\n\t\tif (result) return result;" as AggregatorImplementation
+
+TokenProvidersAggregator .. AggregatorImplementation
+
+ITokenProvider <|-- TokenProvidersAggregator
+
+class OmitBlanks {
+    + OptionalToken getTokenIfAvailable(...)
+}
+
+class BooleanTokenProvider {
+    + BooleanTokenProvider(String trueValue, String falseValue)
+    + OptionalToken getTokenIfAvailable(...)
+    - String trueValue
+    - String falseValue
+}
+
+class ReservedCharacterTokenProvider
+class LabelTokenProvider {
+    + LabelTokenProvider(String labelRegex)
+    + OptionalToken getTokenIfAvailable(...)
+    - String labelRegex
+}
+
+class NumberTokenProvider {
+    + NumberTokenProvider()
+    + addType(String regex, Factory factory)
+    + OptionalToken getTokenIfAvailable(...)
+    - VectorOfPairRegexAndFactory factories
+}
+class StringTokenProvider
+
+ITokenProvider <|-- OmitBlanks
+ITokenProvider <|-- BooleanTokenProvider
+ITokenProvider <|-- LabelTokenProvider
+ITokenProvider <|-- NumberTokenProvider
+ITokenProvider <|-- StringTokenProvider
+ITokenProvider <|-- ReservedCharacterTokenProvider
+
+
+class AtomicValueTokenProvider
+TokenProvidersAggregator <|-- AtomicValueTokenProvider
+AtomicValueTokenProvider *-- BooleanTokenProvider
+AtomicValueTokenProvider *-- NumberTokenProvider
+AtomicValueTokenProvider *-- LabelTokenProvider
+
+class Tokenizer
+
+ITokenizer <|-- Tokenizer
+TokenProvidersAggregator <|-- Tokenizer
+Tokenizer *-- AtomicValueTokenProvider
+Tokenizer *-- ReservedCharacterTokenProvider
+Tokenizer *-- StringTokenProvider
+Tokenizer *-- OmitBlanks
+
+@enduml

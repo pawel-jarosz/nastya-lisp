@@ -5,7 +5,7 @@
 
 #include <But/Exception.hpp>
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 BUT_DEFINE_EXCEPTION(TypeSystemError, But::Exception, "TypeSystemError");
 

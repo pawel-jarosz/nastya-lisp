@@ -8,7 +8,7 @@
 
 #include "TypeSystem/Types/ObjectType.hpp"
 
-namespace nastya::lisp {
+namespace nastya::typesystem {
 class IObject
 {
 public:

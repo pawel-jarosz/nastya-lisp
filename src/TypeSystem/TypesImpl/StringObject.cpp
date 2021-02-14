@@ -5,7 +5,7 @@
 #include "TypeSystem/Types/StringObject.hpp"
 #include "TypeSystem/Types/TypeSystemError.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 StringObject::StringObject(std::string value) : GenericObject(ObjectType::String), m_value(std::move(value))
 {

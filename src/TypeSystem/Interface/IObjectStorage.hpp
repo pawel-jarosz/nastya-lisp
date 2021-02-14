@@ -6,7 +6,7 @@
 
 #include "IObject.hpp"
 
-namespace nastya::lisp {
+namespace nastya::typesystem {
 
 class IObjectStorage
 {

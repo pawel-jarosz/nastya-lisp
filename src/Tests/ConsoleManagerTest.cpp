@@ -24,7 +24,7 @@ using namespace ::testing;
 
 TEST(ConsoleManagerTest, testSplashScreen) {
     runtime::MachineMock machine;
-    parser::ParserMock parser;
+    tokens::ParserMock parser;
     lisp::testing::ExpressionBuilderMock expression_builder;
     io::IoFactoryMock io_factory;
     auto output = new io::OutputSinkMock();

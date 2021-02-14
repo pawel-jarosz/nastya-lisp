@@ -22,7 +22,7 @@ public:
 
 struct IdEvaluator : nastya::runtime::GenericEvaluator {
     IdEvaluator() : nastya::runtime::GenericEvaluator("Id") {}
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& arguments) const override {
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& arguments) const override {
         return arguments;
     }
 };

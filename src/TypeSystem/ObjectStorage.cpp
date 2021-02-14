@@ -5,7 +5,7 @@
 #include "ObjectStorage.hpp"
 #include "ObjectStorageException.hpp"
 
-namespace nastya::lisp {
+namespace nastya::typesystem {
 
 ObjectStorage::ObjectStorage(std::unique_ptr<IObject> object) : m_object{std::move(object)}
 {

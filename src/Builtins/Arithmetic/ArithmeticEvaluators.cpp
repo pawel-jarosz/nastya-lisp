@@ -17,7 +17,7 @@ namespace nastya::builtins::arithmetic {
 
 using namespace utils;
 
-lisp::ObjectStorage AddEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
+typesystem::ObjectStorage AddEvaluator::evaluate(runtime::IMemory&, const typesystem::ObjectStorage& object) const
 {
     const auto& arguments_list = Cast::as_list(object, "Lang.Arithmetic.Add expects list of arguments");
     bool is_integer_sum = true;
@@ -28,7 +28,7 @@ lisp::ObjectStorage AddEvaluator::evaluate(runtime::IMemory&, const lisp::Object
 
     for (const auto number_object: arguments_list.getContent()) {
         const auto& number = utils::Cast::as_number(number_object, "Lang.Arithmetic.Add expects number");
-        if (is_integer_sum and number.getNumberType() == lisp::NumberType::Floating) {
+        if (is_integer_sum and number.getNumberType() == typesystem::NumberType::Floating) {
             sum.float_sum = sum.integer_sum;
             is_integer_sum = false;
         }
@@ -39,13 +39,13 @@ lisp::ObjectStorage AddEvaluator::evaluate(runtime::IMemory&, const lisp::Object
             sum.float_sum += number.getFloating();
         }
     }
-    auto result_pointer = (is_integer_sum ? (new lisp::typesystem::NumberObject(sum.integer_sum))
-                                          : (new lisp::typesystem::NumberObject(sum.float_sum)));
-    lisp::ObjectStorage result{std::unique_ptr<lisp::IObject>(result_pointer)};
+    auto result_pointer = (is_integer_sum ? (new typesystem::NumberObject(sum.integer_sum))
+                                          : (new typesystem::NumberObject(sum.float_sum)));
+    typesystem::ObjectStorage result{std::unique_ptr<typesystem::IObject>(result_pointer)};
     return  result;
 }
 
-lisp::ObjectStorage SubtractionEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
+typesystem::ObjectStorage SubtractionEvaluator::evaluate(runtime::IMemory&, const typesystem::ObjectStorage& object) const
 {
     const auto& arguments_list = Cast::as_list(object, "Lang.Arithmetic.Add expects list of arguments");
     bool is_integer_sum = true;
@@ -56,7 +56,7 @@ lisp::ObjectStorage SubtractionEvaluator::evaluate(runtime::IMemory&, const lisp
 
     for (const auto number_object: arguments_list.getContent()) {
         const auto& number = utils::Cast::as_number(number_object, "Lang.Arithmetic.Add expects number");
-        if (is_integer_sum and number.getNumberType() == lisp::NumberType::Floating) {
+        if (is_integer_sum and number.getNumberType() == typesystem::NumberType::Floating) {
             sum.float_sum = sum.integer_sum;
             is_integer_sum = false;
         }
@@ -67,9 +67,9 @@ lisp::ObjectStorage SubtractionEvaluator::evaluate(runtime::IMemory&, const lisp
             sum.float_sum -= number.getFloating();
         }
     }
-    auto result_pointer = (is_integer_sum ? (new lisp::typesystem::NumberObject(sum.integer_sum))
-                                          : (new lisp::typesystem::NumberObject(sum.float_sum)));
-    lisp::ObjectStorage result{std::unique_ptr<lisp::IObject>(result_pointer)};
+    auto result_pointer = (is_integer_sum ? (new typesystem::NumberObject(sum.integer_sum))
+                                          : (new typesystem::NumberObject(sum.float_sum)));
+    typesystem::ObjectStorage result{std::unique_ptr<typesystem::IObject>(result_pointer)};
     return  result;
 }
 

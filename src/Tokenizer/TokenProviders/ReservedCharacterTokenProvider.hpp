@@ -11,7 +11,7 @@
 
 #include "Tokenizer/Interface/ITokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 class ReservedCharacterTokenProvider : public ITokenProvider
 {

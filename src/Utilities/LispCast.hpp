@@ -15,12 +15,12 @@
 namespace nastya::utils {
 
 struct Cast {
-    static const lisp::typesystem::BooleanObject& as_boolean(const lisp::ObjectStorage& storage, std::string msg = "");
-    static const lisp::typesystem::NumberObject& as_number(const lisp::ObjectStorage& storage, std::string msg = "");
-    static const lisp::typesystem::StringObject& as_string(const lisp::ObjectStorage& storage, std::string msg = "");
-    static const lisp::typesystem::LabelObject& as_label(const lisp::ObjectStorage& storage, std::string msg = "");
-    static const lisp::typesystem::ListObject& as_list(const lisp::ObjectStorage& storage, std::string msg = "");
-    static const lisp::typesystem::LambdaObject& as_lambda(const lisp::ObjectStorage& storage, std::string msg = "");
+    static const typesystem::BooleanObject& as_boolean(const typesystem::ObjectStorage& storage, std::string msg = "");
+    static const typesystem::NumberObject& as_number(const typesystem::ObjectStorage& storage, std::string msg = "");
+    static const typesystem::StringObject& as_string(const typesystem::ObjectStorage& storage, std::string msg = "");
+    static const typesystem::LabelObject& as_label(const typesystem::ObjectStorage& storage, std::string msg = "");
+    static const typesystem::ListObject& as_list(const typesystem::ObjectStorage& storage, std::string msg = "");
+    static const typesystem::LambdaObject& as_lambda(const typesystem::ObjectStorage& storage, std::string msg = "");
 };
 
 }

@@ -4,7 +4,7 @@
 
 #include "Tokenizer/TokenProviders/BooleanTokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 BooleanTokenProvider::BooleanTokenProvider(std::string true_string, std::string false_string)
 : m_true_value{std::move(true_string)}

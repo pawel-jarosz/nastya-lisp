@@ -11,13 +11,13 @@
 
 namespace nastya::lisp {
 
-using FactoryMethod = std::function<IObject*(const parser::Token& t)>;
+using FactoryMethod = std::function<typesystem::IObject*(const tokens::Token& t)>;
 
 class IObjectFactory
 {
 public:
     virtual ~IObjectFactory() = default;
-    virtual IObject* create(const parser::Token& t) const = 0;
-    virtual void registerToken(const parser::TokenType type, FactoryMethod factory) = 0;
+    virtual typesystem::IObject* create(const tokens::Token& t) const = 0;
+    virtual void registerToken(const tokens::TokenType type, FactoryMethod factory) = 0;
 };
 }  // namespace nastya::lisp

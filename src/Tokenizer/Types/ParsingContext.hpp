@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 struct ParsingContext {
     size_t start_position;

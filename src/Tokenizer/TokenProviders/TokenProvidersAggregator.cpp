@@ -4,7 +4,7 @@
 
 #include "Tokenizer/TokenProviders/TokenProvidersAggregator.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 TokenProvidersAggregator::TokenProvidersAggregator()
 {

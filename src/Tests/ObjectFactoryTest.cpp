@@ -9,14 +9,14 @@ TEST(ObjectFactoryTest, testObjectFactory)
 {
     ObjectFactory factory;
     bool called = false;
-    auto callback = [&called](const parser::Token& p) {
+    auto callback = [&called](const tokens::Token& p) {
         called = true;
         return nullptr;
     };
-    factory.registerToken(parser::TokenType::String, callback);
-    factory.create(parser::Token{parser::TokenType::String});
+    factory.registerToken(tokens::TokenType::String, callback);
+    factory.create(tokens::Token{tokens::TokenType::String});
     EXPECT_TRUE(called);
-    EXPECT_THROW(factory.create(parser::Token{parser::TokenType::S_expr_begin}), lisp::LispExpressionException);
+    EXPECT_THROW(factory.create(tokens::Token{tokens::TokenType::S_expr_begin}), lisp::LispExpressionException);
 }
 
 }  // namespace nastya::lisp

@@ -4,7 +4,7 @@
 
 #include "TypeSystem/Types/ListObject.hpp"
 #include <sstream>
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 ListObject::ListObject(std::vector<ObjectStorage> content)
     : GenericObject(ObjectType::List), m_content{std::move(content)}

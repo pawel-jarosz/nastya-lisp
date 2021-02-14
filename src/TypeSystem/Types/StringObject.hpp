@@ -9,7 +9,7 @@
 #include "ComparableTrait.hpp"
 #include "GenericObject.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 class StringObject : public GenericObject, public ComparableObject
 {
 public:
@@ -22,4 +22,4 @@ public:
 private:
     std::string m_value;
 };
-}  // namespace nastya::lisp::typesystem
+}  // namespace nastya::typesystem

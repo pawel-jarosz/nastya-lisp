@@ -14,7 +14,7 @@ class AddEvaluator : public runtime::GenericEvaluator
 {
 public:
     AddEvaluator() : runtime::GenericEvaluator{"+"} {}
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 };
 
 class SubtractionEvaluator : public runtime::GenericEvaluator
@@ -22,7 +22,7 @@ class SubtractionEvaluator : public runtime::GenericEvaluator
 {
 public:
     SubtractionEvaluator() : runtime::GenericEvaluator{"-"} {}
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 };
 
 }

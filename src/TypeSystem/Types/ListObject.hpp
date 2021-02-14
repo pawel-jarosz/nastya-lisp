@@ -10,7 +10,7 @@
 #include "GenericObject.hpp"
 #include "TypeSystem/ObjectStorage.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 class ListObject : public GenericObject, public NonComparableObject
 {
 public:
@@ -30,4 +30,4 @@ public:
 private:
     std::vector<ObjectStorage> m_content;
 };
-}  // namespace nastya::lisp::typesystem
+}  // namespace nastya::typesystem

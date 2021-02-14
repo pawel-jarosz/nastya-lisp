@@ -13,7 +13,7 @@ ShutdownEvaluator::ShutdownEvaluator(interface::IConsoleManager& console)
 {
 }
 
-lisp::ObjectStorage ShutdownEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
+typesystem::ObjectStorage ShutdownEvaluator::evaluate(runtime::IMemory&, const typesystem::ObjectStorage& object) const
 {
     m_console.shutdown();
     BUT_THROW(ShutdownEvent, "Close event sent");

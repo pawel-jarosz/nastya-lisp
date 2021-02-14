@@ -6,7 +6,7 @@
 
 #include "Tokenizer/TokenProviders/NumberTokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 void NumberTokenProvider::addType(std::string regex, NumberFactory factory)
 {

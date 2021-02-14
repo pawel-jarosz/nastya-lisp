@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace nastya::lisp {
+namespace nastya::typesystem {
 
 enum ObjectType
 {

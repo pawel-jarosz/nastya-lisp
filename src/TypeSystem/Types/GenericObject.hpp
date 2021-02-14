@@ -3,7 +3,7 @@
 #include "EqualTrait.hpp"
 #include "TypeSystem/Interface/IObject.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 class GenericObject : public IObject, public HasEqualTrait
 {
@@ -17,4 +17,4 @@ private:
     ObjectType m_type;
 };
 
-}  // namespace nastya::lisp::typesystem
+}  // namespace nastya::typesystem

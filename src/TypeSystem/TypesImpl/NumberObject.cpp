@@ -7,7 +7,7 @@
 
 #include <sstream>
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 NumberObject::NumberObject() : NumberObject(0)
 {
 }
@@ -117,7 +117,7 @@ std::string NumberObject::toString() const
 std::string NumberObject::info() const
 {
     std::stringstream ss;
-    if (getNumberType() == lisp::NumberType::Floating)
+    if (getNumberType() == NumberType::Floating)
     {
         ss << "Floating => ";
     }

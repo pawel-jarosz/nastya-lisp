@@ -12,66 +12,68 @@ struct TypeToEnum {
 };
 
 template<>
-struct TypeToEnum<lisp::typesystem::NumberObject> {
-    constexpr static lisp::ObjectType type = lisp::ObjectType::Number;
+struct TypeToEnum<typesystem::NumberObject> {
+    constexpr static typesystem::ObjectType type = typesystem::ObjectType::Number;
 };
 
 template<>
-struct TypeToEnum<lisp::typesystem::ListObject> {
-    constexpr static lisp::ObjectType type = lisp::ObjectType::List;
+struct TypeToEnum<typesystem::ListObject> {
+    constexpr static typesystem::ObjectType type = typesystem::ObjectType::List;
 };
 
 template<>
-struct TypeToEnum<lisp::typesystem::StringObject> {
-    constexpr static lisp::ObjectType type = lisp::ObjectType::String;
+struct TypeToEnum<typesystem::StringObject> {
+    constexpr static typesystem::ObjectType type = typesystem::ObjectType::String;
 };
 
 template<>
-struct TypeToEnum<lisp::typesystem::LabelObject> {
-    constexpr static lisp::ObjectType type = lisp::ObjectType::Label;
+struct TypeToEnum<typesystem::LabelObject> {
+    constexpr static typesystem::ObjectType type = typesystem::ObjectType::Label;
 };
 
 template<>
-struct TypeToEnum<lisp::typesystem::BooleanObject> {
-    constexpr static lisp::ObjectType type = lisp::ObjectType::Boolean;
+struct TypeToEnum<typesystem::BooleanObject> {
+    constexpr static typesystem::ObjectType type = typesystem::ObjectType::Boolean;
 };
 
 template<>
-struct TypeToEnum<lisp::typesystem::LambdaObject> {
-    constexpr static lisp::ObjectType type = lisp::ObjectType::Lambda;
+struct TypeToEnum<typesystem::LambdaObject> {
+    constexpr static typesystem::ObjectType type = typesystem::ObjectType::Lambda;
 };
 
 template<typename Target>
-const Target& cast(const lisp::ObjectStorage& storage, const std::string& msg) {
+const Target& cast(const typesystem::ObjectStorage& storage, const std::string& msg) {
     if(storage.getType() == TypeToEnum<Target>::type) {
         return dynamic_cast<const Target&>(storage.getRawObject());
     }
     BUT_THROW(LispCastException, msg);
 }
 
-const lisp::typesystem::BooleanObject& Cast::as_boolean(const lisp::ObjectStorage& storage, std::string msg)
+const typesystem::BooleanObject& Cast::as_boolean(const typesystem::ObjectStorage& storage, std::string msg)
 {
-    return cast<lisp::typesystem::BooleanObject>(storage, msg);
-}
-const lisp::typesystem::NumberObject& Cast::as_number(const lisp::ObjectStorage& storage, std::string msg)
-{
-    return cast<lisp::typesystem::NumberObject>(storage, msg);
-}
-const lisp::typesystem::StringObject& Cast::as_string(const lisp::ObjectStorage& storage, std::string msg)
-{
-    return cast<lisp::typesystem::StringObject>(storage, msg);
-}
-const lisp::typesystem::LabelObject& Cast::as_label(const lisp::ObjectStorage& storage, std::string msg)
-{
-    return cast<lisp::typesystem::LabelObject>(storage, msg);
-}
-const lisp::typesystem::ListObject& Cast::as_list(const lisp::ObjectStorage& storage, std::string msg)
-{
-    return cast<lisp::typesystem::ListObject>(storage, msg);
+    return cast<typesystem::BooleanObject>(storage, msg);
 }
 
-const lisp::typesystem::LambdaObject& Cast::as_lambda(const lisp::ObjectStorage& storage, std::string msg)
+const typesystem::NumberObject& Cast::as_number(const typesystem::ObjectStorage& storage, std::string msg)
 {
-    return cast<lisp::typesystem::LambdaObject>(storage, msg);
+    return cast<typesystem::NumberObject>(storage, msg);
+}
+const typesystem::StringObject& Cast::as_string(const typesystem::ObjectStorage& storage, std::string msg)
+{
+    return cast<typesystem::StringObject>(storage, msg);
+}
+const typesystem::LabelObject& Cast::as_label(const typesystem::ObjectStorage& storage, std::string msg)
+{
+    return cast<typesystem::LabelObject>(storage, msg);
+}
+
+const typesystem::ListObject& Cast::as_list(const typesystem::ObjectStorage& storage, std::string msg)
+{
+    return cast<typesystem::ListObject>(storage, msg);
+}
+
+const typesystem::LambdaObject& Cast::as_lambda(const typesystem::ObjectStorage& storage, std::string msg)
+{
+    return cast<typesystem::LambdaObject>(storage, msg);
 }
 }

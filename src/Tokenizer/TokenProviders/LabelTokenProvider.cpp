@@ -6,7 +6,7 @@
 
 #include "Tokenizer/TokenProviders/LabelTokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 LabelTokenProvider::LabelTokenProvider(std::string label_regex)
 : m_label_regex{std::move(label_regex)}

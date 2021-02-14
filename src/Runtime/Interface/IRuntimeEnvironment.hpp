@@ -11,6 +11,6 @@ namespace nastya::runtime {
 class IRuntimeEnvironment
 {
 public:
-    virtual lisp::ObjectStorage run(const lisp::ObjectStorage& run) = 0;
+    virtual typesystem::ObjectStorage run(const typesystem::ObjectStorage& run) = 0;
 };
 }  // namespace nastya::runtime

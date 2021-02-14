@@ -7,12 +7,12 @@
 
 namespace nastya::lisp {
 
-void ObjectFactory::registerToken(const parser::TokenType type, FactoryMethod factory)
+void ObjectFactory::registerToken(const tokens::TokenType type, FactoryMethod factory)
 {
     m_factories[type] = factory;
 }
 
-IObject* ObjectFactory::create(const parser::Token& t) const
+typesystem::IObject* ObjectFactory::create(const tokens::Token& t) const
 {
     if (m_factories.find(t.type) == m_factories.end())
     {

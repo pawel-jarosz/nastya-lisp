@@ -5,7 +5,7 @@
 #include "Tokenizer/TokenizerException.hpp"
 #include "Tokenizer/TokenProviders/StringTokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 StringTokenProvider::StringTokenProvider()
 {

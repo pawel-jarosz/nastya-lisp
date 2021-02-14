@@ -4,7 +4,7 @@
 
 #include "Tokenizer/TokenProviders/OmitBlanks.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 std::optional<Token> OmitBlanks::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
 {

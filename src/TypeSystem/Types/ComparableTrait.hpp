@@ -6,7 +6,7 @@
 
 #include "TypeSystem/Interface/IObject.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 struct HasComparableTrait {
     virtual bool isComparable() const = 0;

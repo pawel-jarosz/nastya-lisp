@@ -9,7 +9,7 @@
 
 #include "TypeSystem/Interface/IObjectStorage.hpp"
 
-namespace nastya::lisp {
+namespace nastya::typesystem {
 
 class ObjectStorage : public IObjectStorage
 {

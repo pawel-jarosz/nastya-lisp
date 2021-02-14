@@ -16,14 +16,14 @@ namespace nastya::lisp {
 class LispExpressionBuilder : public IExpressionBuilder
 {
 public:
-    explicit LispExpressionBuilder(parser::ITokenizer& parser, IObjectFactory& object_factory);
+    explicit LispExpressionBuilder(tokens::ITokenizer& parser, IObjectFactory& object_factory);
     ~LispExpressionBuilder() override;
-    ObjectStorage build() override;
+    typesystem::ObjectStorage build() override;
     void reset() override;
 
 private:
     class LispExpressionBuilderImpl;
-    parser::ITokenizer& m_parser;
+    tokens::ITokenizer& m_parser;
     IObjectFactory& m_object_factory;
     std::unique_ptr<LispExpressionBuilderImpl> m_impl;
 };

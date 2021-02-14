@@ -10,7 +10,7 @@ namespace nastya::lisp::testing {
 
 class ExpressionBuilderMock : public IExpressionBuilder {
 public:
-    MOCK_METHOD(ObjectStorage, build, (), (override));
+    MOCK_METHOD(typesystem::ObjectStorage, build, (), (override));
     MOCK_METHOD(void, reset, (), (override));
 };
 

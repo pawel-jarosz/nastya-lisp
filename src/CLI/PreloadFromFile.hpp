@@ -10,10 +10,10 @@ namespace nastya::cli {
 
 class PreloadFromFile {
 public:
-    PreloadFromFile(parser::ITokenizer& parser, lisp::IExpressionBuilder& expressionBuilder, runtime::IMachine& machine);
+    PreloadFromFile(tokens::ITokenizer& parser, lisp::IExpressionBuilder& expressionBuilder, runtime::IMachine& machine);
     void loadFile(const std::string& file_name);
 private:
-    parser::ITokenizer& m_parser;
+    tokens::ITokenizer& m_parser;
     lisp::IExpressionBuilder& m_expressionBuilder;
     runtime::IMachine& m_machine;
 };

@@ -5,7 +5,7 @@
 #include "TypeSystem/Types/LambdaObject.hpp"
 #include "TypeSystem/Types/ListObject.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 template <typename T>
 std::string toString(const T& value)
@@ -29,4 +29,4 @@ bool GenericObject::equal(const IObject& object) const
 }
 
 
-}  // namespace nastya::lisp::typesystem
+}  // namespace nastya::typesystem

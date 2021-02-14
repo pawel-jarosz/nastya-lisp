@@ -10,7 +10,7 @@
 #include "Tokenizer/TokenProviders/TokenProvidersAggregator.hpp"
 #include "Tokenizer/Types/ParsingContext.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 class Tokenizer : public ITokenizer
 , private TokenProvidersAggregator
@@ -27,4 +27,4 @@ private:
 
 };
 
-}  // namespace nastya::parser
+}  // namespace nastya::tokens

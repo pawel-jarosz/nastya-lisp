@@ -6,7 +6,7 @@
 
 #include "ListObject.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 class LambdaObject : public IObject {
 public:

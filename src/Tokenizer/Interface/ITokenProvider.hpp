@@ -8,7 +8,7 @@
 #include "Tokenizer/Types/ParsingContext.hpp"
 #include <optional>
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 class ITokenProvider
 {
@@ -17,4 +17,4 @@ public:
     virtual std::optional<Token> getTokenIfAvailable(const std::string& value, ParsingContext& context) const = 0;
 };
 
-}  // namespace nastya::parser
+}  // namespace nastya::tokens

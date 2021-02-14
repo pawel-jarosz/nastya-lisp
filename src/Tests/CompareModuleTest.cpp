@@ -34,8 +34,8 @@ TEST(CompareEvaluatorTest, testCompareFails) {
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
-            new lisp::typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
+            new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -75,8 +75,8 @@ TEST(CompareEvaluatorTest, testEqualFails) {
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
-            new lisp::typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
+            new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -124,8 +124,8 @@ TEST(CompareEvaluatorTest, testLowerFails) {
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
-            new lisp::typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
+            new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -173,8 +173,8 @@ TEST(CompareEvaluatorTest, testLowerOrEqualFails) {
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
-            new lisp::typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
+            new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -222,8 +222,8 @@ TEST(CompareEvaluatorTest, testGreaterOrEqualFails) {
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
-            new lisp::typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
+            new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -271,8 +271,8 @@ TEST(CompareEvaluatorTest, testGreaterFails) {
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        lisp::ObjectStorage argument_list(std::unique_ptr<lisp::IObject>(
-            new lisp::typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
+            new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {

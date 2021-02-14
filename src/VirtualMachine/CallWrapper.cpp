@@ -25,12 +25,12 @@ CallWrapper::~CallWrapper()
         delete m_evaluator;
     }
 }
-lisp::ObjectStorage CallWrapper::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+typesystem::ObjectStorage CallWrapper::preExecute(const typesystem::ListObject& object, runtime::IMachine& vm) const
 {
     return m_evaluator->preExecute(object, vm);
 }
 
-lisp::ObjectStorage CallWrapper::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
+typesystem::ObjectStorage CallWrapper::evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const
 {
     return m_evaluator->evaluate(memory, object);
 }

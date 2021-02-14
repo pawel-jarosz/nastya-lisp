@@ -8,7 +8,7 @@
 
 #include "Tokenizer/Interface/ITokenizer.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 class ParserMock : public ITokenizer
 {
@@ -17,4 +17,4 @@ public:
     MOCK_METHOD(void, reset, (std::string code), (override));
 };
 
-}  // namespace nastya::parser
+}  // namespace nastya::tokens

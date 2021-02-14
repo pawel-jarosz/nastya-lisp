@@ -14,11 +14,11 @@ class ObjectFactory : public IObjectFactory
 {
 public:
     ObjectFactory() = default;
-    IObject* create(const parser::Token& t) const override;
-    void registerToken(const parser::TokenType type, FactoryMethod factory) override;
+    typesystem::IObject* create(const tokens::Token& t) const override;
+    void registerToken(const tokens::TokenType type, FactoryMethod factory) override;
 
 private:
-    mutable std::map<parser::TokenType, std::function<IObject*(const parser::Token& t)>> m_factories;
+    mutable std::map<tokens::TokenType, std::function<typesystem::IObject*(const tokens::Token& t)>> m_factories;
 };
 
 }  // namespace nastya::lisp

@@ -11,7 +11,7 @@
 #include "TypeSystem/Types/TypeSystemError.hpp"
 #include "Parser/Testing/ListBuilder.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 TEST(TypeObjectTest, testBooleanObject)
 {
@@ -187,7 +187,7 @@ TEST(TypeObjectTest, testList)
     EXPECT_EQ(list.getSize(), 0);
     EXPECT_EQ(list.toString(), "()");
     EXPECT_EQ(list.info(), "List => ()");
-    testing::ListBuilder builder;
+    lisp::testing::ListBuilder builder;
     auto arg = builder.addLabel("abc").addString("demo").openList()
         .addNumber(1).addNumber(3).closeList().build();
     auto complex_list = dynamic_cast<ListObject&>(arg.getRawObject());
@@ -195,4 +195,4 @@ TEST(TypeObjectTest, testList)
     EXPECT_EQ(complex_list.toString(), "(abc \"demo\" (1 3))");
 }
 
-}  // namespace nastya::lisp::typesystem
+}  // namespace nastya::typesystem

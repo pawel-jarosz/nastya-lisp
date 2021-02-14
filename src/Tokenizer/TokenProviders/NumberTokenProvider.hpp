@@ -11,7 +11,7 @@
 #include "Tokenizer/Interface/ITokenProvider.hpp"
 #include "Tokenizer/Types/Token.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 using NumberFactory = std::function<std::optional<Token>(const std::string& value)>;
 

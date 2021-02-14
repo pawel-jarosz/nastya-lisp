@@ -7,7 +7,7 @@
 #include "Tokenizer/TokenProviders/LabelTokenProvider.hpp"
 #include "Tokenizer/TokenProviders/NumberTokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 std::optional<Token> AtomicValueTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
 {

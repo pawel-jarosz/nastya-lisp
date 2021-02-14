@@ -15,7 +15,7 @@
 namespace nastya::cli {
 
 ConsoleManager::ConsoleManager(runtime::IMachine& machine,
-                               parser::ITokenizer& parser,
+                               tokens::ITokenizer& parser,
                                lisp::IExpressionBuilder& expression_builder,
                                io::IIoFactory& io_provider,
                                splashscreen::ISplashScreen& splash_screen)
@@ -69,13 +69,13 @@ int ConsoleManager::run()
             }
             multiline = false;
         }
-        catch(lisp::typesystem::TypeSystemError& e) {
+        catch(typesystem::TypeSystemError& e) {
             m_out->writeLine(e.what());
         }
         catch (vm::MachineRuntimeException& e) {
             m_out->writeLine(e.what());
         }
-        catch (lisp::ObjectStorageException& e)
+        catch (typesystem::ObjectStorageException& e)
         {
             multiline = true;
             continue;

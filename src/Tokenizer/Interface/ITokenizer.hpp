@@ -6,7 +6,7 @@
 
 #include "Tokenizer/Types/Token.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 class ITokenizer
 {
@@ -16,4 +16,4 @@ public:
     virtual void reset(std::string code) = 0;
 };
 
-}  // namespace nastya::parser
+}  // namespace nastya::tokens

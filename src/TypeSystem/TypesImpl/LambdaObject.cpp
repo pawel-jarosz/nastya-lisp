@@ -5,7 +5,7 @@
 #include "TypeSystem/Types/LambdaObject.hpp"
 #include <sstream>
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 LambdaObject::LambdaObject(const ListObject& argumentsList, const ListObject& command)
     : m_arguments(argumentsList.getContent())

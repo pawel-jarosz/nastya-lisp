@@ -5,7 +5,7 @@
 #include "TypeSystem/Types/BooleanObject.hpp"
 #include <sstream>
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 BooleanObject::BooleanObject(bool value) : GenericObject(ObjectType::Boolean), m_value{value}
 {
 }

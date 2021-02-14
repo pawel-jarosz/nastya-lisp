@@ -7,7 +7,7 @@
 
 #include "Tokenizer/Interface/ITokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 const std::string LABEL_REGEX = "[A-Za-z][A-Za-z0-9_-]*[A_Za-z0-9_]?";
 

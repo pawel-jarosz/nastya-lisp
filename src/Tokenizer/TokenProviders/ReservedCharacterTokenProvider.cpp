@@ -6,7 +6,7 @@
 
 #include "Tokenizer/TokenProviders/ReservedCharacterTokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 std::optional<Token> ReservedCharacterTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
 {

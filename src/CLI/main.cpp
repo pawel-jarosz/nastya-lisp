@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
     nastya::modules::ModuleRegistry module_registry;
     auto splashscreen = createSplashScreen();
     initModules(object_factory, module_registry);
-    nastya::parser::Tokenizer parser;
+    nastya::tokens::Tokenizer parser;
     nastya::lisp::LispExpressionBuilder expressionBuilder(parser, object_factory);
     nastya::vm::Machine machine(module_registry);
     nastya::cli::PreloadFromFile preloadFromFile(parser, expressionBuilder, machine);

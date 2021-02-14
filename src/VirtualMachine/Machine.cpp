@@ -24,13 +24,13 @@ Machine::Machine(const modules::IModuleRegistry& registry)
 {
 }
 
-lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
+typesystem::ObjectStorage Machine::run(const typesystem::ObjectStorage& list)
 {
     const auto label_computation_result = computeLabel(list);
     if (label_computation_result) {
         return *label_computation_result;
     }
-    if (list.getType() != lisp::ObjectType::List)
+    if (list.getType() != typesystem::ObjectType::List)
     {
         return list;
     }
@@ -40,16 +40,16 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     // Index is correct because earlier we checked if it is not empty list.
     const auto& raw_object = Cast::as_list(list);
     if (raw_object.isEmpty()) {
-        return lisp::ObjectStorage(list);
+        return typesystem::ObjectStorage(list);
     }
     auto content = raw_object.getContent();
-    if (content[0].getType() != lisp::ObjectType::Label) {
+    if (content[0].getType() != typesystem::ObjectType::Label) {
         BUT_THROW(MachineRuntimeException, "Invalid command format");
     }
-    auto label = dynamic_cast<lisp::typesystem::LabelObject&>(content[0].getRawObject());
+    auto label = dynamic_cast<typesystem::LabelObject&>(content[0].getRawObject());
     // GCOVR_EXCL_STOP
     auto lambda = computeLabel(content[0]);
-    const auto isLambda = (lambda and lambda.value().getType() == lisp::ObjectType::Lambda);
+    const auto isLambda = (lambda and lambda.value().getType() == typesystem::ObjectType::Lambda);
     std::unique_ptr<CallWrapper> call;
     if (isLambda) {
         call = std::make_unique<CallWrapper>(new LambdaCallEvaluator(lambda.value(), content, *this));
@@ -64,14 +64,14 @@ lisp::ObjectStorage Machine::run(const lisp::ObjectStorage& list)
     return result;
 }
 
-bool Machine::registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,
-                                     const lisp::ObjectStorage& objectStorage)
+bool Machine::registerVariableOnHeap(const typesystem::LabelObject& variableName,
+                                     const typesystem::ObjectStorage& objectStorage)
 {
     auto [it, state] = m_heap.try_emplace(variableName.getValue(), objectStorage);
     return state;
 }
 
-const lisp::ObjectStorage& Machine::getFromHeap(const lisp::typesystem::LabelObject& variableName) const
+const typesystem::ObjectStorage& Machine::getFromHeap(const typesystem::LabelObject& variableName) const
 {
     try {
         return m_heap.at(variableName.getValue());
@@ -81,7 +81,7 @@ const lisp::ObjectStorage& Machine::getFromHeap(const lisp::typesystem::LabelObj
     }
 }
 
-bool Machine::isSymbolAvailable(const lisp::ObjectStorage& object) const
+bool Machine::isSymbolAvailable(const typesystem::ObjectStorage& object) const
 {
     const auto& label = utils::Cast::as_label(object);
     const auto reversed_stack = m_stack | ranges::views::reverse;
@@ -95,7 +95,7 @@ bool Machine::isSymbolAvailable(const lisp::ObjectStorage& object) const
 
 void Machine::pushStackFrame()
 {
-    m_stack.emplace_back(std::map<std::string, lisp::ObjectStorage>());
+    m_stack.emplace_back(std::map<std::string, typesystem::ObjectStorage>());
 }
 
 bool Machine::popStackFrame()
@@ -107,8 +107,8 @@ bool Machine::popStackFrame()
     return false;
 }
 
-bool Machine::registerVariableOnStack(const lisp::typesystem::LabelObject& variableName,
-                                      const lisp::ObjectStorage& objectStorage)
+bool Machine::registerVariableOnStack(const typesystem::LabelObject& variableName,
+                                      const typesystem::ObjectStorage& objectStorage)
 {
     if (m_stack.empty()) {
         pushStackFrame();
@@ -118,7 +118,7 @@ bool Machine::registerVariableOnStack(const lisp::typesystem::LabelObject& varia
     return false;
 }
 
-const lisp::ObjectStorage& Machine::getFromStack(const lisp::typesystem::LabelObject& variableName) const
+const typesystem::ObjectStorage& Machine::getFromStack(const typesystem::LabelObject& variableName) const
 {
     auto it = m_stack.rbegin();
     while (it != m_stack.rend()) {
@@ -131,17 +131,17 @@ const lisp::ObjectStorage& Machine::getFromStack(const lisp::typesystem::LabelOb
     BUT_THROW(MachineRuntimeException, "Variable is not available");
 }
 
-std::optional<lisp::ObjectStorage> Machine::computeLabel(const lisp::ObjectStorage& label) const
+std::optional<typesystem::ObjectStorage> Machine::computeLabel(const typesystem::ObjectStorage& label) const
 {
-    if (label.getType() != lisp::ObjectType::Label) {
+    if (label.getType() != typesystem::ObjectType::Label) {
         return {};
     }
     if (not isSymbolAvailable(label)) {
         return label;
     }
     try {
-        std::unique_ptr<lisp::IObject> copied(getFromStack(Cast::as_label(label)).getRawObject().clone());
-        lisp::ObjectStorage result(std::move(copied));
+        std::unique_ptr<typesystem::IObject> copied(getFromStack(Cast::as_label(label)).getRawObject().clone());
+        typesystem::ObjectStorage result(std::move(copied));
         return { result };
     }
     catch(MachineRuntimeException& e) {

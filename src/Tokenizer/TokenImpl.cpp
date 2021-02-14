@@ -1,6 +1,6 @@
 #include "Tokenizer/Types/Token.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 namespace {
 
@@ -74,4 +74,4 @@ bool operator==(const Token& lhs, const Token& rhs)
     return (lhs.value == rhs.value);
 }
 
-}  // namespace nastya::parser
+}  // namespace nastya::tokens

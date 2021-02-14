@@ -33,14 +33,14 @@ public:
 
 struct TestingEvaluator : public runtime::GenericEvaluator {
     TestingEvaluator() : runtime::GenericEvaluator("Quote") {}
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& arg) const override {
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& arg) const override {
         throw TestingBuiltinsException();
     }
 };
 
 TEST(AbstractMachineTest, testAtomValueCase) {
-    auto number = std::make_unique<lisp::typesystem::NumberObject>(2);
-    lisp::ObjectStorage argument_and_expected_result(std::move(number));
+    auto number = std::make_unique<typesystem::NumberObject>(2);
+    typesystem::ObjectStorage argument_and_expected_result(std::move(number));
     modules::ModuleRegistryMock module_registry;
     Machine machine(module_registry);
     EXPECT_EQ(machine.run(argument_and_expected_result).toString(),

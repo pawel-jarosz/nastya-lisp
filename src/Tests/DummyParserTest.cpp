@@ -7,7 +7,7 @@
 #include "Tokenizer/TokenizerException.hpp"
 #include "Tokenizer/Tokenizer.hpp"
 
-using namespace nastya::parser;
+using namespace nastya::tokens;
 
 namespace {
 

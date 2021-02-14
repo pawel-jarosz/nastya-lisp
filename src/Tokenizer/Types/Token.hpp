@@ -9,7 +9,7 @@
 #include <string>
 #include <variant>
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 using TokenValue = std::variant<bool, int, float, std::string>;
 
@@ -38,4 +38,4 @@ std::ostream& operator<<(std::ostream& out, const Token& token);
 
 bool operator==(const Token& lhs, const Token& rhs);
 
-}  // namespace nastya::parser
+}  // namespace nastya::tokens

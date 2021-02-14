@@ -6,7 +6,7 @@
 
 #include <But/Exception.hpp>
 
-namespace nastya::lisp {
+namespace nastya::typesystem {
 
 BUT_DEFINE_EXCEPTION(ObjectStorageException, But::Exception, "ObjectStorageException");
 

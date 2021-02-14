@@ -13,7 +13,7 @@ class GenericEvaluator : public IEvaluator
 public:
     explicit GenericEvaluator(std::string name);
     std::string getName() const override;
-    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+    typesystem::ObjectStorage preExecute(const typesystem::ListObject& object,
                                            IMachine& vm) const override;
     void postExecute(IMachine& vm) const override;
 private:

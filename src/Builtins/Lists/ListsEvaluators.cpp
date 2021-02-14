@@ -16,7 +16,7 @@ namespace nastya::builtins::lists {
 
 using namespace utils;
 
-lisp::ObjectStorage HeadEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
+typesystem::ObjectStorage HeadEvaluator::evaluate(runtime::IMemory&, const typesystem::ObjectStorage& object) const
 {
     const auto& arguments_list = Cast::as_list(object, "Lang.Lists.Head expects list of arguments");
     ASSERT_THROW(arguments_list.getSize() != 1, "Lang.Lists.Head expects exactly one argument");
@@ -26,30 +26,30 @@ lisp::ObjectStorage HeadEvaluator::evaluate(runtime::IMemory&, const lisp::Objec
     return as_list[0];
 }
 
-lisp::ObjectStorage TailEvaluator::evaluate(runtime::IMemory&, const lisp::ObjectStorage& object) const
+typesystem::ObjectStorage TailEvaluator::evaluate(runtime::IMemory&, const typesystem::ObjectStorage& object) const
 {
     const auto& arguments_list = Cast::as_list(object, "Lang.Lists.Tail expects list of arguments");
     ASSERT_THROW(arguments_list.getSize() != 1, "Lang.Lists.Tail expects exactly one argument");
     const auto first_argument = arguments_list.getContent()[0];
     const auto as_list = Cast::as_list(first_argument, "Lang.Lists.Tail expects list as an argument").getContent();
     ASSERT_THROW(as_list.empty(), "Lang.Lists.Tail expects list with more then one element");
-    std::vector<lisp::ObjectStorage> tail(++as_list.begin(), as_list.end());
-    return lisp::ObjectStorage(std::unique_ptr<lisp::IObject>(new lisp::typesystem::ListObject(tail)));
+    std::vector<typesystem::ObjectStorage> tail(++as_list.begin(), as_list.end());
+    return typesystem::ObjectStorage(std::unique_ptr<typesystem::IObject>(new typesystem::ListObject(tail)));
 }
 
-lisp::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
+typesystem::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const
 {
     const auto& arguments_list = Cast::as_list(object, "Lang.Lists.Quote expects list of arguments");
     ASSERT_THROW(arguments_list.getSize() != 1, "Lang.Lists.Quote expects exactly one argument");
-    return lisp::ObjectStorage(arguments_list.getContent()[0]);
+    return typesystem::ObjectStorage(arguments_list.getContent()[0]);
 }
 
-lisp::ObjectStorage QuoteEvaluator::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+typesystem::ObjectStorage QuoteEvaluator::preExecute(const typesystem::ListObject& object, runtime::IMachine& vm) const
 {
     const auto content = object.getContent();
-    std::vector<lisp::ObjectStorage> arguments(++content.begin(), content.end());
-    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
-    lisp::ObjectStorage result(std::move(obj));
+    std::vector<typesystem::ObjectStorage> arguments(++content.begin(), content.end());
+    std::unique_ptr<typesystem::IObject> obj(new typesystem::ListObject(arguments));
+    typesystem::ObjectStorage result(std::move(obj));
     return result;
 }
 }  // namespace nastya::builtins::lists

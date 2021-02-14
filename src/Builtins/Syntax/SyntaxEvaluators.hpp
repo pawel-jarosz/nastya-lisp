@@ -13,36 +13,36 @@ class IfEvaluator : public runtime::GenericEvaluator, public runtime::GenericEva
 {
 public:
     IfEvaluator() : runtime::GenericEvaluator{"If"} {}
-    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+    typesystem::ObjectStorage preExecute(const typesystem::ListObject& object,
                                    runtime::IMachine& vm) const override;
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 };
 
 class CondEvaluator : public runtime::GenericEvaluator, public runtime::GenericEvaluatorFactory<CondEvaluator>
 {
 public:
     CondEvaluator() : runtime::GenericEvaluator{"Cond"} {}
-    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+    typesystem::ObjectStorage preExecute(const typesystem::ListObject& object,
                                    runtime::IMachine& vm) const override;
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 };
 
 class DefineEvaluator : public runtime::GenericEvaluator, public runtime::GenericEvaluatorFactory<DefineEvaluator>
 {
 public:
     DefineEvaluator() : runtime::GenericEvaluator{"Define"} {}
-    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+    typesystem::ObjectStorage preExecute(const typesystem::ListObject& object,
                                    runtime::IMachine& vm) const override;
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 };
 
 class LetInEvaluator : public runtime::GenericEvaluator, public runtime::GenericEvaluatorFactory<LetInEvaluator>
 {
 public:
     LetInEvaluator() : runtime::GenericEvaluator{"Let"} {}
-    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+    typesystem::ObjectStorage preExecute(const typesystem::ListObject& object,
                                    runtime::IMachine& vm) const override;
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 
 };
 
@@ -50,9 +50,9 @@ class LambdaEvaluator : public runtime::GenericEvaluator, public runtime::Generi
 {
 public:
     LambdaEvaluator() : runtime::GenericEvaluator{"Lambda"} {}
-    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+    typesystem::ObjectStorage preExecute(const typesystem::ListObject& object,
                                    runtime::IMachine& vm) const override;
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 
 };
 

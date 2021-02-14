@@ -19,9 +19,9 @@ struct DummyEvaluator : public runtime::GenericEvaluator
     DummyEvaluator(std::string name) : GenericEvaluator{name}, called(false)
     {
     }
-    lisp::ObjectStorage evaluate(runtime::IMemory&, const lisp::ObjectStorage& obj) const override
+    typesystem::ObjectStorage evaluate(runtime::IMemory&, const typesystem::ObjectStorage& obj) const override
     {
-        lisp::ObjectStorage res;
+        typesystem::ObjectStorage res;
         called = true;
         return res;
     }
@@ -74,7 +74,7 @@ TEST_F(ModuleTest, testFunctionCall)
 {
     evaluator1.reset(new DummyEvaluator("Head"));
     runtime::MemoryMock memory;
-    lisp::ObjectStorage storage;
+    typesystem::ObjectStorage storage;
     testing_module.registerFunction(std::move(evaluator1));
     auto& function = testing_module.getFunction("Head");
     function.evaluate(memory, storage);

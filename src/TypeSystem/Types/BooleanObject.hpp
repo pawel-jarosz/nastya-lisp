@@ -7,7 +7,7 @@
 #include "ComparableTrait.hpp"
 #include "GenericObject.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 class BooleanObject : public GenericObject, public NonComparableObject
 {
 public:
@@ -19,4 +19,4 @@ public:
 private:
     bool m_value;
 };
-}  // namespace nastya::lisp::typesystem
+}  // namespace nastya::typesystem

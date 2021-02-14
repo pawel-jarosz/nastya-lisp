@@ -15,7 +15,7 @@
 TEST(VMTest, testHeadList)
 {
     /*const std::string test_instruction = "(Head (Quote (2 3 4)))";
-    nastya::parser::DummyParser parser(test_instruction);
+    nastya::tokens::DummyParser parser(test_instruction);
     nastya::lisp::ObjectFactory object_factory;
     nastya::lisp::ObjectFactoryBuilder object_factory_builder(object_factory);
     object_factory_builder.build();

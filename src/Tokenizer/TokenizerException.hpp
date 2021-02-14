@@ -6,7 +6,7 @@
 
 #include <But/Exception.hpp>
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 BUT_DEFINE_EXCEPTION(TokenizerException, But::Exception, "TokenizerException");
 

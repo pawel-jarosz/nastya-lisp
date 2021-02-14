@@ -7,7 +7,7 @@
 #include "ComparableTrait.hpp"
 #include "GenericObject.hpp"
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 class NumberObject : public GenericObject, public ComparableObject
 {
@@ -36,4 +36,4 @@ private:
     };
     NumberType m_type;
 };
-}  // namespace nastya::lisp::typesystem
+}  // namespace nastya::typesystem

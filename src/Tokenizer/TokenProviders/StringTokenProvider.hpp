@@ -8,7 +8,7 @@
 
 #pragma once
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 class StringTokenProvider : public ITokenProvider
 {

@@ -5,7 +5,7 @@
 #include "TypeSystem/Types/LabelObject.hpp"
 #include <sstream>
 
-namespace nastya::lisp::typesystem {
+namespace nastya::typesystem {
 
 LabelObject::LabelObject(std::string value) : GenericObject(ObjectType::Label), m_value(std::move(value))
 {

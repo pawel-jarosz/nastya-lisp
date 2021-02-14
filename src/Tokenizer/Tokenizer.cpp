@@ -13,7 +13,7 @@
 #include "Tokenizer/TokenProviders/StringTokenProvider.hpp"
 #include "Tokenizer/Tokenizer.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 Tokenizer::Tokenizer() : Tokenizer("")
 {
@@ -45,4 +45,4 @@ void Tokenizer::reset(std::string code)
     m_context.start_position = 0;
 }
 
-}  // namespace nastya::parser
+}  // namespace nastya::tokens

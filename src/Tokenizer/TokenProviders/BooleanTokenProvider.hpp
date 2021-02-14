@@ -7,7 +7,7 @@
 
 #include "Tokenizer/Interface/ITokenProvider.hpp"
 
-namespace nastya::parser {
+namespace nastya::tokens {
 
 const std::string TRUE_VALUE = "#true";
 const std::string FALSE_VALUE = "#false";

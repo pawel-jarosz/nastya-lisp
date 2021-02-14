@@ -41,8 +41,8 @@ TEST(SyntaxEvaluatorTest, testIfFails) {
     IfEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
-        lisp::ObjectStorage argument_is_not_a_list(std::unique_ptr<lisp::IObject>(
-            new lisp::typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_is_not_a_list(std::unique_ptr<typesystem::IObject>(
+            new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_is_not_a_list), BuiltinsException);
     }
     {

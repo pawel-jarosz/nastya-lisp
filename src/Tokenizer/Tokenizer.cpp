@@ -23,10 +23,10 @@ Tokenizer::Tokenizer() : Tokenizer("")
 
 Tokenizer::Tokenizer(std::string text) : m_text{std::move(text)}, m_context{0}
 {
-    addValidator(OmitBlanks::create())
-    .addValidator(ReservedCharacterTokenProvider::create())
-    .addValidator(StringTokenProvider::create())
-    .addValidator(AtomicValueTokenProvider::create());
+    addProvider(OmitBlanks::create())
+        .addProvider(ReservedCharacterTokenProvider::create())
+        .addProvider(StringTokenProvider::create())
+        .addProvider(AtomicValueTokenProvider::create());
 }
 
 Token Tokenizer::getToken()

@@ -29,9 +29,9 @@ std::optional<Token> AtomicValueTokenProvider::getTokenIfAvailable(const std::st
 std::unique_ptr<ITokenProvider> AtomicValueTokenProvider::create()
 {
     auto result = std::make_unique<AtomicValueTokenProvider>();
-    result->addValidator(BooleanTokenProvider::create())
-        .addValidator(NumberTokenProvider::create())
-        .addValidator(LabelTokenProvider::create());
+    result->addProvider(BooleanTokenProvider::create())
+        .addProvider(NumberTokenProvider::create())
+        .addProvider(LabelTokenProvider::create());
     return std::unique_ptr<ITokenProvider>(result.release());
 }
 }

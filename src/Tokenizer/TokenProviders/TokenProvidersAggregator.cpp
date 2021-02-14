@@ -10,7 +10,7 @@ TokenProvidersAggregator::TokenProvidersAggregator()
 {
 }
 
-TokenProvidersAggregator& TokenProvidersAggregator::addValidator(std::unique_ptr<ITokenProvider> validator)
+TokenProvidersAggregator& TokenProvidersAggregator::addProvider(std::unique_ptr<ITokenProvider> validator)
 {
     m_validators.emplace_back(std::move(validator));
     return *this;

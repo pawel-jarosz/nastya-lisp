@@ -1,10 +1,12 @@
 set(PARSER_LIBRARY_SRC
         Interface/IObjectFactory.hpp
-        Interface/IExpressionBuilder.hpp
+        Interface/IParser.hpp
+        Internal/ParserImpl.hpp
+        Internal/ParserImpl.cpp
         Testing/ListBuilder.hpp
         Testing/ListBuilder.cpp
-        LispExpressionBuilder.hpp
-        LispExpressionBuilder.cpp
+        Parser.hpp
+        Parser.cpp
         ObjectFactory.hpp
         ObjectFactory.cpp
         ObjectFactoryBuilder.hpp

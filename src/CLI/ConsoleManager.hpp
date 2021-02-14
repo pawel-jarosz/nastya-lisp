@@ -7,7 +7,7 @@
 #include "CLI/Interface/IConsoleManager.hpp"
 #include "CLI/Interface/IIoFactory.hpp"
 #include "CLI/Interface/ISplashScreen.hpp"
-#include "Parser/Interface/IExpressionBuilder.hpp"
+#include "Parser/Interface/IParser.hpp"
 #include "Runtime/Interface/IMachine.hpp"
 #include "Tokenizer/Interface/ITokenizer.hpp"
 
@@ -18,7 +18,7 @@ class ConsoleManager : public interface::IConsoleManager
 public:
     ConsoleManager(runtime::IMachine& machine,
                    tokens::ITokenizer& parser,
-                   lisp::IExpressionBuilder& expression_builder,
+                   lisp::IParser& expression_builder,
                    io::IIoFactory& io_provider,
                    splashscreen::ISplashScreen& splash_screen);
     void splashScreen();
@@ -28,7 +28,7 @@ public:
 private:
     runtime::IMachine& m_machine;
     tokens::ITokenizer& m_parser;
-    lisp::IExpressionBuilder& m_expr_builder;
+    lisp::IParser& m_expr_builder;
     But::NotNullUnique<io::IInputSource> m_in;
     But::NotNullUnique<io::IOutputSink> m_out;
     splashscreen::ISplashScreen& m_splashscreen;

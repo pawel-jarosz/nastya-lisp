@@ -5,10 +5,10 @@
 #include <gtest/gtest.h>
 
 #include "Builtins/BuiltinsBuilder.hpp"
-#include "Parser/LispExpressionBuilder.hpp"
+#include "Modules/ModuleRegistry.hpp"
 #include "Parser/ObjectFactory.hpp"
 #include "Parser/ObjectFactoryBuilder.hpp"
-#include "Modules/ModuleRegistry.hpp"
+#include "Parser/Parser.hpp"
 #include "Tokenizer/Tokenizer.hpp"
 #include "VirtualMachine/Machine.hpp"
 
@@ -19,7 +19,7 @@ TEST(VMTest, testHeadList)
     nastya::lisp::ObjectFactory object_factory;
     nastya::lisp::ObjectFactoryBuilder object_factory_builder(object_factory);
     object_factory_builder.build();
-    nastya::lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    nastya::lisp::Parser expression_builder(parser, object_factory);
     auto expression = expression_builder.build();
     nastya::modules::ModuleRegistry module_registry;
     nastya::builtins::BuiltinsBuilder builtins_builder(module_registry);

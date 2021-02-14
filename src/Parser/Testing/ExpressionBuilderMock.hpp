@@ -4,11 +4,12 @@
 
 #pragma once
 
-#include "Parser/Interface/IExpressionBuilder.hpp"
+#include "Parser/Interface/IParser.hpp"
 
 namespace nastya::lisp::testing {
 
-class ExpressionBuilderMock : public IExpressionBuilder {
+class ExpressionBuilderMock : public IParser
+{
 public:
     MOCK_METHOD(typesystem::ObjectStorage, build, (), (override));
     MOCK_METHOD(void, reset, (), (override));

@@ -6,25 +6,26 @@
 
 #include <memory>
 
-#include "Parser/Interface/IExpressionBuilder.hpp"
 #include "Parser/Interface/IObjectFactory.hpp"
+#include "Parser/Interface/IParser.hpp"
 #include "Tokenizer/Interface/ITokenizer.hpp"
 #include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::lisp {
 
-class LispExpressionBuilder : public IExpressionBuilder
+struct ParserImpl;
+
+class Parser : public IParser
 {
 public:
-    explicit LispExpressionBuilder(tokens::ITokenizer& parser, IObjectFactory& object_factory);
-    ~LispExpressionBuilder() override;
+    explicit Parser(tokens::ITokenizer& parser, IObjectFactory& object_factory);
+    ~Parser() override;
     typesystem::ObjectStorage build() override;
     void reset() override;
 
 private:
-    class LispExpressionBuilderImpl;
     tokens::ITokenizer& m_parser;
     IObjectFactory& m_object_factory;
-    std::unique_ptr<LispExpressionBuilderImpl> m_impl;
+    std::unique_ptr<ParserImpl> m_impl;
 };
 }  // namespace nastya::lisp

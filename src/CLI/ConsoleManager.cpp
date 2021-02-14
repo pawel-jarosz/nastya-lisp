@@ -16,7 +16,7 @@ namespace nastya::cli {
 
 ConsoleManager::ConsoleManager(runtime::IMachine& machine,
                                tokens::ITokenizer& parser,
-                               lisp::IExpressionBuilder& expression_builder,
+                               lisp::IParser& expression_builder,
                                io::IIoFactory& io_provider,
                                splashscreen::ISplashScreen& splash_screen)
 : m_machine{machine}, m_parser{parser}, m_expr_builder{expression_builder}

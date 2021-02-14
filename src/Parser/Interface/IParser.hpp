@@ -11,10 +11,10 @@
 
 namespace nastya::lisp {
 
-class IExpressionBuilder
+class IParser
 {
 public:
-    virtual ~IExpressionBuilder() = default;
+    virtual ~IParser() = default;
     virtual typesystem::ObjectStorage build() = 0;
     virtual void reset() = 0;
 };

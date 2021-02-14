@@ -5,9 +5,9 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include "Parser/LispExpressionBuilder.hpp"
 #include "Parser/ObjectFactory.hpp"
 #include "Parser/ObjectFactoryBuilder.hpp"
+#include "Parser/Parser.hpp"
 #include "Parser/Testing/ListBuilder.hpp"
 #include "Tokenizer/Interface/ITokenizer.hpp"
 #include "Tokenizer/Tokenizer.hpp"
@@ -44,7 +44,7 @@ TEST_F(LispExpressionBuilderTest, testFloatingNumber)
     ParserMock parser;
     tokens::Token test_case{tokens::TokenType::Floating, 2.3f};
     EXPECT_CALL(parser, getToken()).WillOnce(Return(test_case)).WillOnce(Return(tokens::Token{tokens::TokenType::Eof}));
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     auto result = expression_builder.build();
     EXPECT_EQ(result.getType(), typesystem::ObjectType::Number);
     auto number = dynamic_cast<typesystem::NumberObject&>(result.getRawObject());
@@ -57,7 +57,7 @@ TEST_F(LispExpressionBuilderTest, testIntegerNumber)
     ParserMock parser;
     tokens::Token test_case{tokens::TokenType::Integer, 2};
     EXPECT_CALL(parser, getToken()).WillOnce(Return(test_case)).WillOnce(Return(tokens::Token{tokens::TokenType::Eof}));
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     auto result = expression_builder.build();
     EXPECT_EQ(result.getType(), typesystem::ObjectType::Number);
     auto number = dynamic_cast<typesystem::NumberObject&>(result.getRawObject());
@@ -70,7 +70,7 @@ TEST_F(LispExpressionBuilderTest, testLabel)
     ParserMock parser;
     tokens::Token test_case{tokens::TokenType::Label, std::string("Label")};
     EXPECT_CALL(parser, getToken()).WillOnce(Return(test_case)).WillOnce(Return(tokens::Token{tokens::TokenType::Eof}));
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     auto result = expression_builder.build();
     EXPECT_EQ(result.getType(), typesystem::ObjectType::Label);
     auto label = dynamic_cast<typesystem::LabelObject&>(result.getRawObject());
@@ -82,7 +82,7 @@ TEST_F(LispExpressionBuilderTest, testString)
     ParserMock parser;
     tokens::Token test_case{tokens::TokenType::String, std::string("String")};
     EXPECT_CALL(parser, getToken()).WillOnce(Return(test_case)).WillOnce(Return(tokens::Token{tokens::TokenType::Eof}));
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     auto result = expression_builder.build();
     EXPECT_EQ(result.getType(), typesystem::ObjectType::String);
     auto string_object = dynamic_cast<typesystem::StringObject&>(result.getRawObject());
@@ -94,7 +94,7 @@ TEST_F(LispExpressionBuilderTest, testBoolean)
     ParserMock parser;
     tokens::Token test_case{tokens::TokenType::Boolean, true};
     EXPECT_CALL(parser, getToken()).WillOnce(Return(test_case)).WillOnce(Return(tokens::Token{tokens::TokenType::Eof}));
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     auto result = expression_builder.build();
     EXPECT_EQ(result.getType(), typesystem::ObjectType::Boolean);
     auto boolean = dynamic_cast<typesystem::BooleanObject&>(result.getRawObject());
@@ -106,7 +106,7 @@ TEST_F(LispExpressionBuilderTest, testEmptyList)
     lisp::testing::ListBuilder list_builder;
     auto test_case = list_builder.build();
     tokens::Tokenizer parser(test_case.toString());
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
 }
 
@@ -116,21 +116,21 @@ TEST_F(LispExpressionBuilderTest, testSingleton)
         lisp::testing::ListBuilder list_builder;
         auto test_case = list_builder.addNumber(2).build();
         tokens::Tokenizer parser(test_case.toString());
-        lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+        lisp::Parser expression_builder(parser, object_factory);
         EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
     }
     {
         lisp::testing::ListBuilder list_builder;
         auto test_case = list_builder.addLabel("Label").build();
         tokens::Tokenizer parser(test_case.toString());
-        lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+        lisp::Parser expression_builder(parser, object_factory);
         EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
     }
     {
         lisp::testing::ListBuilder list_builder;
         auto test_case = list_builder.addString("String").build();
         tokens::Tokenizer parser(test_case.toString());
-        lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+        lisp::Parser expression_builder(parser, object_factory);
         EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
     }
 }
@@ -140,7 +140,7 @@ TEST_F(LispExpressionBuilderTest, testMultipleElementsOnTheList)
     lisp::testing::ListBuilder list_builder;
     auto test_case = list_builder.addLabel("Label").addString("DummyString").addNumber(2).addNumber(2.3f).build();
     tokens::Tokenizer parser(test_case.toString());
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
 }
 
@@ -156,7 +156,7 @@ TEST_F(LispExpressionBuilderTest, testExpressionWithComplexList)
                          .addLabel("Next")
                          .build();
     tokens::Tokenizer parser(test_case.toString());
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     EXPECT_EQ(test_case.toString(), expression_builder.build().toString());
 }
 
@@ -164,12 +164,12 @@ TEST_F(LispExpressionBuilderTest, testQuotedExpression)
 {
     {
         tokens::Tokenizer parser("'(1 2 3)");
-        lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+        lisp::Parser expression_builder(parser, object_factory);
         EXPECT_EQ("(Quote (1 2 3))", expression_builder.build().toString());
     }
     {
         tokens::Tokenizer parser("(Tail '(1 2 3))");
-        lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+        lisp::Parser expression_builder(parser, object_factory);
         EXPECT_EQ("(Tail (Quote (1 2 3)))", expression_builder.build().toString());
     }
 }
@@ -177,7 +177,7 @@ TEST_F(LispExpressionBuilderTest, testQuotedExpression)
 TEST_F(LispExpressionBuilderTest, testComplexQuotedExpression)
 {
     tokens::Tokenizer parser("(Tail '((1 2 (3)) (4 5 6)))");
-    lisp::LispExpressionBuilder expression_builder(parser, object_factory);
+    lisp::Parser expression_builder(parser, object_factory);
     EXPECT_EQ("(Tail (Quote ((1 2 (3)) (4 5 6))))", expression_builder.build().toString());
 }
 

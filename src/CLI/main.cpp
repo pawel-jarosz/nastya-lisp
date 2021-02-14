@@ -10,11 +10,11 @@
 #include "CLI/IO/StreamWrapperFactory.hpp"
 #include "CLI/PreloadFromFile.hpp"
 #include "CLI/SplashScreen/SplashScreen.hpp"
-#include "Parser/LispExpressionBuilder.hpp"
-#include "Parser/ObjectFactory.hpp"
-#include "Parser/ObjectFactoryBuilder.hpp"
 #include "Module/ConsoleModuleRegistration.hpp"
 #include "Modules/ModuleRegistry.hpp"
+#include "Parser/ObjectFactory.hpp"
+#include "Parser/ObjectFactoryBuilder.hpp"
+#include "Parser/Parser.hpp"
 #include "Tokenizer/Tokenizer.hpp"
 #include "VirtualMachine/Machine.hpp"
 
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
     auto splashscreen = createSplashScreen();
     initModules(object_factory, module_registry);
     nastya::tokens::Tokenizer parser;
-    nastya::lisp::LispExpressionBuilder expressionBuilder(parser, object_factory);
+    nastya::lisp::Parser expressionBuilder(parser, object_factory);
     nastya::vm::Machine machine(module_registry);
     nastya::cli::PreloadFromFile preloadFromFile(parser, expressionBuilder, machine);
     for (int it = 1; it < argc; it++) {

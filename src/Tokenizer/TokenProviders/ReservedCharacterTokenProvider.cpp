@@ -23,7 +23,9 @@ std::optional<Token> ReservedCharacterTokenProvider::getTokenIfAvailable(const s
         case '/':
         case '^':
         case '%':
-            if (context.start_position < value.size() and isblank(value[context.start_position + 1])) {
+            if (context.start_position + 1 == value.size()
+                or (context.start_position + 1 < value.size() and 
+                    isblank(value[context.start_position + 1]))) {
                 return Token{TokenType::Label, std::string{value[context.start_position]}};
             }
             break;

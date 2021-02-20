@@ -2,6 +2,16 @@
 
 namespace nastya::tokens {
 
+const std::map<TokenType, std::string> Converter::conversion_map = {{TokenType::Boolean, "Boolean"},
+                                                                    {TokenType::Integer, "Integer"},
+                                                                    {TokenType::Floating, "Floating"},
+                                                                    {TokenType::String, "String"},
+                                                                    {TokenType::Label, "Label"},
+                                                                    {TokenType::S_expr_begin, "S_expr_begin"},
+                                                                    {TokenType::S_expr_end, "S_expr_end"},
+                                                                    {TokenType::Quote, "Quote"},
+                                                                    {TokenType::Eof, "Eof"}};
+
 namespace {
 
 struct TokenPrinter
@@ -14,6 +24,15 @@ struct TokenPrinter
     void operator()(T value)
     {
         m_out << " => " << value;
+    }
+
+    void operator()(bool value) {
+        if (value) {
+            m_out << " => " << "True";
+        }
+        else {
+            m_out << " => " << "False";
+        }
     }
 
     bool is_printable();
@@ -29,6 +48,7 @@ bool TokenPrinter::is_printable()
         case TokenType::Floating:
         case TokenType::Integer:
         case TokenType::String:
+        case TokenType::Boolean:
         case TokenType::Label:
             return true;
         default:
@@ -40,16 +60,7 @@ bool TokenPrinter::is_printable()
 
 std::ostream& operator<<(std::ostream& out, const TokenType& type)
 {
-    static std::map<TokenType, std::string> converter{{TokenType::Boolean, "Boolean"},
-                                                      {TokenType::Integer, "Integer"},
-                                                      {TokenType::Floating, "Floating"},
-                                                      {TokenType::String, "String"},
-                                                      {TokenType::Label, "Label"},
-                                                      {TokenType::S_expr_begin, "S_expr_begin"},
-                                                      {TokenType::S_expr_end, "S_expr_end"},
-                                                      {TokenType::Quote, "Quote"},
-                                                      {TokenType::Eof, "Eof"}};
-    out << converter[type];
+    out << Converter::conversion_map.at(type);
     return out;
 }
 

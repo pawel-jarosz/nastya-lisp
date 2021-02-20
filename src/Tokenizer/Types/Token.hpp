@@ -32,6 +32,10 @@ struct Token
     TokenValue value;
 };
 
+struct Converter {
+    static const std::map<TokenType, std::string> conversion_map;
+};
+
 std::ostream& operator<<(std::ostream& out, const TokenType& type);
 
 std::ostream& operator<<(std::ostream& out, const Token& token);

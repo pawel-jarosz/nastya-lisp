@@ -8,7 +8,6 @@
 #include "Modules/Module.hpp"
 #include "Modules/ModuleException.hpp"
 #include "Modules/ModuleRegistry.hpp"
-#include "Modules/Testing/ModuleMock.hpp"
 #include "Runtime/Interface/IEvaluator.hpp"
 
 namespace nastya::modules::testing {

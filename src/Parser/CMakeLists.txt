@@ -3,8 +3,6 @@ set(PARSER_LIBRARY_SRC
         Interface/IParser.hpp
         Internal/ParserImpl.hpp
         Internal/ParserImpl.cpp
-        Testing/ListBuilder.hpp
-        Testing/ListBuilder.cpp
         Parser.hpp
         Parser.cpp
         ObjectFactory.hpp

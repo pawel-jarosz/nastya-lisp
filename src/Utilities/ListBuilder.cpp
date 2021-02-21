@@ -5,14 +5,14 @@
 #include <sstream>
 #include <type_traits>
 
-#include "Parser/Testing/ListBuilder.hpp"
+#include "Utilities/ListBuilder.hpp"
 #include "TypeSystem/Types/LabelObject.hpp"
 #include "TypeSystem/Types/ListObject.hpp"
 #include "TypeSystem/Types/NumberObject.hpp"
 #include "TypeSystem/Types/StringObject.hpp"
 #include "TypeSystem/Types/BooleanObject.hpp"
 
-namespace nastya::parser::testing {
+namespace nastya::utils {
 
 template <typename T>
 std::unique_ptr<typesystem::IObject> make_unique_object(T* value)

@@ -22,6 +22,6 @@ add_executable(TypeSystemTest TypeSystem/ObjectStorageTest.cpp
                         TypeSystem/ListTypeTest.cpp
                         TypeSystem/NumberTypeTest.cpp
                         TypeSystem/LambdaTypeTest.cpp)
-target_link_libraries(TypeSystemTest ${TESTING_FRAMEWORK} Parser TypeSystem ${BUT_LIBRARY})
+target_link_libraries(TypeSystemTest ${TESTING_FRAMEWORK} Parser Utilities TypeSystem ${BUT_LIBRARY})
 add_test(NAME TypeSystemLibraryTest COMMAND TypeSystemTest)
 

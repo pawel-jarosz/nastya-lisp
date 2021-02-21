@@ -9,9 +9,8 @@
 
 #include <TypeSystem/ObjectStorage.hpp>
 
-namespace nastya::parser::testing {
+namespace nastya::utils {
 
-// TODO: Add boolean
 class ListBuilder
 {
 public:

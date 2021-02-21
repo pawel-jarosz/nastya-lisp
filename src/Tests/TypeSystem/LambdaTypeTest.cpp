@@ -8,7 +8,7 @@
 #include <gtest/gtest.h>
 
 #include "TypeSystem/Types/LambdaObject.hpp"
-#include "Parser/Testing/ListBuilder.hpp"
+#include "Utilities/ListBuilder.hpp"
 
 namespace nastya::typesystem {
 

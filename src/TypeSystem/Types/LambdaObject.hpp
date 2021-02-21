@@ -10,7 +10,6 @@ namespace nastya::typesystem {
 
 class LambdaObject : public IObject {
 public:
-    // TODO: Add returning primitives case
     LambdaObject(const ListObject& argumentsList, const IObject& command);
     LambdaObject(const LambdaObject& rhs);
     LambdaObject(LambdaObject&& rhs);

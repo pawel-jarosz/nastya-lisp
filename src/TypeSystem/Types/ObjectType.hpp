@@ -22,4 +22,4 @@ enum class NumberType
     Integer
 };
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

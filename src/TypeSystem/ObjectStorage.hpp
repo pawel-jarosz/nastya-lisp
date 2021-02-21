@@ -29,4 +29,4 @@ public:
 private:
     std::unique_ptr<IObject> m_object;
 };
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

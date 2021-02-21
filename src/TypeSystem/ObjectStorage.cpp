@@ -58,4 +58,4 @@ std::string ObjectStorage::toString() const
     return m_object->toString();
 }
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

@@ -18,4 +18,4 @@ public:
     virtual std::string toString() const = 0;
     virtual std::string info() const = 0;
 };
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

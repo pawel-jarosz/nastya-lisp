@@ -15,4 +15,4 @@ public:
     virtual IObject& getRawObject() const = 0;
     virtual ObjectType getType() const = 0;
 };
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

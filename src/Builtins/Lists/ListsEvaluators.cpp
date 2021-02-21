@@ -2,15 +2,16 @@
 // Created by caedus on 21.12.2020.
 //
 
-#include "TypeSystem/Types/ListObject.hpp"
 #include "Builtins/BuiltinsException.hpp"
-#include "Utilities/LispCast.hpp"
 #include "ListsEvaluators.hpp"
+#include "TypeSystem/Types/ListObject.hpp"
+#include "Utilities/LispCast.hpp"
 
-#define ASSERT_THROW(condition, msg)              \
-        if (condition) {                          \
-            BUT_THROW(BuiltinsException, msg);    \
-         }
+#define ASSERT_THROW(condition, msg) \
+    if (condition) \
+    { \
+        BUT_THROW(BuiltinsException, msg); \
+    }
 
 namespace nastya::builtins::lists {
 
@@ -37,7 +38,8 @@ typesystem::ObjectStorage TailEvaluator::evaluate(runtime::IMemory&, const types
     return typesystem::ObjectStorage(std::unique_ptr<typesystem::IObject>(new typesystem::ListObject(tail)));
 }
 
-typesystem::ObjectStorage QuoteEvaluator::evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const
+typesystem::ObjectStorage
+QuoteEvaluator::evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const
 {
     const auto& arguments_list = Cast::as_list(object, "Lang.Lists.Quote expects list of arguments");
     ASSERT_THROW(arguments_list.getSize() != 1, "Lang.Lists.Quote expects exactly one argument");

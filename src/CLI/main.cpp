@@ -18,37 +18,37 @@
 #include "Tokenizer/Tokenizer.hpp"
 #include "VirtualMachine/Machine.hpp"
 
-void initModules(nastya::lisp::ObjectFactory& object_factory, nastya::modules::ModuleRegistry& module_registry)
+void initModules(nastya::parser::ObjectFactory& object_factory, nastya::modules::ModuleRegistry& module_registry)
 {
-    nastya::lisp::ObjectFactoryBuilder object_factory_builder(object_factory);
+    nastya::parser::ObjectFactoryBuilder object_factory_builder(object_factory);
     object_factory_builder.build();
     nastya::builtins::BuiltinsModulesFactory modules_factory;
     nastya::builtins::BuiltinsBuilder builtins_builder(module_registry, modules_factory);
     builtins_builder.build();
 }
 
-nastya::cli::splashscreen::SplashScreen createSplashScreen() {
-    std::vector<std::string> message = {
-        "\t  __________________________________",
-        "\t |                                  |",
-        "\t | Nastya Lisp                      |",
-        "\t | v. 2021.0.1                      |",
-        "\t |__________________________________|\n"
-    };
+nastya::cli::splashscreen::SplashScreen createSplashScreen()
+{
+    std::vector<std::string> message = {"\t  __________________________________",
+                                        "\t |                                  |",
+                                        "\t | Nastya Lisp                      |",
+                                        "\t | v. 2021.0.1                      |",
+                                        "\t |__________________________________|\n"};
     return nastya::cli::splashscreen::SplashScreen(message);
 }
 
 int main(int argc, char* argv[])
 {
-    nastya::lisp::ObjectFactory object_factory;
+    nastya::parser::ObjectFactory object_factory;
     nastya::modules::ModuleRegistry module_registry;
     auto splashscreen = createSplashScreen();
     initModules(object_factory, module_registry);
     nastya::tokens::Tokenizer parser;
-    nastya::lisp::Parser expressionBuilder(parser, object_factory);
+    nastya::parser::Parser expressionBuilder(parser, object_factory);
     nastya::vm::Machine machine(module_registry);
     nastya::cli::PreloadFromFile preloadFromFile(parser, expressionBuilder, machine);
-    for (int it = 1; it < argc; it++) {
+    for (int it = 1; it < argc; it++)
+    {
         preloadFromFile.loadFile(argv[it]);
     }
     nastya::cli::io::stdio::StreamWrapperFactory io_factory(std::cin, std::cout);

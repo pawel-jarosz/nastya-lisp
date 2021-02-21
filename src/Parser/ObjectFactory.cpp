@@ -5,7 +5,7 @@
 #include "Parser/LispExpressionException.hpp"
 #include "Parser/ObjectFactory.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 void ObjectFactory::registerToken(const tokens::TokenType type, FactoryMethod factory)
 {
@@ -21,4 +21,4 @@ typesystem::IObject* ObjectFactory::create(const tokens::Token& t) const
     return m_factories[t.type](t);
 }
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

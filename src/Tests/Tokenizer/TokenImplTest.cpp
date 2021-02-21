@@ -2,13 +2,14 @@
 // Created by caedus on 20.02.2021.
 //
 
-#include "Tokenizer/Types/Token.hpp"
-
 #include <gtest/gtest.h>
+
+#include "Tokenizer/Types/Token.hpp"
 
 namespace nastya::tokens {
 
-TEST(TokenImplTest, testBooleanStreams) {
+TEST(TokenImplTest, testBooleanStreams)
+{
     {
         std::stringstream ss;
         ss << TokenType::Boolean;
@@ -28,7 +29,8 @@ TEST(TokenImplTest, testBooleanStreams) {
     }
 }
 
-TEST(TokenImplTest, testIntegerStream) {
+TEST(TokenImplTest, testIntegerStream)
+{
     {
         std::stringstream ss;
         ss << TokenType::Integer;
@@ -42,7 +44,8 @@ TEST(TokenImplTest, testIntegerStream) {
     }
 }
 
-TEST(TokenImplTest, testFloatingStream) {
+TEST(TokenImplTest, testFloatingStream)
+{
     {
         std::stringstream ss;
         ss << TokenType::Floating;
@@ -56,7 +59,8 @@ TEST(TokenImplTest, testFloatingStream) {
     }
 }
 
-TEST(TokenImplTest, testStringStream) {
+TEST(TokenImplTest, testStringStream)
+{
     {
         std::stringstream ss;
         ss << TokenType::String;
@@ -70,7 +74,8 @@ TEST(TokenImplTest, testStringStream) {
     }
 }
 
-TEST(TokenImplTest, testLabelStream) {
+TEST(TokenImplTest, testLabelStream)
+{
     {
         std::stringstream ss;
         ss << TokenType::Label;
@@ -84,7 +89,8 @@ TEST(TokenImplTest, testLabelStream) {
     }
 }
 
-TEST(TokenImplTest, testNoValueStream) {
+TEST(TokenImplTest, testNoValueStream)
+{
     {
         std::stringstream ss;
         ss << TokenType::S_expr_begin;
@@ -107,7 +113,8 @@ TEST(TokenImplTest, testNoValueStream) {
     }
 }
 
-TEST(TokenImplTest, testCompareToken) {
+TEST(TokenImplTest, testCompareToken)
+{
     {
         Token a{TokenType::Eof};
         Token b{TokenType::S_expr_end};
@@ -120,4 +127,4 @@ TEST(TokenImplTest, testCompareToken) {
     }
 }
 
-}
+}  // namespace nastya::tokens

@@ -11,18 +11,16 @@
 namespace nastya::builtins {
 
 BuiltinsBuilder::BuiltinsBuilder(modules::ModuleRegistry& registry, IBuiltinsModuleFactory& factory)
-: m_registry{registry}
-, m_factory{factory}
+: m_registry{registry}, m_factory{factory}
 {
 }
 
 void BuiltinsBuilder::build() const
 {
-    m_registry
-        .registerModule(m_factory.createSyntax())
+    m_registry.registerModule(m_factory.createSyntax())
         .registerModule(m_factory.createLists())
         .registerModule(m_factory.createCompare())
         .registerModule(m_factory.createArithmetic());
 }
 
-}  // namespace naIstya::builtins
+}  // namespace nastya::builtins

@@ -9,7 +9,7 @@
 #include "Parser/Interface/IObjectFactory.hpp"
 #include "TypeSystem/ObjectStorage.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 struct ParserImpl
 {
     ParserImpl(IObjectFactory& object_factory);

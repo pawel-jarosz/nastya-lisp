@@ -6,15 +6,16 @@
 #include "Builtins/BuiltinsException.hpp"
 #include "Builtins/Compare/CompareEvaluators.hpp"
 #include "Builtins/Compare/CompareModule.hpp"
-#include "Parser/Testing/ListBuilder.hpp"
-#include "TypeSystem/Types/NumberObject.hpp"
 #include "Modules/ModuleException.hpp"
+#include "Parser/Testing/ListBuilder.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
 
 namespace nastya::builtins::compare {
 using namespace ::testing;
 
-TEST(CompareEvaluatorTest, testCompareName) {
+TEST(CompareEvaluatorTest, testCompareName)
+{
     CompareEvaluator evaluator;
     EXPECT_EQ(evaluator.getName(), "Compare");
 }
@@ -29,13 +30,13 @@ TEST(CompareEvaluatorTest, testCompareSuccessStory)
     EXPECT_EQ(result.toString(), "-1");
 }
 
-TEST(CompareEvaluatorTest, testCompareFails) {
+TEST(CompareEvaluatorTest, testCompareFails)
+{
     CompareEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -55,7 +56,8 @@ TEST(CompareEvaluatorTest, testCompareFails) {
     }
 }
 
-TEST(CompareEvaluatorTest, testEqualName) {
+TEST(CompareEvaluatorTest, testEqualName)
+{
     EqualEvaluator evaluator;
     EXPECT_EQ(evaluator.getName(), "Equal");
 }
@@ -70,13 +72,13 @@ TEST(CompareEvaluatorTest, testEqualSuccessStory)
     EXPECT_EQ(result.toString(), "#true");
 }
 
-TEST(CompareEvaluatorTest, testEqualFails) {
+TEST(CompareEvaluatorTest, testEqualFails)
+{
     EqualEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -119,13 +121,13 @@ TEST(CompareEvaluatorTest, testLowerSuccessStory)
     }
 }
 
-TEST(CompareEvaluatorTest, testLowerFails) {
+TEST(CompareEvaluatorTest, testLowerFails)
+{
     LowerEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -168,13 +170,13 @@ TEST(CompareEvaluatorTest, testLowerOrEqualSuccessStory)
     }
 }
 
-TEST(CompareEvaluatorTest, testLowerOrEqualFails) {
+TEST(CompareEvaluatorTest, testLowerOrEqualFails)
+{
     LowerOrEqualEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -217,13 +219,13 @@ TEST(CompareEvaluatorTest, testGreaterOrEqualSuccessStory)
     }
 }
 
-TEST(CompareEvaluatorTest, testGreaterOrEqualFails) {
+TEST(CompareEvaluatorTest, testGreaterOrEqualFails)
+{
     GreaterOrEqualEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -266,13 +268,13 @@ TEST(CompareEvaluatorTest, testGreaterSuccessStory)
     }
 }
 
-TEST(CompareEvaluatorTest, testGreaterFails) {
+TEST(CompareEvaluatorTest, testGreaterFails)
+{
     GreaterEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // Evaluator receives as an argument not a list
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
@@ -287,4 +289,4 @@ TEST(CompareEvaluatorTest, testGreaterFails) {
     }
 }
 
-}
+}  // namespace nastya::builtins::compare

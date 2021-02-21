@@ -2,14 +2,13 @@
 // Created by caedus on 30.01.2021.
 //
 
-#include "Runtime/GenericEvaluator.hpp"
-
 #include <algorithm>
+
+#include "Runtime/GenericEvaluator.hpp"
 
 namespace nastya::runtime {
 
-GenericEvaluator::GenericEvaluator(std::string name)
-: m_name{std::move(name)}
+GenericEvaluator::GenericEvaluator(std::string name) : m_name{std::move(name)}
 {
 }
 
@@ -31,4 +30,4 @@ void GenericEvaluator::postExecute(IMachine& vm) const
 {
 }
 
-}
+}  // namespace nastya::runtime

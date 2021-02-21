@@ -16,14 +16,18 @@ TokenProvidersAggregator& TokenProvidersAggregator::addProvider(std::unique_ptr<
     return *this;
 }
 
-std::optional<Token> TokenProvidersAggregator::getTokenIfAvailable(const std::string& value, ParsingContext& context) const {
-    for (const auto& validator: m_validators) {
+std::optional<Token>
+TokenProvidersAggregator::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
+{
+    for (const auto& validator : m_validators)
+    {
         const auto result = validator->getTokenIfAvailable(value, context);
-        if (result) {
+        if (result)
+        {
             return *result;
         }
     }
     return {};
 }
 
-}
+}  // namespace nastya::tokens

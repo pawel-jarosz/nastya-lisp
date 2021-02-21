@@ -8,7 +8,8 @@
 
 namespace nastya::tokens {
 
-std::optional<Token> ReservedCharacterTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
+std::optional<Token>
+ReservedCharacterTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
 {
     context.end_position = context.start_position + 1;
     switch (value[context.start_position])
@@ -24,8 +25,8 @@ std::optional<Token> ReservedCharacterTokenProvider::getTokenIfAvailable(const s
         case '^':
         case '%':
             if (context.start_position + 1 == value.size()
-                or (context.start_position + 1 < value.size() and 
-                    isblank(value[context.start_position + 1]))) {
+                or (context.start_position + 1 < value.size() and isblank(value[context.start_position + 1])))
+            {
                 return Token{TokenType::Label, std::string{value[context.start_position]}};
             }
             break;
@@ -41,4 +42,4 @@ std::unique_ptr<ITokenProvider> ReservedCharacterTokenProvider::create()
     return std::unique_ptr<ITokenProvider>(result.release());
 }
 
-}
+}  // namespace nastya::tokens

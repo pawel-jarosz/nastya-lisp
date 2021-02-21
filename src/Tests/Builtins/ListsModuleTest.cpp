@@ -7,10 +7,10 @@
 #include "Builtins/BuiltinsException.hpp"
 #include "Builtins/Lists/ListsEvaluators.hpp"
 #include "Builtins/Lists/ListsModule.hpp"
-#include "Parser/Testing/ListBuilder.hpp"
-#include "TypeSystem/Types/NumberObject.hpp"
 #include "Modules/ModuleException.hpp"
+#include "Parser/Testing/ListBuilder.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
 #include "Utilities/LispCastException.hpp"
 
 namespace nastya::builtins::lists {
@@ -18,12 +18,14 @@ namespace nastya::builtins::lists {
 using namespace ::testing;
 using namespace utils;
 
-TEST(ListsEvaluatorTest, testHeadName) {
+TEST(ListsEvaluatorTest, testHeadName)
+{
     HeadEvaluator evaluator;
     EXPECT_EQ(evaluator.getName(), "Head");
 }
 
-TEST(ListsEvaluatorTest, testHeadSuccessStory) {
+TEST(ListsEvaluatorTest, testHeadSuccessStory)
+{
     HeadEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     lisp::testing::ListBuilder builder;
@@ -32,20 +34,19 @@ TEST(ListsEvaluatorTest, testHeadSuccessStory) {
     EXPECT_EQ(result.toString(), "2");
 }
 
-TEST(ListsEvaluatorTest, testHeadFailure) {
+TEST(ListsEvaluatorTest, testHeadFailure)
+{
     HeadEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         lisp::testing::ListBuilder builder;
-        auto argument_list = builder.openList().addNumber(2)
-            .addNumber(1).closeList().build();
+        auto argument_list = builder.openList().addNumber(2).addNumber(1).closeList().build();
         auto result = evaluator.evaluate(memory_mock, argument_list);
         EXPECT_EQ(result.toString(), "2");
     }
     {
         // Evaluator receives as an argument not a list
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
     {
@@ -73,7 +74,8 @@ TEST(ListsEvaluatorTest, testHeadFailure) {
     }
 }
 
-TEST(ListsEvaluatorTest, testTail) {
+TEST(ListsEvaluatorTest, testTail)
+{
     TailEvaluator evaluator;
     EXPECT_EQ(evaluator.getName(), "Tail");
 }
@@ -104,8 +106,7 @@ TEST(ListsEvaluatorTest, testTailFailure)
     runtime::MemoryMock memory_mock;
     {
         // 2
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
     {
@@ -128,12 +129,14 @@ TEST(ListsEvaluatorTest, testTailFailure)
     }
 }
 
-TEST(ListsEvaluatorTest, testQuote) {
+TEST(ListsEvaluatorTest, testQuote)
+{
     QuoteEvaluator evaluator;
     EXPECT_EQ(evaluator.getName(), "Quote");
 }
 
-TEST(ListsEvaluatorTest, testQuoteSuccessStory) {
+TEST(ListsEvaluatorTest, testQuoteSuccessStory)
+{
     QuoteEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
@@ -150,13 +153,13 @@ TEST(ListsEvaluatorTest, testQuoteSuccessStory) {
     }
 }
 
-TEST(ListsEvaluatorTest, testQuoteFailure) {
+TEST(ListsEvaluatorTest, testQuoteFailure)
+{
     QuoteEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // 2
-        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(
-            new typesystem::NumberObject(2)));
+        typesystem::ObjectStorage argument_list(std::unique_ptr<typesystem::IObject>(new typesystem::NumberObject(2)));
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
     {
@@ -173,7 +176,8 @@ TEST(ListsEvaluatorTest, testQuoteFailure) {
     }
 }
 
-TEST(ListsModuleTest, testModule) {
+TEST(ListsModuleTest, testModule)
+{
     const auto module = lists::create_module_builder()->build();
     EXPECT_EQ(module->getModuleName(), "Lang.Lists");
     EXPECT_FALSE(module->isFunctionAvailable("Concat"));
@@ -183,7 +187,8 @@ TEST(ListsModuleTest, testModule) {
 
     EXPECT_EQ(registered_functions.size(), functions.size());
     EXPECT_THROW(module->getFunction("Concat"), modules::ModuleException);
-    for (const auto& function_name: functions) {
+    for (const auto& function_name : functions)
+    {
         EXPECT_TRUE(module->isFunctionAvailable(function_name));
         auto it = std::find(registered_functions.begin(), registered_functions.end(), function_name);
         EXPECT_NE(it, registered_functions.end());
@@ -192,4 +197,4 @@ TEST(ListsModuleTest, testModule) {
     }
 }
 
-}
+}  // namespace nastya::builtins::lists

@@ -6,7 +6,7 @@
 
 #include <But/Exception.hpp>
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 BUT_DEFINE_EXCEPTION(LispExpressionException, But::Exception, "Parser");
 

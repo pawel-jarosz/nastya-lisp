@@ -2,8 +2,9 @@
 // Created by caedus on 13.02.2021.
 //
 
-#include "TypeSystem/Types/BooleanObject.hpp"
 #include <sstream>
+
+#include "TypeSystem/Types/BooleanObject.hpp"
 
 namespace nastya::typesystem {
 BooleanObject::BooleanObject(bool value) : GenericObject(ObjectType::Boolean), m_value{value}
@@ -36,4 +37,4 @@ std::string BooleanObject::info() const
     return ss.str();
 }
 
-}
+}  // namespace nastya::typesystem

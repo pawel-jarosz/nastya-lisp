@@ -12,16 +12,22 @@
 
 namespace nastya::modules::testing {
 
-class DummyModule : public Module {
+class DummyModule : public Module
+{
 public:
-    DummyModule() : Module("DummyModule") {
-
+    DummyModule() : Module("DummyModule")
+    {
     }
 };
 
-struct IdEvaluator : nastya::runtime::GenericEvaluator {
-    IdEvaluator() : nastya::runtime::GenericEvaluator("Id") {}
-    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& arguments) const override {
+struct IdEvaluator : nastya::runtime::GenericEvaluator
+{
+    IdEvaluator() : nastya::runtime::GenericEvaluator("Id")
+    {
+    }
+    typesystem::ObjectStorage
+    evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& arguments) const override
+    {
         return arguments;
     }
 };
@@ -45,7 +51,8 @@ TEST(ModuleRegistryTest, testRegister)
     EXPECT_EQ(list[1], module2_name);
 }
 
-TEST(ModuleRegistryTest, testFindingFunctions) {
+TEST(ModuleRegistryTest, testFindingFunctions)
+{
     auto module = std::make_unique<DummyModule>();
     std::unique_ptr<runtime::IEvaluator> evaluator(new IdEvaluator());
     module->registerFunction(std::move(evaluator));

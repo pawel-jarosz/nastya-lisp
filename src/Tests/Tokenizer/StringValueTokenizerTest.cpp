@@ -2,13 +2,13 @@
 // Created by caedus on 20.02.2021.
 //
 
-#include "Tokenizer/TokenizerException.hpp"
-#include "Tokenizer/Tokenizer.hpp"
-#include "Common.hpp"
-
 #include <vector>
 
 #include <gtest/gtest.h>
+
+#include "Common.hpp"
+#include "Tokenizer/Tokenizer.hpp"
+#include "Tokenizer/TokenizerException.hpp"
 
 namespace nastya::tokens {
 using namespace ::testing;
@@ -31,10 +31,11 @@ TEST(StringValueTokenizerTest, testString)
     }
 }
 
-TEST(StringValueTokenizerTest, testNotTerminatedQuotationMark) {
+TEST(StringValueTokenizerTest, testNotTerminatedQuotationMark)
+{
     const std::string test_case = "\"not terminated quotation";
     Tokenizer parser(test_case);
     EXPECT_THROW(parser.getToken(), TokenizerException);
 }
 
-}
+}  // namespace nastya::tokens

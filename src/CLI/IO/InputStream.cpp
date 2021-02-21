@@ -5,8 +5,7 @@
 #include "CLI/IO/InputStream.hpp"
 
 namespace nastya::cli::io::stdio {
-InputStream::InputStream(std::istream& stream)
-: m_stream{stream}
+InputStream::InputStream(std::istream& stream) : m_stream{stream}
 {
 }
 
@@ -17,4 +16,4 @@ std::string InputStream::readLine()
     return result;
 }
 
-}
+}  // namespace nastya::cli::io::stdio

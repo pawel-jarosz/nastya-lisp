@@ -2,8 +2,9 @@
 // Created by caedus on 13.02.2021.
 //
 
-#include "TypeSystem/Types/LabelObject.hpp"
 #include <sstream>
+
+#include "TypeSystem/Types/LabelObject.hpp"
 
 namespace nastya::typesystem {
 
@@ -32,4 +33,4 @@ std::string LabelObject::info() const
     return ss.str();
 }
 
-}
+}  // namespace nastya::typesystem

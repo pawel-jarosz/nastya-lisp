@@ -2,7 +2,7 @@
 
 #include "Parser/Interface/IObjectFactory.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 class ObjectFactoryBuilder
 {
@@ -14,4 +14,4 @@ private:
     IObjectFactory& m_factory;
 };
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

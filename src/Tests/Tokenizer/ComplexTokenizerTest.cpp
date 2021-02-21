@@ -2,12 +2,13 @@
 // Created by caedus on 20.02.2021.
 //
 
-#include "Tokenizer/TokenizerException.hpp"
-#include "Tokenizer/Tokenizer.hpp"
-#include "Common.hpp"
-
 #include <vector>
+
 #include <gtest/gtest.h>
+
+#include "Common.hpp"
+#include "Tokenizer/Tokenizer.hpp"
+#include "Tokenizer/TokenizerException.hpp"
 
 namespace nastya::tokens {
 using namespace ::testing;
@@ -51,4 +52,4 @@ TEST(ComplexTokenizerTest, testComplexExpression)
     }
 }
 
-}
+}  // namespace nastya::tokens

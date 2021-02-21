@@ -14,7 +14,7 @@ namespace nastya::typesystem {
 
 TEST(LambdaTypeTest, testConstructor)
 {
-    
+    // TODO: Add tests
 }
 
-}
+}  // namespace nastya::typesystem

@@ -7,7 +7,8 @@
 
 namespace nastya::cli::module {
 
-ConsoleModuleRegistration::ConsoleModuleRegistration(modules::ModuleRegistry& registry, interface::IConsoleManager& console)
+ConsoleModuleRegistration::ConsoleModuleRegistration(modules::ModuleRegistry& registry,
+                                                     interface::IConsoleManager& console)
 : m_registry{registry}, m_console{console}
 {
 }

@@ -28,5 +28,4 @@ bool GenericObject::equal(const IObject& object) const
     return (toString() == object.toString());
 }
 
-
 }  // namespace nastya::typesystem

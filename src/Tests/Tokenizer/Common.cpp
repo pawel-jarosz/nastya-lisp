@@ -37,5 +37,4 @@ Token create_string_token(std::string value)
     return Token{TokenType::String, ss.str()};
 }
 
-
-}
+}  // namespace nastya::tokens

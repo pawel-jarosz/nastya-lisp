@@ -4,7 +4,7 @@
 #include "TypeSystem/Types/NumberObject.hpp"
 #include "TypeSystem/Types/StringObject.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 template <typename ObjectClass, typename Creator>
 ObjectClass* callback(const tokens::Token& t)
@@ -34,4 +34,4 @@ void ObjectFactoryBuilder::build()
     });
 }
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

@@ -9,7 +9,7 @@
 #include "Parser/Interface/IObjectFactory.hpp"
 #include "Tokenizer/Types/Token.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 class ObjectFactory : public IObjectFactory
 {
 public:
@@ -21,4 +21,4 @@ private:
     mutable std::map<tokens::TokenType, std::function<typesystem::IObject*(const tokens::Token& t)>> m_factories;
 };
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

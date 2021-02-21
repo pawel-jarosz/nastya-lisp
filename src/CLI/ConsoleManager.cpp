@@ -7,20 +7,23 @@
 
 #include "CLI/ConsoleManager.hpp"
 #include "CLI/Module/ShutdownEvent.hpp"
+#include "TypeSystem/ObjectStorageException.hpp"
 #include "TypeSystem/Types/NumberObject.hpp"
 #include "TypeSystem/Types/TypeSystemError.hpp"
-#include "TypeSystem/ObjectStorageException.hpp"
 #include "VirtualMachine/MachineRuntimeException.hpp"
 
 namespace nastya::cli {
 
 ConsoleManager::ConsoleManager(runtime::IMachine& machine,
                                tokens::ITokenizer& parser,
-                               lisp::IParser& expression_builder,
+                               parser::IParser& expression_builder,
                                io::IIoFactory& io_provider,
                                splashscreen::ISplashScreen& splash_screen)
-: m_machine{machine}, m_parser{parser}, m_expr_builder{expression_builder}
-, m_in{io_provider.create_input()}, m_out{io_provider.create_output()}
+: m_machine{machine}
+, m_parser{parser}
+, m_expr_builder{expression_builder}
+, m_in{io_provider.create_input()}
+, m_out{io_provider.create_output()}
 , m_splashscreen{splash_screen}
 , m_shutdown{false}
 {
@@ -29,7 +32,8 @@ ConsoleManager::ConsoleManager(runtime::IMachine& machine,
 void ConsoleManager::splashScreen()
 {
     const auto message_lines = m_splashscreen.getMessage();
-    for (const auto& message: message_lines) {
+    for (const auto& message : message_lines)
+    {
         m_out->writeLine(message);
     }
 }
@@ -69,10 +73,12 @@ int ConsoleManager::run()
             }
             multiline = false;
         }
-        catch(typesystem::TypeSystemError& e) {
+        catch (typesystem::TypeSystemError& e)
+        {
             m_out->writeLine(e.what());
         }
-        catch (vm::MachineRuntimeException& e) {
+        catch (vm::MachineRuntimeException& e)
+        {
             m_out->writeLine(e.what());
         }
         catch (typesystem::ObjectStorageException& e)

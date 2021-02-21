@@ -2,20 +2,19 @@
 // Created by caedus on 13.02.2021.
 //
 
-#include "TypeSystem/Types/LambdaObject.hpp"
 #include <sstream>
+
+#include "TypeSystem/Types/LambdaObject.hpp"
 
 namespace nastya::typesystem {
 
 LambdaObject::LambdaObject(const ListObject& argumentsList, const IObject& command)
-    : m_arguments(argumentsList.getContent())
-    , m_command(command.clone())
+: m_arguments(argumentsList.getContent()), m_command(command.clone())
 {
 }
 
 LambdaObject::LambdaObject(const LambdaObject& rhs)
-    : m_arguments{rhs.getArgumentsList().getContent()}
-    , m_command{rhs.getCommand().clone()}
+: m_arguments{rhs.getArgumentsList().getContent()}, m_command{rhs.getCommand().clone()}
 {
 }
 
@@ -69,5 +68,4 @@ const IObject& LambdaObject::getCommand() const
     return *m_command;
 }
 
-}
-
+}  // namespace nastya::typesystem

@@ -2,13 +2,15 @@
 // Created by caedus on 30.01.2021.
 //
 
-#include "CLI/PreloadFromFile.hpp"
-
 #include <fstream>
+
+#include "CLI/PreloadFromFile.hpp"
 
 namespace nastya::cli {
 
-PreloadFromFile::PreloadFromFile(tokens::ITokenizer& parser, lisp::IParser& expressionBuilder, runtime::IMachine& machine)
+PreloadFromFile::PreloadFromFile(tokens::ITokenizer& parser,
+                                 parser::IParser& expressionBuilder,
+                                 runtime::IMachine& machine)
 : m_parser{parser}, m_expressionBuilder{expressionBuilder}, m_machine{machine}
 {
 }
@@ -26,4 +28,4 @@ void PreloadFromFile::loadFile(const std::string& file_name)
         m_expressionBuilder.reset();
     }
 }
-}
+}  // namespace nastya::cli

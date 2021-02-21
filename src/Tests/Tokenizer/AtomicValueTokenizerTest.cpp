@@ -2,13 +2,13 @@
 // Created by caedus on 20.02.2021.
 //
 
-#include "Tokenizer/TokenizerException.hpp"
-#include "Tokenizer/Tokenizer.hpp"
-#include "Common.hpp"
-
 #include <vector>
 
 #include <gtest/gtest.h>
+
+#include "Common.hpp"
+#include "Tokenizer/Tokenizer.hpp"
+#include "Tokenizer/TokenizerException.hpp"
 
 namespace nastya::tokens {
 using namespace ::testing;
@@ -16,10 +16,7 @@ using namespace ::testing;
 TEST(AtomicValueTokenizerTest, testInteger)
 {
     using IntegerTestCase = TestCase<std::string, int>;
-    std::vector positive_cases = {
-        IntegerTestCase{"123", 123},
-        IntegerTestCase{"-123", -123}
-    };
+    std::vector positive_cases = {IntegerTestCase{"123", 123}, IntegerTestCase{"-123", -123}};
     for (const auto& test_case : positive_cases)
     {
         Tokenizer parser(test_case.first);
@@ -69,10 +66,8 @@ TEST(AtomicValueTokenizerTest, testLabel)
         std::cout << "Test string: " << test_case.first << std::endl;
         EXPECT_EQ(parser.getToken(), create_label_token(test_case.second));
     }
-    std::vector<std::string> negative_testcases {
-        "#dummy_label"
-        "expected-error"
-    };
+    std::vector<std::string> negative_testcases{"#dummy_label"
+                                                "expected-error"};
     for (const auto& test_case : negative_testcases)
     {
         Tokenizer parser(test_case);
@@ -80,5 +75,4 @@ TEST(AtomicValueTokenizerTest, testLabel)
     }
 }
 
-}
-
+}  // namespace nastya::tokens

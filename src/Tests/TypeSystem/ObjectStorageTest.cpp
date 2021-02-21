@@ -7,16 +7,17 @@
 
 #include <gtest/gtest.h>
 
-#include "TypeSystem/Types/StringObject.hpp"
 #include "TypeSystem/ObjectStorage.hpp"
 #include "TypeSystem/ObjectStorageException.hpp"
+#include "TypeSystem/Types/StringObject.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 TEST(ObjectStorageTest, testStorage)
 {
     std::string test_case = "Dummy string";
-    std::unique_ptr<typesystem::IObject> object(dynamic_cast<typesystem::StringObject*>(new typesystem::StringObject(test_case)));
+    std::unique_ptr<typesystem::IObject> object(
+        dynamic_cast<typesystem::StringObject*>(new typesystem::StringObject(test_case)));
     typesystem::ObjectStorage storage(std::move(object));
     EXPECT_EQ(storage.getType(), typesystem::ObjectType::String);
     EXPECT_EQ(storage.getRawObject().getType(), typesystem::ObjectType::String);
@@ -31,14 +32,16 @@ TEST(ObjectStorageTest, testNotinitializedStorage)
     EXPECT_THROW(storage.toString(), typesystem::ObjectStorageException);
 }
 
-TEST(ObjectStorageTest, testAssignment) {
+TEST(ObjectStorageTest, testAssignment)
+{
     typesystem::ObjectStorage a(std::unique_ptr<typesystem::IObject>(new typesystem::StringObject("Dummy string")));
     typesystem::ObjectStorage b(std::unique_ptr<typesystem::IObject>(new typesystem::StringObject("Short")));
     b = a;
     EXPECT_EQ(a.toString(), b.toString());
 }
 
-TEST(ObjectStorageTest, testMove) {
+TEST(ObjectStorageTest, testMove)
+{
     const std::string value{"dummy string"};
     typesystem::ObjectStorage a(std::unique_ptr<typesystem::IObject>(new typesystem::StringObject(value)));
     typesystem::ObjectStorage b(std::unique_ptr<typesystem::IObject>(new typesystem::StringObject("Short")));
@@ -48,4 +51,4 @@ TEST(ObjectStorageTest, testMove) {
     EXPECT_EQ(string_object.getValue(), value);
 }
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

@@ -18,7 +18,7 @@ class ConsoleManager : public interface::IConsoleManager
 public:
     ConsoleManager(runtime::IMachine& machine,
                    tokens::ITokenizer& parser,
-                   lisp::IParser& expression_builder,
+                   parser::IParser& expression_builder,
                    io::IIoFactory& io_provider,
                    splashscreen::ISplashScreen& splash_screen);
     void splashScreen();
@@ -28,7 +28,7 @@ public:
 private:
     runtime::IMachine& m_machine;
     tokens::ITokenizer& m_parser;
-    lisp::IParser& m_expr_builder;
+    parser::IParser& m_expr_builder;
     But::NotNullUnique<io::IInputSource> m_in;
     But::NotNullUnique<io::IOutputSink> m_out;
     splashscreen::ISplashScreen& m_splashscreen;

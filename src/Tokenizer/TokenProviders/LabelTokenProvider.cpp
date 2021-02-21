@@ -8,8 +8,7 @@
 
 namespace nastya::tokens {
 
-LabelTokenProvider::LabelTokenProvider(std::string label_regex)
-: m_label_regex{std::move(label_regex)}
+LabelTokenProvider::LabelTokenProvider(std::string label_regex) : m_label_regex{std::move(label_regex)}
 {
 }
 
@@ -29,4 +28,4 @@ std::unique_ptr<ITokenProvider> LabelTokenProvider::create()
     return std::unique_ptr<ITokenProvider>(result.release());
 }
 
-}
+}  // namespace nastya::tokens

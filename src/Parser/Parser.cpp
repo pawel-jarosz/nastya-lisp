@@ -7,12 +7,10 @@
 #include "Parser/Internal/ParserImpl.hpp"
 #include "Parser/Parser.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 Parser::Parser(tokens::ITokenizer& parser, IObjectFactory& object_factory)
-: m_parser{parser}
-, m_object_factory{object_factory}
-, m_impl(new ParserImpl(object_factory))
+: m_parser{parser}, m_object_factory{object_factory}, m_impl(new ParserImpl(object_factory))
 {
 }
 
@@ -34,4 +32,4 @@ void Parser::reset()
     m_impl.reset(new ParserImpl(m_object_factory));
 }
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

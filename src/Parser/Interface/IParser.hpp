@@ -9,7 +9,7 @@
 #include "TypeSystem/Interface/IObject.hpp"
 #include "TypeSystem/ObjectStorage.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 class IParser
 {
@@ -18,4 +18,4 @@ public:
     virtual typesystem::ObjectStorage build() = 0;
     virtual void reset() = 0;
 };
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

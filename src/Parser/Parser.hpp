@@ -11,7 +11,7 @@
 #include "Tokenizer/Interface/ITokenizer.hpp"
 #include "TypeSystem/ObjectStorage.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 struct ParserImpl;
 
@@ -28,4 +28,4 @@ private:
     IObjectFactory& m_object_factory;
     std::unique_ptr<ParserImpl> m_impl;
 };
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

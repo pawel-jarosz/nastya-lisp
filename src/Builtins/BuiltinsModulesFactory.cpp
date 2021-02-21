@@ -2,12 +2,11 @@
 // Created by caedus on 06.02.2021.
 //
 
+#include "Builtins/Arithmetic/ArithmeticModule.hpp"
 #include "Builtins/BuiltinsModulesFactory.hpp"
-
-#include "Builtins/Syntax/SyntaxModule.hpp"
 #include "Builtins/Compare/CompareModule.hpp"
 #include "Builtins/Lists/ListsModule.hpp"
-#include "Builtins/Arithmetic/ArithmeticModule.hpp"
+#include "Builtins/Syntax/SyntaxModule.hpp"
 
 namespace nastya::builtins {
 
@@ -35,4 +34,4 @@ std::unique_ptr<modules::IModule> BuiltinsModulesFactory::createArithmetic() con
     return builder->build();
 }
 
-}
+}  // namespace nastya::builtins

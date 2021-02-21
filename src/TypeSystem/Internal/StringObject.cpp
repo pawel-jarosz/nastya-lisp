@@ -35,21 +35,24 @@ std::string StringObject::info() const
 }
 int StringObject::compare(const IObject& rhs) const
 {
-    if (rhs.getType() != ObjectType::String) {
+    if (rhs.getType() != ObjectType::String)
+    {
         BUT_THROW(TypeSystemError, "Given arguments are not comparable");
     }
     const auto casted_rhs = dynamic_cast<const StringObject&>(rhs);
     const auto rhs_text = casted_rhs.getValue();
-    if (m_value < rhs_text) {
+    if (m_value < rhs_text)
+    {
         return -1;
     }
-    else if (m_value == rhs_text) {
+    else if (m_value == rhs_text)
+    {
         return 0;
     }
-    else {
+    else
+    {
         return 1;
     }
 }
 
-
-}
+}  // namespace nastya::typesystem

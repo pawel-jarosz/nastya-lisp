@@ -3,15 +3,12 @@
 //
 
 #include "Parser/Internal/ParserImpl.hpp"
-
-
 #include "Parser/LispExpressionException.hpp"
 #include "TypeSystem/Types/ListObject.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
-ParserImpl::ParserImpl(IObjectFactory& object_factory)
-    : m_factory{object_factory}
+ParserImpl::ParserImpl(IObjectFactory& object_factory) : m_factory{object_factory}
 {
 }
 
@@ -98,4 +95,4 @@ void ParserImpl::addGenericObject(const tokens::Token& t)
     }
 }
 
-}
+}  // namespace nastya::parser

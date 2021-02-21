@@ -24,4 +24,4 @@ TEST(LabelTypeTest, testConstructor)
     EXPECT_FALSE(object.isComparable());
 }
 
-}
+}  // namespace nastya::typesystem

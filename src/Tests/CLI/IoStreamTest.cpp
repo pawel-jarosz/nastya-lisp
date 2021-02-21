@@ -2,27 +2,27 @@
 // Created by caedus on 06.01.2021.
 //
 
-#include "CLI/IO/StreamWrapperFactory.hpp"
-
 #include <sstream>
+
 #include <gtest/gtest.h>
+
+#include "CLI/IO/StreamWrapperFactory.hpp"
 
 namespace nastya::cli::io {
 
 using namespace ::testing;
 
-struct IoStreamTest : public Test {
-    IoStreamTest()
-    : input_stream()
-    , output_stream()
-    , factory(input_stream, output_stream){
-
+struct IoStreamTest : public Test
+{
+    IoStreamTest() : input_stream(), output_stream(), factory(input_stream, output_stream)
+    {
     }
     std::stringstream input_stream, output_stream;
     stdio::StreamWrapperFactory factory;
 };
 
-TEST_F(IoStreamTest, testInputStream) {
+TEST_F(IoStreamTest, testInputStream)
+{
     auto input = factory.create_input();
     std::string test_case{"Hello world"};
     input_stream << test_case << "\n";
@@ -30,7 +30,8 @@ TEST_F(IoStreamTest, testInputStream) {
     EXPECT_EQ(result, test_case);
 }
 
-TEST_F(IoStreamTest, testOutputStream) {
+TEST_F(IoStreamTest, testOutputStream)
+{
     auto output = factory.create_output();
     std::string test_case{"Hello world"};
     output->writeLine(test_case);
@@ -43,4 +44,4 @@ TEST_F(IoStreamTest, testOutputStream) {
     EXPECT_EQ(std::string(test_case2.begin(), --test_case2.end()), result);
 }
 
-}
+}  // namespace nastya::cli::io

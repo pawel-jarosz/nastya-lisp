@@ -2,12 +2,13 @@
 // Created by caedus on 13.02.2021.
 //
 
-#include "TypeSystem/Types/ListObject.hpp"
 #include <sstream>
+
+#include "TypeSystem/Types/ListObject.hpp"
 namespace nastya::typesystem {
 
 ListObject::ListObject(std::vector<ObjectStorage> content)
-    : GenericObject(ObjectType::List), m_content{std::move(content)}
+: GenericObject(ObjectType::List), m_content{std::move(content)}
 {
 }
 
@@ -47,5 +48,4 @@ std::string ListObject::info() const
     return ss.str();
 }
 
-
-}
+}  // namespace nastya::typesystem

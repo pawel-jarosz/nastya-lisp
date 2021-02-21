@@ -9,7 +9,7 @@
 #include "Tokenizer/Types/Token.hpp"
 #include "TypeSystem/Interface/IObject.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 using FactoryMethod = std::function<typesystem::IObject*(const tokens::Token& t)>;
 
@@ -20,4 +20,4 @@ public:
     virtual typesystem::IObject* create(const tokens::Token& t) const = 0;
     virtual void registerToken(const tokens::TokenType type, FactoryMethod factory) = 0;
 };
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

@@ -2,16 +2,17 @@
 // Created by caedus on 21.12.2020.
 //
 
+#include "ModuleException.hpp"
 #include "Modules/ModuleException.hpp"
 #include "Modules/ModuleRegistry.hpp"
-#include "ModuleException.hpp"
 
 namespace nastya::modules {
 
 ModuleRegistry& ModuleRegistry::registerModule(std::unique_ptr<IModule> module)
 {
     auto result = m_modules.try_emplace(module->getModuleName(), std::move(module));
-    if (not result.second) {
+    if (not result.second)
+    {
         BUT_THROW(ModuleException, "Cannot register module!");
     }
     return *this;

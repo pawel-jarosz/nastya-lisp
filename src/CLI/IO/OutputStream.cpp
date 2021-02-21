@@ -6,8 +6,7 @@
 
 namespace nastya::cli::io::stdio {
 
-OutputStream::OutputStream(std::ostream& stream)
-: m_stream{stream}
+OutputStream::OutputStream(std::ostream& stream) : m_stream{stream}
 {
 }
 
@@ -21,4 +20,4 @@ void OutputStream::write(std::string line)
     m_stream << line;
 }
 
-}
+}  // namespace nastya::cli::io::stdio

@@ -26,7 +26,8 @@ TEST(StringTypeTest, testStringObject)
     EXPECT_TRUE(object.isComparable());
 }
 
-TEST(StringTypeTest, testStringCompare) {
+TEST(StringTypeTest, testStringCompare)
+{
     std::string low = "a";
     std::string middle = "b";
     StringObject object(middle);
@@ -39,4 +40,4 @@ TEST(StringTypeTest, testStringCompare) {
     EXPECT_EQ(middle_object.compare(low_object), 1);
 }
 
-}
+}  // namespace nastya::typesystem

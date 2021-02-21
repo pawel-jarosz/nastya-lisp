@@ -31,8 +31,7 @@ struct DummyEvaluator : public runtime::GenericEvaluator
 
 struct ModuleTest : public Test
 {
-    ModuleTest()
-        : testing_module{module_name}
+    ModuleTest() : testing_module{module_name}
     {
     }
 

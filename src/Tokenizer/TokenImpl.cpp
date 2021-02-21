@@ -26,12 +26,17 @@ struct TokenPrinter
         m_out << " => " << value;
     }
 
-    void operator()(bool value) {
-        if (value) {
-            m_out << " => " << "True";
+    void operator()(bool value)
+    {
+        if (value)
+        {
+            m_out << " => "
+                  << "True";
         }
-        else {
-            m_out << " => " << "False";
+        else
+        {
+            m_out << " => "
+                  << "False";
         }
     }
 

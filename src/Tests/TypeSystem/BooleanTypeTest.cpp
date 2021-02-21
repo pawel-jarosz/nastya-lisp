@@ -31,4 +31,4 @@ TEST(BooleanTypeTest, testConstructors)
     }
 }
 
-}
+}  // namespace nastya::typesystem

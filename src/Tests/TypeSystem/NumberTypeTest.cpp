@@ -7,8 +7,8 @@
 
 #include <gtest/gtest.h>
 
-#include "TypeSystem/Types/StringObject.hpp"
 #include "TypeSystem/Types/NumberObject.hpp"
+#include "TypeSystem/Types/StringObject.hpp"
 #include "TypeSystem/Types/TypeSystemError.hpp"
 
 namespace nastya::typesystem {
@@ -50,7 +50,8 @@ TEST(NumberTypeTest, testConstructor)
     }
 }
 
-TEST(NumberTypeTest, testNumberCompare) {
+TEST(NumberTypeTest, testNumberCompare)
+{
     {
         // NUMBER WITH SOMETHING ELSE
         StringObject string("dummy");
@@ -95,7 +96,8 @@ TEST(NumberTypeTest, testNumberCompare) {
     }
 }
 
-TEST(NumberTypeTest, testAssignment) {
+TEST(NumberTypeTest, testAssignment)
+{
     NumberObject obj1(1);
     NumberObject obj2(2);
     obj1 = obj2;
@@ -112,7 +114,8 @@ TEST(NumberTypeTest, testAssignment) {
     EXPECT_EQ(obj1.info(), obj3.info());
 }
 
-TEST(NumberTypeTest, testMoveCtor) {
+TEST(NumberTypeTest, testMoveCtor)
+{
     NumberObject obj1(1);
     NumberObject obj2(std::move(obj1));
     EXPECT_EQ(obj2.info(), "Integer => 1");

@@ -1,9 +1,10 @@
 #include <gtest/gtest.h>
+
 #include "Parser/LispExpressionException.hpp"
 #include "Parser/ObjectFactory.hpp"
 #include "Tokenizer/Types/Token.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 TEST(ObjectFactoryTest, testObjectFactory)
 {
@@ -16,7 +17,7 @@ TEST(ObjectFactoryTest, testObjectFactory)
     factory.registerToken(tokens::TokenType::String, callback);
     factory.create(tokens::Token{tokens::TokenType::String});
     EXPECT_TRUE(called);
-    EXPECT_THROW(factory.create(tokens::Token{tokens::TokenType::S_expr_begin}), lisp::LispExpressionException);
+    EXPECT_THROW(factory.create(tokens::Token{tokens::TokenType::S_expr_begin}), parser::LispExpressionException);
 }
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

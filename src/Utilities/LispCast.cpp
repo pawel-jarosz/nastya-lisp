@@ -7,43 +7,52 @@
 
 namespace nastya::utils {
 
-template<typename T>
-struct TypeToEnum {
+template <typename T>
+struct TypeToEnum
+{
 };
 
-template<>
-struct TypeToEnum<typesystem::NumberObject> {
+template <>
+struct TypeToEnum<typesystem::NumberObject>
+{
     constexpr static typesystem::ObjectType type = typesystem::ObjectType::Number;
 };
 
-template<>
-struct TypeToEnum<typesystem::ListObject> {
+template <>
+struct TypeToEnum<typesystem::ListObject>
+{
     constexpr static typesystem::ObjectType type = typesystem::ObjectType::List;
 };
 
-template<>
-struct TypeToEnum<typesystem::StringObject> {
+template <>
+struct TypeToEnum<typesystem::StringObject>
+{
     constexpr static typesystem::ObjectType type = typesystem::ObjectType::String;
 };
 
-template<>
-struct TypeToEnum<typesystem::LabelObject> {
+template <>
+struct TypeToEnum<typesystem::LabelObject>
+{
     constexpr static typesystem::ObjectType type = typesystem::ObjectType::Label;
 };
 
-template<>
-struct TypeToEnum<typesystem::BooleanObject> {
+template <>
+struct TypeToEnum<typesystem::BooleanObject>
+{
     constexpr static typesystem::ObjectType type = typesystem::ObjectType::Boolean;
 };
 
-template<>
-struct TypeToEnum<typesystem::LambdaObject> {
+template <>
+struct TypeToEnum<typesystem::LambdaObject>
+{
     constexpr static typesystem::ObjectType type = typesystem::ObjectType::Lambda;
 };
 
-template<typename Target>
-const Target& cast(const typesystem::ObjectStorage& storage, const std::string& msg) {
-    if(storage.getType() == TypeToEnum<Target>::type) {
+template <typename Target>
+const Target& cast(const typesystem::ObjectStorage& storage, const std::string& msg)
+{
+    if (storage.getType() == TypeToEnum<Target>::type)
+    {
         return dynamic_cast<const Target&>(storage.getRawObject());
     }
     BUT_THROW(LispCastException, msg);
@@ -76,4 +85,4 @@ const typesystem::LambdaObject& Cast::as_lambda(const typesystem::ObjectStorage&
 {
     return cast<typesystem::LambdaObject>(storage, msg);
 }
-}
+}  // namespace nastya::utils

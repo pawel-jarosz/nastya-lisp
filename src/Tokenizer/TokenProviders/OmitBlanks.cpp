@@ -25,4 +25,4 @@ std::unique_ptr<ITokenProvider> OmitBlanks::create()
     return std::unique_ptr<ITokenProvider>(result.release());
 }
 
-}
+}  // namespace nastya::tokens

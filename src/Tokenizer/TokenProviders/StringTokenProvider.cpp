@@ -2,8 +2,8 @@
 // Created by caedus on 11.02.2021.
 //
 
-#include "Tokenizer/TokenizerException.hpp"
 #include "Tokenizer/TokenProviders/StringTokenProvider.hpp"
+#include "Tokenizer/TokenizerException.hpp"
 
 namespace nastya::tokens {
 
@@ -30,7 +30,8 @@ size_t analyse_quotation(const std::string& text, size_t next_pos)
 
 std::optional<Token> StringTokenProvider::getTokenIfAvailable(const std::string& value, ParsingContext& context) const
 {
-    if (value[context.start_position] != '\"') {
+    if (value[context.start_position] != '\"')
+    {
         return {};
     }
     context.end_position = context.start_position;
@@ -69,4 +70,4 @@ std::unique_ptr<ITokenProvider> StringTokenProvider::create()
     return std::unique_ptr<ITokenProvider>(result.release());
 }
 
-}
+}  // namespace nastya::tokens

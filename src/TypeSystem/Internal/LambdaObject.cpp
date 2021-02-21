@@ -7,15 +7,15 @@
 
 namespace nastya::typesystem {
 
-LambdaObject::LambdaObject(const ListObject& argumentsList, const ListObject& command)
+LambdaObject::LambdaObject(const ListObject& argumentsList, const IObject& command)
     : m_arguments(argumentsList.getContent())
-    , m_command(command.getContent())
+    , m_command(command.clone())
 {
 }
 
 LambdaObject::LambdaObject(const LambdaObject& rhs)
     : m_arguments{rhs.getArgumentsList().getContent()}
-    , m_command{rhs.getCommand().getContent()}
+    , m_command{rhs.getCommand().clone()}
 {
 }
 
@@ -28,7 +28,7 @@ LambdaObject::LambdaObject(LambdaObject&& rhs)
 LambdaObject& LambdaObject::operator=(const LambdaObject& rhs)
 {
     m_arguments = rhs.m_arguments;
-    m_command = rhs.m_command;
+    m_command = std::unique_ptr<IObject>(rhs.m_command->clone());
     return *this;
 }
 LambdaObject& LambdaObject::operator=(LambdaObject&& rhs)
@@ -45,7 +45,7 @@ ObjectType LambdaObject::getType() const
 
 IObject* LambdaObject::clone() const
 {
-    return new LambdaObject(m_arguments, m_command);
+    return new LambdaObject(m_arguments, *m_command);
 }
 
 std::string LambdaObject::toString() const
@@ -64,9 +64,9 @@ const ListObject& LambdaObject::getArgumentsList() const
     return m_arguments;
 }
 
-const ListObject& LambdaObject::getCommand() const
+const IObject& LambdaObject::getCommand() const
 {
-    return m_command;
+    return *m_command;
 }
 
 }

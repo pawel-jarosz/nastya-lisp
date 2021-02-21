@@ -1,78 +1,19 @@
+//
+// Created by caedus on 20.02.2021.
+//
+
 #include <memory>
 #include <vector>
 
 #include <gtest/gtest.h>
 
-#include "TypeSystem/Types/BooleanObject.hpp"
-#include "TypeSystem/Types/LabelObject.hpp"
-#include "TypeSystem/Types/ListObject.hpp"
-#include "TypeSystem/Types/NumberObject.hpp"
 #include "TypeSystem/Types/StringObject.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
 #include "TypeSystem/Types/TypeSystemError.hpp"
-#include "Parser/Testing/ListBuilder.hpp"
 
 namespace nastya::typesystem {
 
-TEST(TypeObjectTest, testBooleanObject)
-{
-    std::vector test_cases = {true, false};
-    std::vector result = {"#true", "Boolean => #true", "#false", "Boolean => #false"};
-    size_t i = 0;
-    for (const auto& test_case : test_cases)
-    {
-        BooleanObject object(test_case);
-        EXPECT_EQ(object.getValue(), test_case);
-        EXPECT_EQ(object.getType(), ObjectType::Boolean);
-        std::unique_ptr<BooleanObject> cloned(dynamic_cast<BooleanObject*>(object.clone()));
-        EXPECT_EQ(object.getType(), cloned->getType());
-        EXPECT_EQ(object.getValue(), cloned->getValue());
-        EXPECT_EQ(object.toString(), result[i]);
-        EXPECT_EQ(object.info(), result[i + 1]);
-        EXPECT_FALSE(object.isComparable());
-        i += 2;
-    }
-}
-
-TEST(TypeObjectTest, testLabelObject)
-{
-    std::string test_case = "dummy_label";
-    LabelObject object(test_case);
-    EXPECT_EQ(object.getValue(), test_case);
-    EXPECT_EQ(object.getType(), ObjectType::Label);
-    EXPECT_EQ(object.info(), "Label => " + test_case);
-    std::unique_ptr<LabelObject> cloned(dynamic_cast<LabelObject*>(object.clone()));
-    EXPECT_EQ(object.getType(), cloned->getType());
-    EXPECT_EQ(object.getValue(), cloned->getValue());
-    EXPECT_FALSE(object.isComparable());
-}
-
-TEST(TypeObjectTest, testStringObject)
-{
-    std::string test_case = "dummy string";
-    StringObject object(test_case);
-    EXPECT_EQ(object.getValue(), test_case);
-    EXPECT_EQ(object.getType(), ObjectType::String);
-    EXPECT_EQ(object.info(), "String => \"" + test_case + "\"");
-    std::unique_ptr<StringObject> cloned(dynamic_cast<StringObject*>(object.clone()));
-    EXPECT_EQ(object.getType(), cloned->getType());
-    EXPECT_EQ(object.getValue(), cloned->getValue());
-    EXPECT_TRUE(object.isComparable());
-}
-
-TEST(TypeObjectTest, testStringCompare) {
-    std::string low = "a";
-    std::string middle = "b";
-    StringObject object(middle);
-    NumberObject rhs(2);
-    EXPECT_THROW(object.compare(rhs), TypeSystemError);
-    StringObject low_object(low);
-    StringObject middle_object(middle);
-    EXPECT_EQ(low_object.compare(middle_object), -1);
-    EXPECT_EQ(object.compare(middle_object), 0);
-    EXPECT_EQ(middle_object.compare(low_object), 1);
-}
-
-TEST(TypeObjectTest, testNumberObject)
+TEST(NumberTypeTest, testConstructor)
 {
     NumberObject object;
     EXPECT_EQ(object.getInteger(), 0);
@@ -109,7 +50,7 @@ TEST(TypeObjectTest, testNumberObject)
     }
 }
 
-TEST(TypeObjectType, testNumberCompare) {
+TEST(NumberTypeTest, testNumberCompare) {
     {
         // NUMBER WITH SOMETHING ELSE
         StringObject string("dummy");
@@ -154,7 +95,7 @@ TEST(TypeObjectType, testNumberCompare) {
     }
 }
 
-TEST(TypeObjectType, testAssignment) {
+TEST(NumberTypeTest, testAssignment) {
     NumberObject obj1(1);
     NumberObject obj2(2);
     obj1 = obj2;
@@ -171,7 +112,7 @@ TEST(TypeObjectType, testAssignment) {
     EXPECT_EQ(obj1.info(), obj3.info());
 }
 
-TEST(TypeObjectTest, testMoveCtor) {
+TEST(NumberTypeTest, testMoveCtor) {
     NumberObject obj1(1);
     NumberObject obj2(std::move(obj1));
     EXPECT_EQ(obj2.info(), "Integer => 1");
@@ -179,20 +120,6 @@ TEST(TypeObjectTest, testMoveCtor) {
     auto obj4 = obj3;
     NumberObject obj5(std::move(obj4));
     EXPECT_EQ(obj5.info(), obj3.info());
-}
-
-TEST(TypeObjectTest, testList)
-{
-    ListObject list;
-    EXPECT_EQ(list.getSize(), 0);
-    EXPECT_EQ(list.toString(), "()");
-    EXPECT_EQ(list.info(), "List => ()");
-    lisp::testing::ListBuilder builder;
-    auto arg = builder.addLabel("abc").addString("demo").openList()
-        .addNumber(1).addNumber(3).closeList().build();
-    auto complex_list = dynamic_cast<ListObject&>(arg.getRawObject());
-    EXPECT_EQ(complex_list.getSize(), 3);
-    EXPECT_EQ(complex_list.toString(), "(abc \"demo\" (1 3))");
 }
 
 }  // namespace nastya::typesystem

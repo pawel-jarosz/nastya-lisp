@@ -14,3 +14,14 @@ add_test(NAME TokenizerLibraryTest COMMAND TokenizerTest)
 add_executable(ParserTest Parser/ObjectFactoryTest.cpp)
 target_link_libraries(ParserTest ${TESTING_FRAMEWORK} Parser Tokenizer)
 add_test(NAME ParserLibraryTest COMMAND ParserTest)
+
+add_executable(TypeSystemTest TypeSystem/ObjectStorageTest.cpp
+                        TypeSystem/BooleanTypeTest.cpp
+                        TypeSystem/LabelTypeTest.cpp
+                        TypeSystem/StringTypeTest.cpp
+                        TypeSystem/ListTypeTest.cpp
+                        TypeSystem/NumberTypeTest.cpp
+                        TypeSystem/LambdaTypeTest.cpp)
+target_link_libraries(TypeSystemTest ${TESTING_FRAMEWORK} Parser TypeSystem ${BUT_LIBRARY})
+add_test(NAME TypeSystemLibraryTest COMMAND TypeSystemTest)
+

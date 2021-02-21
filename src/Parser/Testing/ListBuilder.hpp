@@ -9,7 +9,7 @@
 
 #include <TypeSystem/ObjectStorage.hpp>
 
-namespace nastya::lisp::testing {
+namespace nastya::parser::testing {
 
 // TODO: Add boolean
 class ListBuilder
@@ -33,4 +33,4 @@ private:
     std::vector<typesystem::ObjectStorage> m_objects;
 };
 
-}  // namespace nastya::lisp::testing
+}  // namespace nastya::parser::testing

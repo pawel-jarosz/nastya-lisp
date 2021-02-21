@@ -11,7 +11,7 @@ namespace nastya::typesystem {
 class LambdaObject : public IObject {
 public:
     // TODO: Add returning primitives case
-    LambdaObject(const ListObject& argumentsList, const ListObject& command);
+    LambdaObject(const ListObject& argumentsList, const IObject& command);
     LambdaObject(const LambdaObject& rhs);
     LambdaObject(LambdaObject&& rhs);
     LambdaObject& operator=(const LambdaObject& rhs);
@@ -23,11 +23,11 @@ public:
     std::string info() const override;
 
     const ListObject& getArgumentsList() const;
-    const ListObject& getCommand() const;
+    const IObject& getCommand() const;
 
 private:
     ListObject m_arguments;
-    ListObject m_command;
+    std::unique_ptr<IObject> m_command;
 };
 
 }

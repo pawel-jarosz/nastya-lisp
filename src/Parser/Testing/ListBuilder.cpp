@@ -12,7 +12,7 @@
 #include "TypeSystem/Types/StringObject.hpp"
 #include "TypeSystem/Types/BooleanObject.hpp"
 
-namespace nastya::lisp::testing {
+namespace nastya::parser::testing {
 
 template <typename T>
 std::unique_ptr<typesystem::IObject> make_unique_object(T* value)
@@ -88,4 +88,4 @@ ListBuilder& ListBuilder::addBoolean(bool value)
     return *this;
 }
 
-}  // namespace nastya::lisp::testing
+}  // namespace nastya::parser::testing

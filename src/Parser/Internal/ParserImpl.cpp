@@ -12,7 +12,7 @@ ParserImpl::ParserImpl(IObjectFactory& object_factory) : m_factory{object_factor
 {
 }
 
-void ParserImpl::addToken(const tokens::Token& t)
+void ParserImpl::dispatch(const tokens::Token& t)
 {
     switch (t.type)
     {
@@ -46,13 +46,13 @@ void ParserImpl::enableQuotation()
 
 void ParserImpl::disableQuotation()
 {
-    if (m_quotation_stack.empty())
+    if (m_quotation_stack.empty() or m_stack.size() != m_quotation_stack.top() + 1)
     {
         return;
     }
-    if (m_stack.size() != m_quotation_stack.top() + 1)
+    if (m_stack.size() == m_quotation_stack.top() + 1)
     {
-        return;
+        m_quotation_stack.pop();
     }
     closeList();
 }

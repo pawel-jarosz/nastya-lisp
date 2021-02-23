@@ -11,8 +11,11 @@ add_executable(TokenizerTest Tokenizer/Common.hpp Tokenizer/Common.cpp
 target_link_libraries(TokenizerTest ${TESTING_FRAMEWORK} Tokenizer)
 add_test(NAME TokenizerLibraryTest COMMAND TokenizerTest)
 
-add_executable(ParserTest Parser/ObjectFactoryTest.cpp)
-target_link_libraries(ParserTest ${TESTING_FRAMEWORK} Parser Tokenizer)
+add_executable(ParserTest Parser/ObjectFactoryTest.cpp
+                          Parser/ObjectFactoryBuilderTest.cpp
+                          Parser/ReductionRulesTest.cpp
+                          Parser/ParserTest.cpp)
+target_link_libraries(ParserTest ${TESTING_FRAMEWORK} Parser Utilities Tokenizer)
 add_test(NAME ParserLibraryTest COMMAND ParserTest)
 
 add_executable(TypeSystemTest TypeSystem/ObjectStorageTest.cpp

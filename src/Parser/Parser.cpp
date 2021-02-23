@@ -23,7 +23,7 @@ typesystem::ObjectStorage Parser::build()
     tokens::Token t;
     while ((t = m_parser.getToken()).type != tokens::TokenType::Eof)
     {
-        m_impl->addToken(t);
+        m_impl->dispatch(t);
     }
     return m_impl->build();
 }

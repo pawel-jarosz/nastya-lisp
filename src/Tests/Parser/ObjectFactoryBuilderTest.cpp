@@ -7,7 +7,7 @@
 #include "TypeSystem/Types/NumberObject.hpp"
 #include "TypeSystem/Types/StringObject.hpp"
 
-namespace nastya::lisp {
+namespace nastya::parser {
 
 struct ObjectFactoryBuilderTest : public ::testing::Test
 {
@@ -66,4 +66,4 @@ TEST_F(ObjectFactoryBuilderTest, testCreateLabel)
     EXPECT_EQ(label_object->getValue(), (std::get<std::string>(t.value)));
 }
 
-}  // namespace nastya::lisp
+}  // namespace nastya::parser

@@ -13,7 +13,7 @@ namespace nastya::parser {
 struct ParserImpl
 {
     ParserImpl(IObjectFactory& object_factory);
-    void addToken(const tokens::Token& t);
+    void dispatch(const tokens::Token& t);
     typesystem::ObjectStorage build();
 
     void openList();

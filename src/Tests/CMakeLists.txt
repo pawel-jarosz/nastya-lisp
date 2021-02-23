@@ -28,6 +28,6 @@ add_executable(TypeSystemTest TypeSystem/ObjectStorageTest.cpp
 target_link_libraries(TypeSystemTest ${TESTING_FRAMEWORK} Parser Utilities TypeSystem ${BUT_LIBRARY})
 add_test(NAME TypeSystemLibraryTest COMMAND TypeSystemTest)
 
-add_executable(BuiltinsTest Builtins/BuiltinsBuilderTest.cpp)
+add_executable(BuiltinsTest Builtins/BuiltinsBuilderTest.cpp Builtins/BuiltinsModulesFactoryTest.cpp)
 target_link_libraries(BuiltinsTest ${TESTING_FRAMEWORK} Builtins Modules ${BUT_LIBRARY})
 add_test(NAME BuiltinsLibraryTest COMMAND BuiltinsTest)

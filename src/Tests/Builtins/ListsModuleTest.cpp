@@ -8,10 +8,12 @@
 #include "Builtins/Lists/ListsEvaluators.hpp"
 #include "Builtins/Lists/ListsModule.hpp"
 #include "Modules/ModuleException.hpp"
-#include "Parser/Testing/ListBuilder.hpp"
+#include "Utilities/ListBuilder.hpp"
 #include "Runtime/Testing/MemoryMock.hpp"
 #include "TypeSystem/Types/NumberObject.hpp"
 #include "Utilities/LispCastException.hpp"
+#include "Utilities/LispCast.hpp"
+#include "Runtime/Testing/MachineMock.hpp"
 
 namespace nastya::builtins::lists {
 
@@ -24,22 +26,22 @@ TEST(ListsEvaluatorTest, testHeadName)
     EXPECT_EQ(evaluator.getName(), "Head");
 }
 
-TEST(ListsEvaluatorTest, testHeadSuccessStory)
+TEST(ListsEvaluatorTest, testHeadExecuteSuccessStory)
 {
     HeadEvaluator evaluator;
     runtime::MemoryMock memory_mock;
-    lisp::testing::ListBuilder builder;
+    ListBuilder builder;
     auto argument_list = builder.openList().addNumber(2).addNumber(1).closeList().build();
     auto result = evaluator.evaluate(memory_mock, argument_list);
     EXPECT_EQ(result.toString(), "2");
 }
 
-TEST(ListsEvaluatorTest, testHeadFailure)
+TEST(ListsEvaluatorTest, testHeadExecuteFailure)
 {
     HeadEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.openList().addNumber(2).addNumber(1).closeList().build();
         auto result = evaluator.evaluate(memory_mock, argument_list);
         EXPECT_EQ(result.toString(), "2");
@@ -51,24 +53,24 @@ TEST(ListsEvaluatorTest, testHeadFailure)
     }
     {
         // Evaluator receives empty argument list
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.openList().closeList().build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.addNumber(2).build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
     {
         // Evaluator receives more than one elements on list
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.addNumber(2).addNumber(2).build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
         // Empty list as an argument
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.openList().closeList().build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
@@ -80,27 +82,27 @@ TEST(ListsEvaluatorTest, testTail)
     EXPECT_EQ(evaluator.getName(), "Tail");
 }
 
-TEST(ListsEvaluatorTest, testTailSuccessStory)
+TEST(ListsEvaluatorTest, testTailExecuteSuccessStory)
 {
     TailEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // ((1 2 3))
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.openList().addNumber(1).addNumber(2).addNumber(3).closeList().build();
         auto result = evaluator.evaluate(memory_mock, argument_list);
         EXPECT_EQ(result.toString(), "(2 3)");
     }
     {
         // ((1))
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.openList().addNumber(1).closeList().build();
         auto result = evaluator.evaluate(memory_mock, argument_list);
         EXPECT_EQ(result.toString(), "()");
     }
 }
 
-TEST(ListsEvaluatorTest, testTailFailure)
+TEST(ListsEvaluatorTest, testTailExecuteFailure)
 {
     TailEvaluator evaluator;
     runtime::MemoryMock memory_mock;
@@ -111,19 +113,19 @@ TEST(ListsEvaluatorTest, testTailFailure)
     }
     {
         // (())
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.openList().closeList().build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
         // (2 2)
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.addNumber(2).addNumber(2).build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
         // (2)
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.addNumber(2).build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), LispCastException);
     }
@@ -135,25 +137,25 @@ TEST(ListsEvaluatorTest, testQuote)
     EXPECT_EQ(evaluator.getName(), "Quote");
 }
 
-TEST(ListsEvaluatorTest, testQuoteSuccessStory)
+TEST(ListsEvaluatorTest, testQuoteExecuteSuccessStory)
 {
     QuoteEvaluator evaluator;
     runtime::MemoryMock memory_mock;
     {
         // (2)
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.addNumber(2).build();
         EXPECT_EQ(evaluator.evaluate(memory_mock, argument_list).toString(), "2");
     }
     {
         // (())
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.openList().closeList().build();
         EXPECT_EQ(evaluator.evaluate(memory_mock, argument_list).toString(), "()");
     }
 }
 
-TEST(ListsEvaluatorTest, testQuoteFailure)
+TEST(ListsEvaluatorTest, testQuoteExecuteFailure)
 {
     QuoteEvaluator evaluator;
     runtime::MemoryMock memory_mock;
@@ -164,19 +166,29 @@ TEST(ListsEvaluatorTest, testQuoteFailure)
     }
     {
         // (2 2)
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.addNumber(2).addNumber(2).build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
     {
         // ()
-        lisp::testing::ListBuilder builder;
+        ListBuilder builder;
         auto argument_list = builder.build();
         EXPECT_THROW(evaluator.evaluate(memory_mock, argument_list), BuiltinsException);
     }
 }
 
-TEST(ListsModuleTest, testModule)
+TEST(ListsEvaluatorTest, testQuotePreExecute) {
+    ListBuilder builder;
+    QuoteEvaluator evaluator;
+    runtime::MemoryMock memory_mock;
+    runtime::MachineMock machine_mock;
+    auto command = builder.addLabel("Quote").openList().addNumber(1).addNumber(2).closeList().build();
+    auto result = evaluator.preExecute(Cast::as_list(command), machine_mock);
+    EXPECT_EQ(result.toString(), "((1 2))");
+}
+
+TEST(ListsModuleTest, testModuleFunctions)
 {
     const auto module = lists::create_module_builder()->build();
     EXPECT_EQ(module->getModuleName(), "Lang.Lists");

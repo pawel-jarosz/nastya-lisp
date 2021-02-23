@@ -3,20 +3,20 @@
 //
 #pragma once
 
-#include "LispExpression/TypeSystem/LabelObject.hpp"
-#include "LispExpression/ObjectStorage.hpp"
+#include "TypeSystem/Types/LabelObject.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::runtime {
 
 class IMemory
 {
 public:
-    virtual bool registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,
-                                        const lisp::ObjectStorage& objectStorage) = 0;
-    virtual bool registerVariableOnStack(const lisp::typesystem::LabelObject& variableName,
-                                         const lisp::ObjectStorage& objectStorage) = 0;
-    virtual const lisp::ObjectStorage& getFromHeap(const lisp::typesystem::LabelObject& variableName) const = 0;
-    virtual const lisp::ObjectStorage& getFromStack(const lisp::typesystem::LabelObject& variableName) const = 0;
+    virtual bool registerVariableOnHeap(const typesystem::LabelObject& variableName,
+                                        const typesystem::ObjectStorage& objectStorage) = 0;
+    virtual bool registerVariableOnStack(const typesystem::LabelObject& variableName,
+                                         const typesystem::ObjectStorage& objectStorage) = 0;
+    virtual const typesystem::ObjectStorage& getFromHeap(const typesystem::LabelObject& variableName) const = 0;
+    virtual const typesystem::ObjectStorage& getFromStack(const typesystem::LabelObject& variableName) const = 0;
     virtual void pushStackFrame() = 0;
     virtual bool popStackFrame() = 0;
 };

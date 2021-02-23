@@ -6,13 +6,13 @@
 
 namespace nastya::cli::splashscreen {
 
-SplashScreen::SplashScreen(std::vector<std::string> message)
-: m_message{std::move(message)}
+SplashScreen::SplashScreen(std::vector<std::string> message) : m_message{std::move(message)}
 {
 }
 
-const std::vector<std::string>& SplashScreen::getMessage() {
+const std::vector<std::string>& SplashScreen::getMessage()
+{
     return m_message;
 }
 
-}
+}  // namespace nastya::cli::splashscreen

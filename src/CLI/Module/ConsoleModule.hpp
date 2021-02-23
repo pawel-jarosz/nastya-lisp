@@ -10,14 +10,12 @@
 
 namespace nastya::cli::module {
 
-class ConsoleModule : public modules::Module
+struct ConsoleModule : public modules::Module
 {
 public:
-    static modules::IModule& getInstance(interface::IConsoleManager& console);
-
-private:
     ConsoleModule();
-    std::map<std::string, runtime::IEvaluator&> m_methods;
 };
+
+std::unique_ptr<modules::IModule> create_module(cli::interface::IConsoleManager& console);
 
 }  // namespace nastya::cli::module

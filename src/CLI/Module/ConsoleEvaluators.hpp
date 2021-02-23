@@ -13,7 +13,7 @@ class ShutdownEvaluator : public runtime::GenericEvaluator
 {
 public:
     ShutdownEvaluator(interface::IConsoleManager& console);
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 
 private:
     interface::IConsoleManager& m_console;

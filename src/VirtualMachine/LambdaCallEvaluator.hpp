@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "LispExpression/TypeSystem/LambdaObject.hpp"
+#include "TypeSystem/Types/LambdaObject.hpp"
 #include "Runtime/GenericEvaluator.hpp"
 #include "Utilities/LispCast.hpp"
 
@@ -12,16 +12,16 @@ namespace nastya::vm {
 
 class LambdaCallEvaluator : public runtime::GenericEvaluator {
 public:
-    LambdaCallEvaluator(const lisp::ObjectStorage& callee, const std::vector<lisp::ObjectStorage>& call,
+    LambdaCallEvaluator(const typesystem::ObjectStorage& callee, const std::vector<typesystem::ObjectStorage>& call,
                         runtime::IMachine& machine);
-    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+    typesystem::ObjectStorage preExecute(const typesystem::ListObject& object,
                                            runtime::IMachine& vm) const override;
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
     void postExecute(runtime::IMachine& vm) const override;
 private:
     runtime::IMachine& m_machine;
-    const std::vector<lisp::ObjectStorage>& m_call;
-    const lisp::typesystem::LambdaObject& m_callee;
+    const std::vector<typesystem::ObjectStorage>& m_call;
+    const typesystem::LambdaObject& m_callee;
 };
 
 }

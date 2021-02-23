@@ -17,21 +17,21 @@ class Machine : public runtime::IMachine
 {
 public:
     Machine(const modules::IModuleRegistry& m_modules);
-    lisp::ObjectStorage run(const lisp::ObjectStorage& list) override;
-    bool isSymbolAvailable(const lisp::ObjectStorage& label) const;
-    bool registerVariableOnHeap(const lisp::typesystem::LabelObject& variableName,
-                                const lisp::ObjectStorage& objectStorage) override;
-    const lisp::ObjectStorage& getFromHeap(const lisp::typesystem::LabelObject& variableName) const override;
-    bool registerVariableOnStack(const lisp::typesystem::LabelObject& variableName,
-                                 const lisp::ObjectStorage& objectStorage) override;
-    const lisp::ObjectStorage& getFromStack(const lisp::typesystem::LabelObject& variableName) const override;
+    typesystem::ObjectStorage run(const typesystem::ObjectStorage& list) override;
+    bool isSymbolAvailable(const typesystem::ObjectStorage& label) const;
+    bool registerVariableOnHeap(const typesystem::LabelObject& variableName,
+                                const typesystem::ObjectStorage& objectStorage) override;
+    const typesystem::ObjectStorage& getFromHeap(const typesystem::LabelObject& variableName) const override;
+    bool registerVariableOnStack(const typesystem::LabelObject& variableName,
+                                 const typesystem::ObjectStorage& objectStorage) override;
+    const typesystem::ObjectStorage& getFromStack(const typesystem::LabelObject& variableName) const override;
     void pushStackFrame() override;
     bool popStackFrame() override;
 private:
-    std::optional<lisp::ObjectStorage> computeLabel(const lisp::ObjectStorage& label) const;
+    std::optional<typesystem::ObjectStorage> computeLabel(const typesystem::ObjectStorage& label) const;
     const modules::IModuleRegistry& m_modules;
-    std::map<std::string, lisp::ObjectStorage> m_heap;
-    std::vector<std::map<std::string, lisp::ObjectStorage>> m_stack;
+    std::map<std::string, typesystem::ObjectStorage> m_heap;
+    std::vector<std::map<std::string, typesystem::ObjectStorage>> m_stack;
 };
 
 }  // namespace nastya::vm

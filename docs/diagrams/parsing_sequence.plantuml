@@ -1,0 +1,14 @@
+@startuml
+Main -> Parser : build()
+loop
+    Parser -> Tokenizer : token = getToken()
+    Parser <- Tokenizer :
+    alt received token is not end of file
+        Parser -> ParserImpl : AddToken(token)
+    else
+        Parser -> Parser : break
+    end
+end
+Parser -> ParserImpl : build()
+ParserImpl -> Main
+@enduml

@@ -14,9 +14,9 @@ public:
     explicit CallWrapper(const runtime::IEvaluator& evaluator);
     explicit CallWrapper(const runtime::IEvaluator* evaluator);
     ~CallWrapper();
-    lisp::ObjectStorage preExecute(const lisp::typesystem::ListObject& object,
+    typesystem::ObjectStorage preExecute(const typesystem::ListObject& object,
                                            runtime::IMachine& vm) const override;
-    lisp::ObjectStorage evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const override;
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
     void postExecute(runtime::IMachine& vm) const override;
 private:
     enum class CallWrapperState {

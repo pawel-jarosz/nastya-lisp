@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "LispExpression/ObjectStorage.hpp"
 #include "Runtime/Interface/IMemory.hpp"
 #include "Runtime/Interface/IRuntimeEnvironment.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::runtime {
 

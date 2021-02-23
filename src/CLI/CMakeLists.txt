@@ -1,6 +1,8 @@
 set(CLI_SOURCE
         ConsoleManager.hpp
         ConsoleManager.cpp
+        PreloadFromFile.hpp
+        PreloadFromFile.cpp
         Interface/IConsoleManager.hpp
         Interface/IInputSource.hpp
         Interface/IOutputSink.hpp
@@ -18,12 +20,12 @@ set(CLI_SOURCE
         Module/ConsoleModule.cpp
         Module/ConsoleEvaluators.hpp
         Module/ConsoleEvaluators.cpp
-        Module/ConsoleModuleBuilder.hpp
-        Module/ConsoleModuleBuilder.cpp
+        Module/ConsoleModuleRegistration.hpp
+        Module/ConsoleModuleRegistration.cpp
 )
 
 add_library(Cli ${CLI_SOURCE})
-target_link_libraries(Cli Builtins Modules LispExpression Parser VM)
+target_link_libraries(Cli Builtins Modules Parser Tokenizer VM)
 
 add_executable(nastya-cli main.cpp)
 target_link_libraries(nastya-cli Cli)

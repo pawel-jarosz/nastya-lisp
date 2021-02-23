@@ -2,14 +2,13 @@
 // Created by caedus on 30.01.2021.
 //
 
-#include "Runtime/GenericEvaluator.hpp"
-
 #include <algorithm>
+
+#include "Runtime/GenericEvaluator.hpp"
 
 namespace nastya::runtime {
 
-GenericEvaluator::GenericEvaluator(std::string name)
-: m_name{std::move(name)}
+GenericEvaluator::GenericEvaluator(std::string name) : m_name{std::move(name)}
 {
 }
 
@@ -18,17 +17,17 @@ std::string GenericEvaluator::getName() const
     return m_name;
 }
 
-lisp::ObjectStorage GenericEvaluator::preExecute(const lisp::typesystem::ListObject& object, IMachine& vm) const
+typesystem::ObjectStorage GenericEvaluator::preExecute(const typesystem::ListObject& object, IMachine& vm) const
 {
     const auto content = object.getContent();
-    std::vector<lisp::ObjectStorage> arguments;
+    std::vector<typesystem::ObjectStorage> arguments;
     std::for_each(++content.begin(), content.end(), [&](const auto& obj) { arguments.emplace_back(vm.run(obj)); });
-    std::unique_ptr<lisp::IObject> obj(new lisp::typesystem::ListObject(arguments));
-    lisp::ObjectStorage result(std::move(obj));
+    std::unique_ptr<typesystem::IObject> obj(new typesystem::ListObject(arguments));
+    typesystem::ObjectStorage result(std::move(obj));
     return result;
 }
 void GenericEvaluator::postExecute(IMachine& vm) const
 {
 }
 
-}
+}  // namespace nastya::runtime

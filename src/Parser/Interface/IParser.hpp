@@ -1,20 +1,21 @@
 //
-// Created by caedus on 03.12.2020.
+// Created by caedus on 15.12.2020.
 //
 
 #pragma once
 
-#include "Parser/Types/Token.hpp"
+#include <memory>
+
+#include "TypeSystem/Interface/IObject.hpp"
+#include "TypeSystem/ObjectStorage.hpp"
 
 namespace nastya::parser {
 
 class IParser
 {
 public:
-    ~IParser() = default;
-    virtual Token getToken() = 0;
-    virtual bool isEmpty() = 0;
-    virtual void reset(std::string code) = 0;
+    virtual ~IParser() = default;
+    virtual typesystem::ObjectStorage build() = 0;
+    virtual void reset() = 0;
 };
-
 }  // namespace nastya::parser

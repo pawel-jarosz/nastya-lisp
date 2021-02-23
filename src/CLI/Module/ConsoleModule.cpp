@@ -2,31 +2,21 @@
 // Created by caedus on 02.01.2021.
 //
 
-#include "ConsoleEvaluators.hpp"
+#include "CLI/Module/ConsoleEvaluators.hpp"
 #include "ConsoleModule.hpp"
 
 namespace nastya::cli::module {
-
-void initializeModule(ConsoleModule& module, interface::IConsoleManager& console)
-{
-    static ShutdownEvaluator shutdown(console);
-    module.registerFunction(shutdown);
-}
 
 ConsoleModule::ConsoleModule() : Module("CLI.App")
 {
 }
 
-modules::IModule& ConsoleModule::getInstance(interface::IConsoleManager& console)
+std::unique_ptr<modules::IModule> create_module(cli::interface::IConsoleManager& console)
 {
-    static bool initialized = false;
-    static ConsoleModule module;
-    if (not initialized)
-    {
-        initializeModule(module, console);
-        initialized = true;
-    }
-    return module;
+    auto module = std::make_unique<ConsoleModule>();
+    module->registerFunction(std::unique_ptr<runtime::IEvaluator>(new ShutdownEvaluator(console)));
+    std::unique_ptr<modules::IModule> result(module.release());
+    return result;
 }
 
 }  // namespace nastya::cli::module

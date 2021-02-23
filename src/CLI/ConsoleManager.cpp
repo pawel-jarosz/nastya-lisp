@@ -2,25 +2,28 @@
 // Created by caedus on 31.12.2020.
 //
 
-#include "LispExpression/ObjectStorageException.hpp"
-#include "LispExpression/TypeSystem/TypeSystemError.hpp"
-#include "LispExpression/TypeSystem/NumberObject.hpp"
-#include "VirtualMachine/MachineRuntimeException.hpp"
-#include "CLI/Module/ShutdownEvent.hpp"
-#include "CLI/ConsoleManager.hpp"
-
-#include <But/Format/format.hpp>
 #include <But/Format/apply.hpp>
+#include <But/Format/format.hpp>
+
+#include "CLI/ConsoleManager.hpp"
+#include "CLI/Module/ShutdownEvent.hpp"
+#include "TypeSystem/ObjectStorageException.hpp"
+#include "TypeSystem/Types/NumberObject.hpp"
+#include "TypeSystem/Types/TypeSystemError.hpp"
+#include "VirtualMachine/MachineRuntimeException.hpp"
 
 namespace nastya::cli {
 
 ConsoleManager::ConsoleManager(runtime::IMachine& machine,
-                               parser::IParser& parser,
-                               lisp::IExpressionBuilder& expression_builder,
+                               tokens::ITokenizer& parser,
+                               parser::IParser& expression_builder,
                                io::IIoFactory& io_provider,
                                splashscreen::ISplashScreen& splash_screen)
-: m_machine{machine}, m_parser{parser}, m_expr_builder{expression_builder}
-, m_in{io_provider.create_input()}, m_out{io_provider.create_output()}
+: m_machine{machine}
+, m_parser{parser}
+, m_expr_builder{expression_builder}
+, m_in{io_provider.create_input()}
+, m_out{io_provider.create_output()}
 , m_splashscreen{splash_screen}
 , m_shutdown{false}
 {
@@ -29,7 +32,8 @@ ConsoleManager::ConsoleManager(runtime::IMachine& machine,
 void ConsoleManager::splashScreen()
 {
     const auto message_lines = m_splashscreen.getMessage();
-    for (const auto& message: message_lines) {
+    for (const auto& message : message_lines)
+    {
         m_out->writeLine(message);
     }
 }
@@ -69,13 +73,15 @@ int ConsoleManager::run()
             }
             multiline = false;
         }
-        catch(lisp::typesystem::TypeSystemError& e) {
+        catch (typesystem::TypeSystemError& e)
+        {
             m_out->writeLine(e.what());
         }
-        catch (vm::MachineRuntimeException& e) {
+        catch (vm::MachineRuntimeException& e)
+        {
             m_out->writeLine(e.what());
         }
-        catch (lisp::ObjectStorageException& e)
+        catch (typesystem::ObjectStorageException& e)
         {
             multiline = true;
             continue;

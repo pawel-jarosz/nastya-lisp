@@ -6,31 +6,28 @@
 
 namespace nastya::vm {
 CallWrapper::CallWrapper(const runtime::IEvaluator& evaluator)
-: runtime::GenericEvaluator("CallWrapoer")
-, m_evaluator{&evaluator}
-, m_state{CallWrapperState::Reference}
+: runtime::GenericEvaluator("CallWrapoer"), m_evaluator{&evaluator}, m_state{CallWrapperState::Reference}
 {
 }
 
 CallWrapper::CallWrapper(const runtime::IEvaluator* evaluator)
-    : runtime::GenericEvaluator("CallWrapoer")
-    , m_evaluator{evaluator}
-    , m_state{CallWrapperState::Pointer}
+: runtime::GenericEvaluator("CallWrapoer"), m_evaluator{evaluator}, m_state{CallWrapperState::Pointer}
 {
 }
 
 CallWrapper::~CallWrapper()
 {
-    if (m_state == CallWrapperState::Pointer) {
+    if (m_state == CallWrapperState::Pointer)
+    {
         delete m_evaluator;
     }
 }
-lisp::ObjectStorage CallWrapper::preExecute(const lisp::typesystem::ListObject& object, runtime::IMachine& vm) const
+typesystem::ObjectStorage CallWrapper::preExecute(const typesystem::ListObject& object, runtime::IMachine& vm) const
 {
     return m_evaluator->preExecute(object, vm);
 }
 
-lisp::ObjectStorage CallWrapper::evaluate(runtime::IMemory& memory, const lisp::ObjectStorage& object) const
+typesystem::ObjectStorage CallWrapper::evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const
 {
     return m_evaluator->evaluate(memory, object);
 }
@@ -40,4 +37,4 @@ void CallWrapper::postExecute(runtime::IMachine& vm) const
     m_evaluator->postExecute(vm);
 }
 
-}
+}  // namespace nastya::vm

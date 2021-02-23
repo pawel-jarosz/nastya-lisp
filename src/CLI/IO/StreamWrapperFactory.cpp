@@ -8,21 +8,20 @@
 
 namespace nastya::cli::io::stdio {
 
-StreamWrapperFactory::StreamWrapperFactory(std::istream& input, std::ostream& output)
-: m_input{input}
-, m_output{output}
+StreamWrapperFactory::StreamWrapperFactory(std::istream& input, std::ostream& output) : m_input{input}, m_output{output}
 {
 }
 
-But::NotNullUnique<IInputSource> StreamWrapperFactory::create_input() {
+But::NotNullUnique<IInputSource> StreamWrapperFactory::create_input()
+{
     auto input = std::make_unique<InputStream>(m_input);
     return But::NotNullUnique<IInputSource>(input.release());
 }
 
-But::NotNullUnique<IOutputSink> StreamWrapperFactory::create_output() {
+But::NotNullUnique<IOutputSink> StreamWrapperFactory::create_output()
+{
     auto output = std::make_unique<OutputStream>(m_output);
     return But::NotNullUnique<IOutputSink>(output.release());
 }
 
-}
-
+}  // namespace nastya::cli::io::stdio

@@ -25,7 +25,7 @@ bool Module::isFunctionAvailable(const std::string& function_name) const
 std::vector<std::string> Module::getFunctionsList() const
 {
     std::vector<std::string> function_list;
-    for (auto [key, value] : m_functions)
+    for (auto& [key, value] : m_functions)
     {
         function_list.emplace_back(std::move(key));
     }
@@ -36,14 +36,14 @@ runtime::IEvaluator& Module::getFunction(const std::string& function_name) const
 {
     if (isFunctionAvailable(function_name))
     {
-        return m_functions.at(function_name);
+        return *m_functions.at(function_name);
     }
     BUT_THROW(ModuleException, "Function is not available in module");
 }
 
-Module& Module::registerFunction(runtime::IEvaluator& evaluator)
+Module& Module::registerFunction(std::unique_ptr<runtime::IEvaluator> evaluator)
 {
-    auto [it, return_value] = m_functions.try_emplace(evaluator.getName(), evaluator);
+    auto [it, return_value] = m_functions.try_emplace(evaluator->getName(), std::move(evaluator));
     if (not return_value)
     {
         BUT_THROW(ModuleException, "Function cannot be registered");

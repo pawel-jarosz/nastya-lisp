@@ -77,14 +77,7 @@ bool Machine::registerVariableOnHeap(const typesystem::LabelObject& variableName
 
 const typesystem::ObjectStorage& Machine::getFromHeap(const typesystem::LabelObject& variableName) const
 {
-    try
-    {
-        return m_heap.at(variableName.getValue());
-    }
-    catch (std::exception& e)
-    {
-        BUT_THROW(MachineRuntimeException, "Variable is not available");
-    }
+    return m_heap.at(variableName.getValue());
 }
 
 bool Machine::isSymbolAvailable(const typesystem::ObjectStorage& object) const

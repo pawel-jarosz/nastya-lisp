@@ -6,12 +6,12 @@
 
 namespace nastya::vm {
 CallWrapper::CallWrapper(const runtime::IEvaluator& evaluator)
-: runtime::GenericEvaluator("CallWrapoer"), m_evaluator{&evaluator}, m_state{CallWrapperState::Reference}
+: runtime::GenericEvaluator("CallWrapper"), m_evaluator{&evaluator}, m_state{CallWrapperState::Reference}
 {
 }
 
 CallWrapper::CallWrapper(const runtime::IEvaluator* evaluator)
-: runtime::GenericEvaluator("CallWrapoer"), m_evaluator{evaluator}, m_state{CallWrapperState::Pointer}
+: runtime::GenericEvaluator("CallWrapper"), m_evaluator{evaluator}, m_state{CallWrapperState::Pointer}
 {
 }
 

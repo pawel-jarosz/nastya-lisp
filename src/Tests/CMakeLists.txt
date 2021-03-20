@@ -33,3 +33,7 @@ add_executable(BuiltinsTest Builtins/BuiltinsBuilderTest.cpp Builtins/BuiltinsMo
                             Builtins/ArithmeticModuleTest.cpp)
 target_link_libraries(BuiltinsTest ${TESTING_FRAMEWORK} Builtins Modules ${BUT_LIBRARY})
 add_test(NAME BuiltinsLibraryTest COMMAND BuiltinsTest)
+
+add_executable(VirtualMachineTest VirtualMachine/CallWrapperTest.cpp)
+target_link_libraries(VirtualMachineTest ${TESTING_FRAMEWORK} VM Runtime TypeSystem ${BUT_LIBRARY})
+add_test(NAME VirtualMachineLibraryTest COMMAND VirtualMachineTest)

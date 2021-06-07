@@ -25,4 +25,20 @@ public:
     typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
 };
 
+class MultiplyEvaluator : public runtime::GenericEvaluator
+    , public runtime::GenericEvaluatorFactory<MultiplyEvaluator>
+{
+public:
+    MultiplyEvaluator() : runtime::GenericEvaluator{"*"} {}
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
+};
+
+class DivisionEvaluator : public runtime::GenericEvaluator
+    , public runtime::GenericEvaluatorFactory<DivisionEvaluator>
+{
+public:
+    DivisionEvaluator() : runtime::GenericEvaluator{"/"} {}
+    typesystem::ObjectStorage evaluate(runtime::IMemory& memory, const typesystem::ObjectStorage& object) const override;
+};
+
 }

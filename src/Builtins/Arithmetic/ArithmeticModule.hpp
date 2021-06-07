@@ -12,7 +12,7 @@
 namespace nastya::builtins::arithmetic {
 
 const std::string MODULE_NAME = "Lang.Arithmetic";
-using Builder = modules::ModuleBuilder<AddEvaluator, SubtractionEvaluator>;
+using Builder = modules::ModuleBuilder<AddEvaluator, SubtractionEvaluator, MultiplyEvaluator, DivisionEvaluator>;
 
 inline std::unique_ptr<modules::IModuleBuilder> create_module_builder()
 {

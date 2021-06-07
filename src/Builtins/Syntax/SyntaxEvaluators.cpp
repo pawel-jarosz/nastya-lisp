@@ -114,7 +114,10 @@ typesystem::ObjectStorage CondEvaluator::preExecute(const typesystem::ListObject
         const auto bool_expression = condition_tuple[0];
         const auto expected_value = condition_tuple[1];
         const auto evaluated_bool = vm.run(bool_expression);
-        const auto evaluated_value = vm.run(expected_value);
+        typesystem::ObjectStorage evaluated_value(std::unique_ptr<typesystem::IObject>(new typesystem::ListObject()));
+        if (utils::Cast::as_boolean(evaluated_bool).getValue()) {
+            evaluated_value = vm.run(expected_value);
+        }
         std::vector<typesystem::ObjectStorage> result{evaluated_bool, evaluated_value};
         std::unique_ptr<typesystem::IObject> result_as_list(new typesystem::ListObject(result));
         nastya::typesystem::ObjectStorage prepared_condition(std::move(result_as_list));

@@ -29,6 +29,11 @@ target_link_libraries(TypeSystemTest ${TESTING_FRAMEWORK} Parser Utilities TypeS
 add_test(NAME TypeSystemLibraryTest COMMAND TypeSystemTest)
 
 add_executable(BuiltinsTest Builtins/BuiltinsBuilderTest.cpp Builtins/BuiltinsModulesFactoryTest.cpp
-                            Builtins/ListsModuleTest.cpp Builtins/CompareModuleTest.cpp Builtins/SyntaxModuleTest.cpp)
+                            Builtins/ListsModuleTest.cpp Builtins/CompareModuleTest.cpp Builtins/SyntaxModuleTest.cpp
+                            Builtins/ArithmeticModuleTest.cpp)
 target_link_libraries(BuiltinsTest ${TESTING_FRAMEWORK} Builtins Modules ${BUT_LIBRARY})
 add_test(NAME BuiltinsLibraryTest COMMAND BuiltinsTest)
+
+add_executable(VirtualMachineTest VirtualMachine/CallWrapperTest.cpp)
+target_link_libraries(VirtualMachineTest ${TESTING_FRAMEWORK} VM Runtime TypeSystem ${BUT_LIBRARY})
+add_test(NAME VirtualMachineLibraryTest COMMAND VirtualMachineTest)

@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install Nlohmann JSON
-      run: sudo apt install -y nlohmann-json-dev
+      run: sudo apt install -y nlohmann-json3-dev librange-v3-dev
     - name: Install boost
       run: sudo apt install -y libboost-all-dev
     - name: Download GTest

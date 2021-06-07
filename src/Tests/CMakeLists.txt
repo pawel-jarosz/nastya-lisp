@@ -30,10 +30,14 @@ add_test(NAME TypeSystemLibraryTest COMMAND TypeSystemTest)
 
 add_executable(BuiltinsTest Builtins/BuiltinsBuilderTest.cpp Builtins/BuiltinsModulesFactoryTest.cpp
                             Builtins/ListsModuleTest.cpp Builtins/CompareModuleTest.cpp Builtins/SyntaxModuleTest.cpp
-                            Builtins/ArithmeticModuleTest.cpp)
+                            Builtins/ArithmeticModuleTest.cpp Integration/SimpleCommandsTest.cpp)
 target_link_libraries(BuiltinsTest ${TESTING_FRAMEWORK} Builtins Modules ${BUT_LIBRARY})
 add_test(NAME BuiltinsLibraryTest COMMAND BuiltinsTest)
 
 add_executable(VirtualMachineTest VirtualMachine/CallWrapperTest.cpp)
 target_link_libraries(VirtualMachineTest ${TESTING_FRAMEWORK} VM Runtime TypeSystem ${BUT_LIBRARY})
 add_test(NAME VirtualMachineLibraryTest COMMAND VirtualMachineTest)
+
+add_executable(IntegrationTest Integration/SimpleCommandsTest.cpp)
+target_link_libraries(IntegrationTest ${TESTING_FRAMEWORK} Builtins Modules Parser Tokenizer VM)
+add_test(NAME IntegrationFunctionalitiesTest COMMAND IntegrationTest)

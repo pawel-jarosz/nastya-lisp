@@ -39,5 +39,5 @@ target_link_libraries(VirtualMachineTest ${TESTING_FRAMEWORK} VM Runtime TypeSys
 add_test(NAME VirtualMachineLibraryTest COMMAND VirtualMachineTest)
 
 add_executable(IntegrationTest Integration/SimpleCommandsTest.cpp)
-target_link_libraries(IntegrationTest ${TESTING_FRAMEWORK} Builtins Modules Parser Tokenizer VM)
+target_link_libraries(IntegrationTest ${TESTING_FRAMEWORK} Builtins VM Modules Parser Tokenizer)
 add_test(NAME IntegrationFunctionalitiesTest COMMAND IntegrationTest)

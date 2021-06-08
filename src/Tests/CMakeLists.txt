@@ -38,6 +38,6 @@ add_executable(VirtualMachineTest VirtualMachine/CallWrapperTest.cpp)
 target_link_libraries(VirtualMachineTest ${TESTING_FRAMEWORK} VM Runtime TypeSystem ${BUT_LIBRARY})
 add_test(NAME VirtualMachineLibraryTest COMMAND VirtualMachineTest)
 
-add_executable(IntegrationTest Integration/SimpleCommandsTest.cpp)
+add_executable(IntegrationTest Integration/SimpleCommandsTest.cpp Integration/LambdaTest.cpp Integration/MemoryTest.cpp)
 target_link_libraries(IntegrationTest ${TESTING_FRAMEWORK} Builtins VM Modules Parser Tokenizer)
 add_test(NAME IntegrationFunctionalitiesTest COMMAND IntegrationTest)

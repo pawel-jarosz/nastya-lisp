@@ -87,16 +87,21 @@ TEST_F(SimpleCommandsTest, IfCommand) {
 
     std::vector test_cases = {
         std::make_pair("(If (Greater 3 2) 1 2)", "1"),
-        std::make_pair("(If (Greater 1 2) 1 2)", "2")/*,
+        std::make_pair("(If (Greater 1 2) 1 2)", "2"),
         std::make_pair("(Cond ((Lower 1 2) 1) ((Greater 2 1) 2))", "1"),
         std::make_pair("(Cond ((Greater 1 2) 1) ((Greater 2 1) 2))", "2"),
-        std::make_pair("(Cond ((Greater 1 2) 1) ((GreaterOrEqual 1 2) 2) ((Equal 1 2) 3) (Else 4))", "4")*/
+        std::make_pair("(Cond ((Greater 1 2) 1) ((GreaterOrEqual 1 2) 2) ((Equal 1 2) 3) (Else 4))", "4")
     };
     for (auto test_case: test_cases) {
         expressionBuilder.reset();
         tokenizer.reset(test_case.first);
         auto expression = expressionBuilder.build();
-        auto result = machine.run(expression);
-        EXPECT_EQ(result.toString(), test_case.second);
+        try {
+            auto result = machine.run(expression);
+            EXPECT_EQ(result.toString(), test_case.second);
+        }
+        catch(std::exception& e){
+            EXPECT_FALSE(false);
+        }
     }
 }

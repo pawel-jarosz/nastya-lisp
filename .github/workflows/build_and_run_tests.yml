@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Install Nlohmann JSON
+    - name: Install Nlohmann JSON and Range V3
       run: sudo apt install -y nlohmann-json3-dev librange-v3-dev
     - name: Install boost
       run: sudo apt install -y libboost-all-dev
@@ -66,8 +66,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Clang
         run: sudo apt install clang-10
-      - name: Install Nlohmann JSON
-        run: sudo apt install -y nlohmann-json-dev
+      - name: Install Nlohmann JSON and Range V3
+        run: sudo apt install -y nlohmann-json3-dev librange-v3-dev
       - name: Install boost
         run: sudo apt install -y libboost-all-dev
       - name: Download GTest

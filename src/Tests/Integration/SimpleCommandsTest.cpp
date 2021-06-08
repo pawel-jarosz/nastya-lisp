@@ -96,12 +96,7 @@ TEST_F(SimpleCommandsTest, IfCommand) {
         expressionBuilder.reset();
         tokenizer.reset(test_case.first);
         auto expression = expressionBuilder.build();
-        try {
-            auto result = machine.run(expression);
-            EXPECT_EQ(result.toString(), test_case.second);
-        }
-        catch(std::exception& e){
-            EXPECT_FALSE(false);
-        }
+        auto result = machine.run(expression);
+        EXPECT_EQ(result.toString(), test_case.second);
     }
 }

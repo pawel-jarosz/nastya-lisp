@@ -101,6 +101,15 @@ typesystem::ObjectStorage CondEvaluator::evaluate(runtime::IMemory&, const types
     BUT_THROW(BuiltinsException, "Lang.Syntax.Cond unspecified return value");
 }
 
+bool is_else(const typesystem::ObjectStorage& object) {
+    const auto& condition_tuple_list = utils::Cast::as_list(object);
+    const auto& content = condition_tuple_list.getContent();
+    if (content[0].toString() == "Else") {
+        return true;
+    }
+    return false;
+}
+
 typesystem::ObjectStorage CondEvaluator::preExecute(const typesystem::ListObject& object, runtime::IMachine& vm) const
 {
     const auto content = object.getContent();
@@ -110,18 +119,35 @@ typesystem::ObjectStorage CondEvaluator::preExecute(const typesystem::ListObject
     for (const auto& condition : conditions)
     {
         const auto& condition_tuple_list = utils::Cast::as_list(condition);
-        const auto condition_tuple = condition_tuple_list.getContent();
-        const auto bool_expression = condition_tuple[0];
-        const auto expected_value = condition_tuple[1];
-        const auto evaluated_bool = vm.run(bool_expression);
-        typesystem::ObjectStorage evaluated_value(std::unique_ptr<typesystem::IObject>(new typesystem::ListObject()));
-        if (utils::Cast::as_boolean(evaluated_bool).getValue()) {
-            evaluated_value = vm.run(expected_value);
+
+        if (is_else(condition)) {
+            const auto& content = condition_tuple_list.getContent();
+            typesystem::ObjectStorage evaluated_bool(std::unique_ptr<typesystem::IObject>(new typesystem::BooleanObject(true)));
+            typesystem::ObjectStorage evaluated_value(vm.run(content[1]));
+            std::vector<typesystem::ObjectStorage> result{evaluated_bool, evaluated_value};
+            std::unique_ptr<typesystem::IObject> result_as_list(new typesystem::ListObject(result));
+            nastya::typesystem::ObjectStorage prepared_condition(std::move(result_as_list));
+            arguments.emplace_back(std::move(prepared_condition));
         }
-        std::vector<typesystem::ObjectStorage> result{evaluated_bool, evaluated_value};
-        std::unique_ptr<typesystem::IObject> result_as_list(new typesystem::ListObject(result));
-        nastya::typesystem::ObjectStorage prepared_condition(std::move(result_as_list));
-        arguments.emplace_back(std::move(prepared_condition));
+        else {
+            const auto condition_tuple = condition_tuple_list.getContent();
+            const auto bool_expression = condition_tuple[0];
+            const auto expected_value = condition_tuple[1];
+            const auto evaluated_bool = vm.run(bool_expression);
+            typesystem::ObjectStorage evaluated_value(std::unique_ptr<typesystem::IObject>(new typesystem::ListObject()));\
+            bool finish = false;
+            if (utils::Cast::as_boolean(evaluated_bool).getValue()) {
+                finish = true;
+                evaluated_value = vm.run(expected_value);
+            }
+            std::vector<typesystem::ObjectStorage> result{evaluated_bool, evaluated_value};
+            std::unique_ptr<typesystem::IObject> result_as_list(new typesystem::ListObject(result));
+            nastya::typesystem::ObjectStorage prepared_condition(std::move(result_as_list));
+            arguments.emplace_back(std::move(prepared_condition));
+            if (finish) {
+                break;
+            }
+        }
     }
 
     std::unique_ptr<typesystem::IObject> obj(new typesystem::ListObject(arguments));

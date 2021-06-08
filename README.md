@@ -1,5 +1,5 @@
 
-![Build and run tests](https://github.com/pawel-jarosz/nastya-lisp/workflows/Build%20and%20run%20tests/badge.svg?branch=devel?event=push)
+[![Build and run tests](https://github.com/pawel-jarosz/nastya-lisp/actions/workflows/build_and_run_tests.yml/badge.svg?branch=devel)](https://github.com/pawel-jarosz/nastya-lisp/actions/workflows/build_and_run_tests.yml)
 
 ![Motto](https://media1.tenor.com/images/fef6738d7beb047b31dc357ce23b8d72/tenor.gif?itemid=18358101 "What I think about language with female name after playaround with Julia language :)")
 
